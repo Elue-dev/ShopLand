@@ -1,8 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap');
+
 
 :root {
   --font-family: "Poppins", sans-serif;
-  --dark-blue: #0a1930;
+  --dark-blue: #003b46;
   --light-blue: #1f93ff;
 
   --color-white: #fff;
@@ -12,11 +15,11 @@
   --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 
   --color-purple: #9d0191;
-  --color-orange: #ff7722;
+  --color-orange: #ff847c;
 
   --color-primary: #007bff;
   --color-success: #28a745;
-  --color-danger: orangered;
+  --color-danger: #ff847c;
 }
 
 * {
@@ -36,13 +39,31 @@ body {
 
 section {
   width: 100%;
-  padding: 8rem 0;
+  padding: 4rem 0;
 }
 
 .container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
+}
+.alert {
+  color: #fff;
+  padding: .1rem;
+  width: 500px;
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.error {
+  background: pink;
+  color: red;
+  border: 1px solid red;
+}
+.message {
+  background: rgb(183, 215, 136);
+  color: green;
+  border: 1px solid green;
 }
 
 /* UTILITY CLASSES */
@@ -183,7 +204,7 @@ p {
   color: #007bff;
 }
 .--color-danger {
-  color: orangered;
+  color: #ff847c;
 }
 .--color-success {
   color: #28a745;
@@ -273,7 +294,7 @@ p {
 
 .--btn {
   font-size: 1.6rem;
-  font-weight: 400;
+  font-weight: 600;
   padding: 6px 8px;
   margin: 0 5px 0 0;
   border: 1px solid transparent;
@@ -299,7 +320,7 @@ p {
 
 .--btn-primary {
   color: #fff;
-  background: #007bff;
+  background: #111;
 }
 .--btn-secondary {
   color: #fff;
@@ -308,7 +329,7 @@ p {
 }
 .--btn-danger {
   color: #fff;
-  background: orangered;
+  background: #ff847c;
 }
 
 .--btn-success {

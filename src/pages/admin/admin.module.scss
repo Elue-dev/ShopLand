@@ -1,0 +1,25 @@
+.admin {
+    display: flex;
+  
+    .navbar {
+      width: 25%;
+      min-height: 80vh;
+    }
+    .content {
+      width: 75%;
+      padding: 1rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .admin {
+      flex-direction: column;
+      .navbar {
+        width: 100%;
+        min-height: 55vh;
+      }
+      .content {
+        width: 100%;
+      }
+    }
+  }
