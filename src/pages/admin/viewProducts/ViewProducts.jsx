@@ -1,49 +1,79 @@
-import { useEffect } from "react";
-import { useState } from "react";
 import { database } from "../../../firebase/firebase";
 import Loader from "../../../components/loader/Loader";
 import { toast } from "react-toastify";
 import styles from "./viewProducts.module.scss";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import { storage } from "../../../firebase/firebase";
+import { ref, deleteObject } from "firebase/storage";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
+import Notiflix from "notiflix";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productSlice";
+import useFetchcollection from "../../../hooks/useFetchCollection";
+import { useEffect } from "react";
 
 export default function ViewProducts() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const { data, loading} = useFetchcollection('Products')
 
-  const getProducts = () => {
-    setLoading(true);
+  const dispatch = useDispatch();
 
+  // const products = useSelector(selectProducts)
+
+  useEffect(() => {
+    dispatch(STORE_PRODUCTS({
+      products: data
+    }))
+  }, [dispatch, data])
+
+  const confirmDelete = (id, imageUrl, name) => {
+    Notiflix.Confirm.show(
+      "Delete Product",
+      `Are you sure you want to delete ${name}?`,
+      "DELETE",
+      "CANCEL",
+      function okCb() {
+        deleteProduct(id, imageUrl);
+        toast.success(`You have deleted ${name}`);
+      },
+      function cancelCb() {
+        console.log("Deleted");
+      },
+      {
+        width: "320px",
+        borderRadius: "5px",
+        titleColor: "red",
+        okButtonBackground: "red",
+        cssAnimationStyle: "zoom",
+      }
+    );
+  };
+
+  const deleteProduct = async (id, imageUrl) => {
     try {
-      const productsRef = collection(database, "Products");
-      const q = query(productsRef, orderBy("createdAt", "desc"));
-      onSnapshot(q, (snapshot) => {
-        let results = [];
-        snapshot.docs.forEach((doc) => {
-          results.push({ id: doc.id, ...doc.data() });
+      await deleteDoc(doc(database, "Products", id));
+      const storageRef = ref(storage, imageUrl);
+      await deleteObject(storageRef)
+        .then(() => {
+          "";
+        })
+        .catch((error) => {
+          toast.error(error.message);
         });
-        setProducts(results);
-        setLoading(false);
-      });
     } catch (error) {
-      setLoading(false);
       toast.error(error.message);
     }
   };
-
-  console.log(products);
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <>
       {loading && <Loader />}
       <div className={styles.table}>
         <h2>All Products</h2>
-        {products.length === 0 ? (
+        {data.length === 0 ? (
           <p>No Products Found.</p>
         ) : (
           <table>
@@ -58,7 +88,7 @@ export default function ViewProducts() {
               </tr>
             </thead>
             <tbody>
-              {products?.map((product, index) => {
+              {data?.map((product, index) => {
                 const { id, name, price, imageUrl, category } = product;
                 return (
                   <tr key={id}>
@@ -73,12 +103,16 @@ export default function ViewProducts() {
                     <td>{name}</td>
                     <td>{category}</td>
                     <td>${price}</td>
-                    <td>
-                      <Link to="/admin/add-product">
+                    <td className={styles.icons}>
+                      <Link to={`/admin/add-product/${id}`}>
                         <FaEdit size={20} color="green" />
                       </Link>
                       &nbsp;
-                      <FaTrashAlt size={18} color="red" />
+                      <FaTrashAlt
+                        size={18}
+                        color="red"
+                        onClick={() => confirmDelete(id, imageUrl, name)}
+                      />
                     </td>
                   </tr>
                 );

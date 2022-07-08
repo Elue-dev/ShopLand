@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <ToastContainer />
+        <ToastContainer toastStyle={{ backgroundColor: "#ff847c", color: '#fff', fontSize: '1.6rem' }} />
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />

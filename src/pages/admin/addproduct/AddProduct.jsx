@@ -6,7 +6,9 @@ import styles from "./addProduct.module.scss";
 import { toast } from "react-toastify";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import Loader from "../../../components/loader/Loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectProducts } from "../../../redux/slice/productSlice";
 
 const categories = [
   { id: 1, name: "Laptop" },
@@ -25,10 +27,23 @@ const initialState = {
 };
 
 export default function AddProduct() {
-  const [product, setProduct] = useState(initialState);
+  const { id } = useParams();
+  const [product, setProduct] = useState({...initialState});
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // const prod = useSelector(selectProducts)
+  // console.log(prod)
+ 
+
+  function detectForm(id, arg1, arg2) {
+    if (id === "ADD") {
+      return arg1;
+    } else {
+      return arg2;
+    }
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +52,6 @@ export default function AddProduct() {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     const storageRef = ref(storage, `ShopLand/${Date.now()}${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -64,7 +78,7 @@ export default function AddProduct() {
     setLoading(true);
 
     try {
-      const collectionRef = collection(database, "Products");
+      const collectionRef = collection(database, "products");
       addDoc(collectionRef, {
         name: product.name,
         imageUrl: product.imageUrl,
@@ -89,15 +103,31 @@ export default function AddProduct() {
     }
   };
 
+  const editProductInDatabase = (e) => {
+    e.preventDefault()
+    setLoading(true)
+
+    // try {
+      
+    // } catch (error) {
+    //   toast.error(error.message, {
+    //     pauseOnFocusLoss: false,
+    //   });
+    //   setLoading(false);
+    // }
+  }
+
   return (
     <>
       {loading && <Loader />}
       <div className={styles.product}>
-        <h1>Add New Product</h1>
+        <h2>{detectForm(id, "Add New Product", "Edit Product")}</h2>
 
         <Card cardClass={styles.card}>
-          <label style={{ fontSize: '1.4rem', fontWeight: 500 }}>Product Name:</label>
-          <form onSubmit={addProductToDatabase}>
+          <label style={{ fontSize: "1.4rem", fontWeight: 500 }}>
+            Product Name:
+          </label>
+          <form onSubmit={detectForm(id, addProductToDatabase, editProductInDatabase)}>
             <input
               type="text"
               placeholder="Product Name"
@@ -180,7 +210,7 @@ export default function AddProduct() {
               rerquiredcols="30"
               rows="10"
             />
-            <button className="--btn --btn-primary">Save Product</button>
+            <button className="--btn --btn-primary">{detectForm(id, "Save Product", "Edit Product")}</button>
           </form>
         </Card>
       </div>

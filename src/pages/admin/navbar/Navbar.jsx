@@ -13,6 +13,7 @@ export default function Navbar() {
       <div className={styles.user}>
         <FaUserCircle size={40} color="#fff" />
         <h4 style={{ marginTop: '1rem' }}>{user?.displayName}</h4>
+        <b>(ADMIN)</b>
       </div>
       <nav>
         <ul>
@@ -27,7 +28,7 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/admin/add-product" className={activeLink}>
+            <NavLink to="/admin/add-product/ADD" className={activeLink}>
               Add Product
             </NavLink>
           </li>
