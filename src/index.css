@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@200;300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap');
 
 
 :root {
@@ -158,6 +159,11 @@ h3 {
 h4 {
   font-size: 2rem;
 }
+@media (max-width: 800px) {
+  h4 {
+    font-size: 1.7rem;
+  }
+}
 
 p {
   font-size: 1.5rem;
@@ -304,6 +310,11 @@ p {
   justify-content: center;
   align-items: center;
   transition: all 0.3s;
+}
+@media(max-width: 500px) {
+  .--btn {
+    font-size: 1.4rem;
+  }
 }
 
 .--btn:hover {

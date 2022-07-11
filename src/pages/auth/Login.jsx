@@ -7,29 +7,38 @@ import { toast } from "react-toastify";
 import styles from "./auth.module.scss";
 import { useAuth } from "../../contexts/authContext";
 import Loader from "../../components/loader/Loader";
+import { useSelector } from "react-redux";
+import { selectPreviousURL } from "../../redux/slice/cartSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
-
   const { login, googleSignIn } = useAuth();
+  const previousURL = useSelector(selectPreviousURL);
+
+  const redirectUser = () => {
+    if (previousURL.includes("cart")) {
+      return navigate("/cart");
+    } else {
+      navigate("/");
+    }
+  };
 
   const loginUser = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      setError('');
+      setError("");
       await login(email, password);
       toast.success("Successfully logged in", {
         autoClose: 5000,
         pauseOnFocusLoss: false,
       });
       setLoading(false);
-      navigate("/");
+      redirectUser();
     } catch (error) {
       if (error.message === "Firebase: Error (auth/user-not-found).") {
         setError("User not found");
@@ -67,7 +76,7 @@ export default function Login() {
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
-      navigate("/");
+      redirectUser();
       toast.success("Google sign in was successful", {
         autoClose: 5000,
         pauseOnFocusLoss: false,

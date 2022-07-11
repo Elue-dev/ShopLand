@@ -45,7 +45,7 @@
     animation: slide-up 1s ease 0.5s;
     animation-fill-mode: forwards;
     h2 {
-      font-size: 4.5rem;
+      font-size: 3rem;
     }
   }
   
@@ -86,7 +86,7 @@
     height: 2.5rem;
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     z-index: 2;
   }
@@ -96,11 +96,11 @@
   }
   
   .next {
-    right: 1.5rem;
+    right: 0.5rem;
     color: #ff847c;
   }
   .prev {
-    left: 1.5rem;
+    left: 0.5rem;
     color: #ff847c;
   }
   

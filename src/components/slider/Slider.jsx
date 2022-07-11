@@ -23,15 +23,15 @@ export default function Slider() {
     setCurrentSlide(0)
   }, [])
 
-  // useEffect(() => {
-  //   if (autoScroll) {
-  //     const auto = () => {
-  //       slideInterval = setInterval(nextSlide, intervalTime);
-  //     };
-  //     auto()
-  //   }
-  //   return () => clearInterval(slideInterval);
-  // }, [currentSlide, slideInterval, autoScroll]);
+  useEffect(() => {
+    if (autoScroll) {
+      const auto = () => {
+        slideInterval = setInterval(nextSlide, intervalTime);
+      };
+      auto()
+    }
+    return () => clearInterval(slideInterval);
+  }, [currentSlide, slideInterval, autoScroll]);
 
   return (
     <div className="slider">

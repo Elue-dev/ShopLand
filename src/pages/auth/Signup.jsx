@@ -81,13 +81,6 @@ export default function Signup() {
             <h2>Sign Up</h2>
             {error && <p className="alert error">{error}</p>}
             <form onSubmit={registerUser}>
-            <input
-                type="text"
-                value={userName}
-                placeholder="Name"
-                onChange={(e) => setUserName(e.target.value)}
-                required
-              />
               <input
                 type="email"
                 value={email}

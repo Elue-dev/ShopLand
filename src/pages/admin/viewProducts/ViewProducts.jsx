@@ -18,10 +18,9 @@ import { useEffect } from "react";
 
 export default function ViewProducts() {
   const { data, loading} = useFetchcollection('Products')
-
   const dispatch = useDispatch();
 
-  // const products = useSelector(selectProducts)
+  const products = useSelector(selectProducts)
 
   useEffect(() => {
     dispatch(STORE_PRODUCTS({
@@ -39,9 +38,7 @@ export default function ViewProducts() {
         deleteProduct(id, imageUrl);
         toast.success(`You have deleted ${name}`);
       },
-      function cancelCb() {
-        console.log("Deleted");
-      },
+      function cancelCb() {},
       {
         width: "320px",
         borderRadius: "5px",
@@ -73,7 +70,7 @@ export default function ViewProducts() {
       {loading && <Loader />}
       <div className={styles.table}>
         <h2>All Products</h2>
-        {data.length === 0 ? (
+        {products.length === 0 ? (
           <p>No Products Found.</p>
         ) : (
           <table>
@@ -88,7 +85,7 @@ export default function ViewProducts() {
               </tr>
             </thead>
             <tbody>
-              {data?.map((product, index) => {
+              {products?.map((product, index) => {
                 const { id, name, price, imageUrl, category } = product;
                 return (
                   <tr key={id}>

@@ -7,8 +7,9 @@ import {
 import { useEffect, useState } from "react";
 import { database } from "../firebase/firebase";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
 
-const useFetchcollection = (collectionName) => {
+const useFetchCollection = (collectionName) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -39,4 +40,4 @@ const useFetchcollection = (collectionName) => {
   return { data, loading }
 };
 
-export default useFetchcollection;
+export default useFetchCollection;

@@ -27,8 +27,7 @@ header {
     width: 25%;
     color: #fff;
     cursor: pointer;
-    // font-family: 'Permanent Marker', cursive;
-    font-family: 'Rubik Moonrocks', cursive;
+    font-family: 'Permanent Marker', cursive;
     span {
       color: #ff847c;
     }
@@ -118,7 +117,7 @@ header {
       z-index: 999;
       transform: translateX(-200%);
       transition: all 0.3s;
-      line-height: 3.5;
+      line-height: 4;
 
       .nav-wrapper {
         position: absolute;
@@ -175,6 +174,9 @@ header {
           //     font-weight: 500;
           //   }
           // }
+          .cart-icon {
+            font-size: 3rem;
+          }
         }
 
         .links {

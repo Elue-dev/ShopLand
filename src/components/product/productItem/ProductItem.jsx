@@ -1,13 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../../../components/card/Card";
+import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from "../../../redux/slice/cartSlice";
 import styles from "./productItem.module.scss";
 
-export default function ProductItem({product, grid, name, price, description, imageUrl}) {
+export default function ProductItem({product, grid, id, name, price, description, imageUrl}) {
+  const dispatch = useDispatch()
+
+  const addToCart = (product) => {
+    dispatch(ADD_TO_CART(product))
+    dispatch(CALCULATE_TOTAL_QUANTITY())
+  }
+
   return (
     <Card cardClass={grid ? `${styles.grid}` : `${styles.list}`}>
       <div className={styles.img}>
-        <Link to="/">
+        <Link to={`/product-details/${id}`}>
           <img src={imageUrl} alt={name} />
         </Link>
         <div className={styles.content}>
@@ -20,7 +29,7 @@ export default function ProductItem({product, grid, name, price, description, im
                 {description.substring(0,200)}...
               </p>
             )}
-            <button className="--btn --btn-danger">Add to cart</button>
+            <button className="--btn --btn-danger" onClick={() => addToCart(product)}>Add to cart</button>
         </div>
       </div>
     </Card>

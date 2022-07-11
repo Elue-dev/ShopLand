@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
-import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { FaTimes, FaUserCircle } from "react-icons/fa";
+import { RiMenuAddLine, RiShoppingCartLine } from "react-icons/ri";
+import { VscEyeClosed } from "react-icons/vsc";
+import { FaUserCircle } from "react-icons/fa";
 import styles from "./header.module.scss";
 import { useAuth } from "../../contexts/authContext";
 import { toast } from "react-toastify";
 import { auth } from "../../firebase/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_ACTIVE_USER } from "../../redux/slice/authSlice";
 import { REMOVE_ACTIVE_USER } from "../../redux/slice/authSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import ShowOnLogin, { ShowOnLogout } from "../hiddenLinks/HiddenLink";
-import AdminOnlyRoute, {
-  AdminOnlyLink,
-} from "../adminOnlyRoute/AdminOnlyRoute";
+import { AdminOnlyLink } from "../adminOnlyRoute/AdminOnlyRoute";
+import {
+  CALCULATE_TOTAL_QUANTITY,
+  selectCartTotalQuantity,
+} from "../../redux/slice/cartSlice";
 
 const logo = (
   <div className={styles.logo}>
@@ -25,26 +28,51 @@ const logo = (
     </Link>
   </div>
 );
-const cart = (
-  <span className={styles.cart}>
-    <Link to="/cart">
-      <BsCart4 size={20} />
-      <p>0</p>
-    </Link>
-  </span>
-);
 const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
+  const [scrollPage, setScrollpage] = useState(false);
+  const [displayName, setDisplayname] = useState(null)
   const navigate = useNavigate;
   const dispatch = useDispatch();
   const { logout, user } = useAuth();
+  const cartTotalQty = useSelector(selectCartTotalQuantity);
+
+  const cart = (
+    <span className={styles.cart}>
+      <Link to="/cart">
+      {/* BsCart4 */}
+      
+        <RiShoppingCartLine size={20} className={styles["cart-icon"]} />
+        <p>{cartTotalQty}</p>
+      </Link>
+    </span>
+  );
+
+  useEffect(() => {
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  }, [dispatch]);
+
+  const fixNavbar = () => {
+    if (window.scrollY > 50) {
+      setScrollpage(true);
+    } else {
+      setScrollpage(false);
+    }
+  };
+  window.addEventListener("scroll", fixNavbar);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user.uid;
+        if (user.displayName === null) {
+          const u1 = user.email.substring(0, user.email.indexOf('@'))
+          const uName = u1.charAt(0).toUpperCase() + u1.slice(1)
+          setDisplayname(uName)
+        } else {
+          setDisplayname(user.displayName)
+        }
         dispatch(
           SET_ACTIVE_USER({
             email: user.email,
@@ -56,9 +84,7 @@ export default function Header() {
       }
     });
 
-    return () => {
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, [dispatch]);
 
   const toggleMenu = () => {
@@ -79,7 +105,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header className={scrollPage ? `${styles.fixed}` : null}>
       <div className={styles.header}>
         {logo}
         <nav
@@ -98,7 +124,7 @@ export default function Header() {
           <ul onClick={hideMenu}>
             <li className={styles["logo-mobile"]}>
               {logo}
-              <FaTimes size={22} color="#fff" />
+              <VscEyeClosed size={22} color="#fff" />
             </li>
             <li>
               <AdminOnlyLink>
@@ -128,7 +154,7 @@ export default function Header() {
               <ShowOnLogin>
                 <a style={{ color: "#ff847c" }}>
                   <FaUserCircle size={16} />
-                  &nbsp; Hi, {user?.displayName || user?.email}
+                  &nbsp; Hi, {displayName}
                 </a>
               </ShowOnLogin>
               <ShowOnLogout>
@@ -153,7 +179,7 @@ export default function Header() {
 
         <div className={styles["menu-icon"]}>
           {cart}
-          <HiOutlineMenuAlt3 size={28} onClick={toggleMenu} />
+          <RiMenuAddLine size={28} onClick={toggleMenu} />
         </div>
       </div>
     </header>

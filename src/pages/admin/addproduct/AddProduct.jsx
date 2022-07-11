@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Card from "../../../components/card/Card";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
 import { database, storage } from "../../../firebase/firebase";
 import styles from "./addProduct.module.scss";
 import { toast } from "react-toastify";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, Timestamp } from "firebase/firestore";
 import Loader from "../../../components/loader/Loader";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -28,14 +28,18 @@ const initialState = {
 
 export default function AddProduct() {
   const { id } = useParams();
-  const [product, setProduct] = useState({...initialState});
+  const products = useSelector(selectProducts);
+  const productEdit = products.find((item) => item.id === id);
+  const [product, setProduct] = useState(() => {
+    const newState = detectForm(id, 
+      {...initialState},
+      productEdit
+      )
+      return newState
+  });
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  // const prod = useSelector(selectProducts)
-  // console.log(prod)
- 
 
   function detectForm(id, arg1, arg2) {
     if (id === "ADD") {
@@ -78,7 +82,7 @@ export default function AddProduct() {
     setLoading(true);
 
     try {
-      const collectionRef = collection(database, "products");
+      const collectionRef = collection(database, "Products");
       addDoc(collectionRef, {
         name: product.name,
         imageUrl: product.imageUrl,
@@ -92,9 +96,42 @@ export default function AddProduct() {
       toast.success("Product uploaded successfully", {
         pauseOnFocusLoss: false,
       });
-      navigate("/admin/all-products");
-      setProduct(initialState);
+      setProduct({ ...initialState });
       setUploadProgress(0);
+      navigate("/admin/all-products");
+    } catch (error) {
+      toast.error(error.message, {
+        pauseOnFocusLoss: false,
+      });
+      setLoading(false);
+    }
+    console.log(product);
+  };
+
+  const editProductInDatabase = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (product.imageUrl !== productEdit.imageUrl) {
+      const storageRef = ref(storage, productEdit.imageUrl)
+      deleteObject(storageRef)
+    }
+
+    try {
+      const docRef = doc(database, "Products", id);
+      setDoc(docRef, {
+        name: product.name,
+        imageUrl: product.imageUrl,
+        price: Number(product.price),
+        category: product.category,
+        brand: product.brand,
+        description: product.description,
+        createdAt: productEdit.createdAt,
+        editedAt: Timestamp.now().toDate()
+      });
+      setLoading(false)
+      toast.success('Product successfully edited')
+      navigate('/admin/all-products')
     } catch (error) {
       toast.error(error.message, {
         pauseOnFocusLoss: false,
@@ -102,20 +139,6 @@ export default function AddProduct() {
       setLoading(false);
     }
   };
-
-  const editProductInDatabase = (e) => {
-    e.preventDefault()
-    setLoading(true)
-
-    // try {
-      
-    // } catch (error) {
-    //   toast.error(error.message, {
-    //     pauseOnFocusLoss: false,
-    //   });
-    //   setLoading(false);
-    // }
-  }
 
   return (
     <>
@@ -127,7 +150,13 @@ export default function AddProduct() {
           <label style={{ fontSize: "1.4rem", fontWeight: 500 }}>
             Product Name:
           </label>
-          <form onSubmit={detectForm(id, addProductToDatabase, editProductInDatabase)}>
+          <form
+            onSubmit={detectForm(
+              id,
+              addProductToDatabase,
+              editProductInDatabase
+            )}
+          >
             <input
               type="text"
               placeholder="Product Name"
@@ -210,7 +239,9 @@ export default function AddProduct() {
               rerquiredcols="30"
               rows="10"
             />
-            <button className="--btn --btn-primary">{detectForm(id, "Save Product", "Edit Product")}</button>
+            <button className="--btn --btn-primary">
+              {detectForm(id, "Save Product", "Edit Product")}
+            </button>
           </form>
         </Card>
       </div>

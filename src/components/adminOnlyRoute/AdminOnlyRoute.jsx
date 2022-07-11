@@ -11,7 +11,7 @@ export default function AdminOnlyRoute({ children }) {
     return (
       <section style={{ minHeight: "80vh" }}>
         <div className="container">
-          <h2>PERMISSIOPN DENIED</h2>
+          <h2>PERMISSION DENIED</h2>
           <p>This page can only be viewed by an admin</p>
           <br />
           <Link to="/">

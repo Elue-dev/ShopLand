@@ -44,8 +44,11 @@
     background-color: orangered;
   }
 
-  @media (max-width: 500px) {
+  @media(max-width: 800px) {
+  }
+
+  @media (max-width: 600px) {
     .navbar {
-      min-height: 0;
+      min-height: auto;
     }
   }
