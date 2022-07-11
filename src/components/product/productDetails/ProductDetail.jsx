@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getDoc, doc } from "firebase/firestore";
 import { Link, useParams } from "react-router-dom";
-import { database } from "../../../firebase/firebase";
 import spinnerImg from "../../../assets/spinner.jpg";
 import StarsRating from "react-star-rate";
 import styles from "./productDetails.module.scss";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_TO_CART,
@@ -16,21 +13,17 @@ import {
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import Card from "../../card/Card";
-import { useAuth } from "../../../contexts/authContext";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const dispatch = useDispatch();
-  const { user } = useAuth();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
-
   //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
   const filteredReviews = data.filter((review) => review.productID === id);
 
   const cartItems = useSelector(selectCartItems); //all cart items in redux
-  console.log(cartItems);
   // const cart = cartItems.find((item) => item.id === id); //get info about particular product
   // console.log(cart.carytQuantity)
 
@@ -40,7 +33,6 @@ export default function ProductDetail() {
   //     return item.id === id;
   //   });
   // };
-
   useEffect(() => {
     setProduct(document);
   }, [document]);
@@ -116,7 +108,8 @@ export default function ProductDetail() {
             ) : (
               <>
                 {filteredReviews.map((customerReview, index) => {
-                  const { rate, review, reviewDate } = customerReview;
+                  const { rate, review, reviewDate, name } = customerReview;
+                  
                   return (
                     <div key={index} className={styles.review}>
                       <StarsRating value={rate} />
@@ -126,7 +119,7 @@ export default function ProductDetail() {
                       </span>
                       <br />
                       <span>
-                        <b>By: {user.displayName}</b>
+                      <b>By: {name}</b>
                       </span>
                     </div>
                   );

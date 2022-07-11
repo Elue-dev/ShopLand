@@ -8,7 +8,8 @@ import ChangeOrderStatus from "../changeOrderStatus/ChangeOrderStatus";
 const OrderDetails = () => {
   const [order, setOrder] = useState(null);
   const { id } = useParams();
-  const { document } = useFetchDocument("orders", id);
+  const { document } = useFetchDocument("Orders", id);
+  console.log(order);
 
   useEffect(() => {
     setOrder(document);
@@ -27,10 +28,10 @@ const OrderDetails = () => {
         ) : (
           <>
             <p>
-              <b>Order ID</b> {order.id}
+              <b>Order ID:</b> &nbsp;{order.id}
             </p>
             <p>
-              <b>Order Amount</b> ${order.orderAmount}
+              <b>Order Amount:</b> &nbsp;${order.orderAmount}
             </p>
             <p
               className={
@@ -39,17 +40,20 @@ const OrderDetails = () => {
                   : `${styles.pending}`
               }
             >
-              <b>Order Status</b> {order.orderStatus}
+              <b>Order Status:</b> &nbsp;{order.orderStatus}
             </p>
+            <br />
             <p>
-              <b>Shipping Address</b>
+              <b style={{ textDecoration: "underline" }}>Shipping Address</b>
               <br />
-              Address: {order.shippingAddress.line1},
+              <b>Address:</b> {order.shippingAddress.line1},
               {order.shippingAddress.line2}, {order.shippingAddress.city}
               <br />
-              State: {order.shippingAddress.state}
+              <b>State:</b> &nbsp;{order.shippingAddress.state}
               <br />
-              Country: {order.shippingAddress.country}
+              <b>Country:</b> &nbsp;{order.shippingAddress.country}
+              <br />
+              <b>Phone Number:</b> &nbsp;{order.shippingAddress.phone}
             </p>
             <br />
             <table>

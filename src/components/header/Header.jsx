@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { BsCart4 } from "react-icons/bs";
 import { RiMenuAddLine, RiShoppingCartLine } from "react-icons/ri";
 import { VscEyeClosed } from "react-icons/vsc";
 import { FaUserCircle } from "react-icons/fa";
@@ -33,17 +32,15 @@ const activeLink = ({ isActive }) => (isActive ? `${styles.active}` : "");
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
   const [scrollPage, setScrollpage] = useState(false);
-  const [displayName, setDisplayname] = useState(null)
+  const [displayName, setDisplayname] = useState(null);
   const navigate = useNavigate;
   const dispatch = useDispatch();
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
   const cartTotalQty = useSelector(selectCartTotalQuantity);
 
   const cart = (
     <span className={styles.cart}>
       <Link to="/cart">
-      {/* BsCart4 */}
-      
         <RiShoppingCartLine size={20} className={styles["cart-icon"]} />
         <p>{cartTotalQty}</p>
       </Link>
@@ -67,19 +64,21 @@ export default function Header() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         if (user.displayName === null) {
-          const u1 = user.email.substring(0, user.email.indexOf('@'))
-          const uName = u1.charAt(0).toUpperCase() + u1.slice(1)
-          setDisplayname(uName)
+          const u1 = user.email.substring(0, user.email.indexOf("@"));
+          const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
+          setDisplayname(uName);
         } else {
-          setDisplayname(user.displayName)
+          setDisplayname(user.displayName);
         }
         dispatch(
           SET_ACTIVE_USER({
             email: user.email,
             userID: user.uid,
+            userName: user.displayName ? user.displayName : displayName,
           })
         );
       } else {
+        setDisplayname("");
         dispatch(REMOVE_ACTIVE_USER());
       }
     });

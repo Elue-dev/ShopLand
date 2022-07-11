@@ -7,6 +7,7 @@ import Orders from './orders/Orders'
 import styles from './admin.module.scss'
 import Navbar from './navbar/Navbar'
 import AdminOrderDetails from './adminOrderDetails/AdminOrderDetails'
+import Users from './users/Users'
 
 export default function Admin() {
   return (
@@ -21,6 +22,7 @@ export default function Admin() {
           <Route path='add-product/:id' element={<AddProduct />} />
           <Route path='orders' element={<Orders />} />
           <Route path='/order-details/:id' element={<AdminOrderDetails />} />
+          <Route path='users' element={<Users />} />
           <Route />
         </Routes>
       </div>

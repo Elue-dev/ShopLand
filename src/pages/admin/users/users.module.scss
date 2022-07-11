@@ -1,12 +1,10 @@
-.table {
+.sec {
+    min-height: 82vh;
+  }
+  .table {
     padding: 5px;
     width: 100%;
     overflow-x: auto;
-  
-    .search {
-      width: 100%;
-      max-width: 300px;
-    }
   
     table {
       border-collapse: collapse;
@@ -14,7 +12,7 @@
       font-size: 1.4rem;
   
       thead {
-        border-top: 2px solid  var(--light-blue);
+        border-top: 2px solid var(--light-blue);
         border-bottom: 2px solid var(--light-blue);
       }
   
@@ -37,10 +35,19 @@
   
       tr {
         border-bottom: 1px solid #ccc;
+        cursor: pointer;
       }
   
       tr:nth-child(even) {
         background-color: #eee;
+      }
+      .delievered {
+        color: orangered;
+        font-weight: 500;
+      }
+      .pending {
+        color: green;
+        font-weight: 500;
       }
     }
   }

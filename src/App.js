@@ -11,7 +11,8 @@ import {
   Checkout,
   CheckoutSuccess,
   OrderHistory,
-  OrderDetails
+  OrderDetails,
+  Error404
 } from "./pages";
 import { Header, Footer, ProductDetails, ReviewProducts } from "./components";
 import { ToastContainer } from "react-toastify";
@@ -53,6 +54,7 @@ function App() {
           <Route path="/order-history" element={<OrderHistory />} />
           <Route path="/order-details/:id" element={<OrderDetails />} />
           <Route path="/review-product/:id" element={<ReviewProducts />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
         <Footer />
       </BrowserRouter>

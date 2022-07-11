@@ -6,7 +6,7 @@ import Card from "../card/Card";
 import styles from "./reviewProducts.module.scss";
 import StarsRating from "react-star-rate";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { database} from "../../firebase/firebase"
+import { database } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import useFetchDocument from "../../hooks/useFetchDocuments";
 import spinnerImg from "../../assets/spinner.jpg";
@@ -17,7 +17,7 @@ const ReviewProducts = () => {
   const [review, setReview] = useState("");
   const [product, setProduct] = useState(null);
   const { id } = useParams();
-  const {user} = useAuth()
+  const { user } = useAuth();
   const { document } = useFetchDocument("Products", id);
   const userID = useSelector(selectUserID);
 
@@ -79,7 +79,7 @@ const ReviewProducts = () => {
             />
             <label>Review</label>
             <textarea
-              value={review}
+              value={review.trim()}
               required
               onChange={(e) => setReview(e.target.value)}
               cols="30"

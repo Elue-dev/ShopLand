@@ -1,32 +1,63 @@
+import { useEffect, useState } from "react";
 import { database } from "../../../firebase/firebase";
 import Loader from "../../../components/loader/Loader";
 import { toast } from "react-toastify";
 import styles from "./viewProducts.module.scss";
-import {
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import { storage } from "../../../firebase/firebase";
 import { ref, deleteObject } from "firebase/storage";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Notiflix from "notiflix";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProducts, STORE_PRODUCTS } from "../../../redux/slice/productSlice";
+import {
+  selectProducts,
+  STORE_PRODUCTS,
+} from "../../../redux/slice/productSlice";
 import useFetchcollection from "../../../hooks/useFetchCollection";
-import { useEffect } from "react";
+import {
+  FILTER_BY_SEARCH,
+  selectFilteredProducts,
+} from "../../../redux/slice/filterSlice";
+import Search from "../../../components/search/Search";
+import Pagination from "../../../components/pagination/Pagination";
 
 export default function ViewProducts() {
-  const { data, loading} = useFetchcollection('Products')
+  const [search, setSearch] = useState("");
+  const { data, loading } = useFetchcollection("Products");
   const dispatch = useDispatch();
 
-  const products = useSelector(selectProducts)
+  const products = useSelector(selectProducts);
+  const filteredProducts = useSelector(selectFilteredProducts);
+
+  // ========pagination==========
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(10);
+
+  //get current products
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
 
   useEffect(() => {
-    dispatch(STORE_PRODUCTS({
-      products: data
-    }))
-  }, [dispatch, data])
+    dispatch(
+      STORE_PRODUCTS({
+        products: data,
+      })
+    );
+  }, [dispatch, data]);
+
+  useEffect(() => {
+    dispatch(
+      FILTER_BY_SEARCH({
+        products,
+        search,
+      })
+    );
+  }, [dispatch, products, search]);
 
   const confirmDelete = (id, imageUrl, name) => {
     Notiflix.Confirm.show(
@@ -42,8 +73,8 @@ export default function ViewProducts() {
       {
         width: "320px",
         borderRadius: "5px",
-        titleColor: "red",
-        okButtonBackground: "red",
+        titleColor: "#ff847c",
+        okButtonBackground: "#ff847c",
         cssAnimationStyle: "zoom",
       }
     );
@@ -70,8 +101,31 @@ export default function ViewProducts() {
       {loading && <Loader />}
       <div className={styles.table}>
         <h2>All Products</h2>
-        {products.length === 0 ? (
-          <p>No Products Found.</p>
+        <div className={styles.search}>
+          <p>
+            <b>{currentProducts.length}</b> Product(s) Found
+          </p>
+          <Search value={search} onChange={(e) => setSearch(e.target.value)} />
+          {search && (
+            <p
+              style={{
+                textAlign: "center",
+                margin: "2rem 0",
+                fontSize: "1.9rem",
+              }}
+            >
+              <b>
+                Products including '{" "}
+                <i style={{ color: "#ff847c" }}>{search}</i> '
+              </b>
+            </p>
+          )}
+        </div>
+
+        {filteredProducts.length === 0 ? (
+          <h2>
+            <b>No Product(s) Found.</b>
+          </h2>
         ) : (
           <table>
             <thead>
@@ -85,7 +139,7 @@ export default function ViewProducts() {
               </tr>
             </thead>
             <tbody>
-              {products?.map((product, index) => {
+              {currentProducts?.map((product, index) => {
                 const { id, name, price, imageUrl, category } = product;
                 return (
                   <tr key={id}>
@@ -117,6 +171,12 @@ export default function ViewProducts() {
             </tbody>
           </table>
         )}
+        <Pagination
+          productsPerPage={productsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalProducts={filteredProducts.length}
+        />
       </div>
     </>
   );

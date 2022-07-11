@@ -6,12 +6,15 @@ import { toast } from "react-toastify";
 import styles from "./auth.module.scss";
 import { useAuth } from "../../contexts/authContext";
 import Loader from "../../components/loader/Loader";
+import {v4 as uuidv4} from 'uuid'
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { database } from "../../firebase/firebase";
 
 export default function Signup() {
-  const [userName, setUserName]  = useState('')
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -32,7 +35,7 @@ export default function Signup() {
       setLoading(true);
       setError("");
       await signup(email, password);
-      await updateName(userName)
+      await updateName(userName);
       setLoading(false);
       // window.location.reload()
       navigate("/");
@@ -70,6 +73,22 @@ export default function Signup() {
       }
       setLoading(false);
     }
+
+    // =====add users=======
+    const today = new Date();
+    const date = today.toDateString();
+    const usersConfig = {
+      assignedID: uuidv4(),
+      username: userName,
+      email: email,
+      joinedAt: date,
+      createdAt: Timestamp.now().toDate(),
+    };
+    try {
+      addDoc(collection(database, "Users"), usersConfig);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -81,6 +100,13 @@ export default function Signup() {
             <h2>Sign Up</h2>
             {error && <p className="alert error">{error}</p>}
             <form onSubmit={registerUser}>
+              <input
+                type="text"
+                value={userName}
+                placeholder="Name"
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
               <input
                 type="email"
                 value={email}

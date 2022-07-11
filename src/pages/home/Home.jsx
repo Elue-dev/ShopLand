@@ -7,19 +7,18 @@ import styles from "./home.module.scss";
 export default function Home() {
   const url = window.location.href;
 
-  const scrollToProducts = () => {
-    if (url.includes("#products")) {
-      window.scrollTo({
-        top: 770,
-        behavior: "smooth",
-      });
-    }
-    return;
-  };
-
   useEffect(() => {
+    const scrollToProducts = () => {
+      if (url.includes("#products")) {
+        window.scrollTo({
+          top: 770,
+          behavior: "smooth",
+        });
+      }
+      return;
+    };
     scrollToProducts()
-  }, [])
+  }, [url])
 
   return (
     <div className={styles.home}>

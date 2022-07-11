@@ -37,6 +37,11 @@ export default function Navbar() {
               Orders
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/admin/users" className={activeLink}>
+              Users
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>

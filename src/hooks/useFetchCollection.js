@@ -1,43 +1,36 @@
-import {
-  collection,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { database } from "../firebase/firebase";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
 
 const useFetchCollection = (collectionName) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getCollection();
-  }, []);
-
-  const getCollection = () => {
-    setLoading(true);
-
-    try {
-      const docRef = collection(database, collectionName);
-      const q = query(docRef, orderBy("createdAt", "desc"));
-      onSnapshot(q, (snapshot) => {
-        let allData = [];
-        snapshot.docs.forEach((doc) => {
+    const getCollection = () => {
+      setLoading(true);
+      try {
+        const docRef = collection(database, collectionName);
+        const q = query(docRef, orderBy("createdAt", "desc"));
+        onSnapshot(q, (snapshot) => {
+          let allData = [];
+          snapshot.docs.forEach((doc) => {
             allData.push({ id: doc.id, ...doc.data() });
+          });
+          setData(allData);
+          setLoading(false);
         });
-        setData(allData);
+      } catch (error) {
         setLoading(false);
-      });
-    } catch (error) {
-      setLoading(false);
-      toast.error(error.message);
-    }
-  };
+        toast.error(error.message);
+      }
+    };
 
-  return { data, loading }
+    getCollection();
+  }, [collectionName]);
+
+  return { data, loading };
 };
 
 export default useFetchCollection;

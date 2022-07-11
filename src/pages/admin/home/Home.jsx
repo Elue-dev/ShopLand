@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import InfoBox from "../../../components/infoBox/InfoBox";
-import spinnerImg from  '../../../assets/spinner.jpg'
+import spinnerImg from "../../../assets/spinner.jpg";
 import styles from "./home.module.scss";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCart4 } from "react-icons/bs";
@@ -17,7 +17,7 @@ import {
   STORE_ORDERS,
 } from "../../../redux/slice/orderSlice";
 import useFetchCollection from "../../../hooks/useFetchCollection";
-// import Chart from "../../chart/Chart";
+import Chart from "../../../components/chart/Chart";
 
 //Icons
 const earningIcon = <AiFillDollarCircle size={30} color="#1f93ff" />;
@@ -29,7 +29,7 @@ const Home = () => {
   const orders = useSelector(selectOrderHistory);
   const totalOrderAmount = useSelector(selectTotalOrderAmount);
 
-   //doing this to save the info to redux and fetch it here from there directly, cause fetching it from frontend means if we refresh the page, we loose the data.
+  //doing this to save the info to redux and fetch it here from there directly, cause fetching it from frontend means if we refresh the page, we loose the data.
   const dbProducts = useFetchCollection("Products");
   const { data } = useFetchCollection("Orders");
 
@@ -53,24 +53,54 @@ const Home = () => {
         <InfoBox
           cardClass={`${styles.card} ${styles.card1}`}
           title={"Earnings"}
-          count={ totalOrderAmount === 0 ? (<img src={spinnerImg} alt='loading' style={{width: '20px', height: '20px'}} />) : `$${totalOrderAmount}`}
+          count={
+            totalOrderAmount === 0 ? (
+              <img
+                src={spinnerImg}
+                alt="loading"
+                style={{ width: "20px", height: "20px" }}
+              />
+            ) : (
+              `$${totalOrderAmount}`
+            )
+          }
           icon={earningIcon}
         />
         <InfoBox
           cardClass={`${styles.card} ${styles.card2}`}
           title={"Products"}
-          count={products.length === 0? (<img src={spinnerImg} alt='loading' style={{width: '20px', height: '20px'}} />): products.length}
+          count={
+            products.length === 0 ? (
+              <img
+                src={spinnerImg}
+                alt="loading"
+                style={{ width: "20px", height: "20px" }}
+              />
+            ) : (
+              products.length
+            )
+          }
           icon={productIcon}
         />
         <InfoBox
           cardClass={`${styles.card} ${styles.card3}`}
           title={"Orders"}
-          count={orders.length === 0 ? (<img src={spinnerImg} alt='loading' style={{width: '20px', height: '20px'}} />) : orders.length}
+          count={
+            orders.length === 0 ? (
+              <img
+                src={spinnerImg}
+                alt="loading"
+                style={{ width: "20px", height: "20px" }}
+              />
+            ) : (
+              orders.length
+            )
+          }
           icon={ordersIcon}
         />
       </div>
       <div>
-        {/* <Chart /> */}
+        <Chart />
       </div>
     </div>
   );

@@ -27,18 +27,18 @@ export default function OrderHistory() {
   const filteredOrders = orders.filter((order) => order.userID === userID)
 
   return (
-    <section>
+    <section className={styles.sec}>
       <div className={`container ${styles.order}`}>
         <h2>Your Order History</h2>
         <p>
-          Open an order to <b>leave a review</b>
+        <b>{filteredOrders.length ? 'Open an order to leave a review' : null}</b>
         </p>
         <br />
         <>
           {loading && <Loader />}
           <div className={styles.table}>
             {filteredOrders.length === 0 ? (
-              <p>No order found.</p>
+              <p>No orders found.</p>
             ) : (
               <table>
                 <thead>

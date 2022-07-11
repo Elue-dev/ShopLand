@@ -21,7 +21,7 @@ export default function ProductList({ products }) {
 
   // ========pagination==========
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(9);
+  const [productsPerPage] = useState(9);
 
   //get current products
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -98,9 +98,9 @@ export default function ProductList({ products }) {
       )}
       <div className={grid ? `${styles.grid}` : `${styles.list}`}>
         {filteredProducts.length === 0 ? (
-          <h3>
+          <h2>
             <b>No Product(s) Found.</b>
-          </h3>
+          </h2>
         ) : (
           <>
             {currentProducts.map((product) => (

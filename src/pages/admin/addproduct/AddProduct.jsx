@@ -105,7 +105,6 @@ export default function AddProduct() {
       });
       setLoading(false);
     }
-    console.log(product);
   };
 
   const editProductInDatabase = (e) => {

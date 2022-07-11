@@ -23,6 +23,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
+    const [userName, setUserName] = useState('')
 
     const signup = (email, password) =>  {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -75,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
     const values = { user, signup, login, logout, 
         resetPassword, googleSignIn, facebookSignIn,
-        updateName, updateMail, updatePass
+        updateName, updateMail, updatePass, userName, setUserName
      }
 
     return (
