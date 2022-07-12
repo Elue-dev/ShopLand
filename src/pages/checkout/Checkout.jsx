@@ -39,7 +39,7 @@ const Checkout = () => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://localhost:4300/create-payment-intent", {
+    fetch("https://shoplandcomm.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

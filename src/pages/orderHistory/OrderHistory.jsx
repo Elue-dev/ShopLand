@@ -38,7 +38,7 @@ export default function OrderHistory() {
           {loading && <Loader />}
           <div className={styles.table}>
             {filteredOrders.length === 0 ? (
-              <p>No orders found.</p>
+              <p>No orders found</p>
             ) : (
               <table>
                 <thead>
