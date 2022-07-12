@@ -1,14 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SK);
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 const app = express();
-var server = require('http').createServer(app);
-app.use(function(req, res, next) {
-  var reqType = req.headers["x-forwarded-proto"];
-  reqType == 'https' ? next() : res.redirect("https://" + req.headers.host + req.url);
-});
 app.use(cors());
 app.use(express.json());
 const path = require("path");
@@ -21,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/", (req, res) => {
-  res.send("Welcome to ShopLand website.");
+  res.send("Welcome to eShop website.");
 });
 
 const array = [];
@@ -60,7 +55,7 @@ app.post("/create-payment-intent", async (req, res) => {
       name: shipping.name,
       phone: shipping.phone,
     },
-    // receipt_email: customerEmail --- can add this at production level
+    // receipt_email: customerEmail
   });
 
   res.send({
@@ -68,5 +63,5 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4242;
 app.listen(PORT, () => console.log(`Node server listening on port ${PORT}`));
