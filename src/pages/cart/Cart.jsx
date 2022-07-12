@@ -98,7 +98,7 @@ export default function Cart() {
             <>
               <h3><b>Products you may like</b></h3>
               <div className={styles.related}>
-                {data?.slice(4, 10).map((product) => {
+                {data?.slice(5, 11).map((product) => {
                   const { id, name, imageUrl, price } = product;
                   return (
                     <Link to={`/product-details/${id}`}>
@@ -143,7 +143,7 @@ export default function Cart() {
                         style={{ width: "60px" }}
                       />
                     </td>
-                    <td>${price}</td>
+                    <td>NGN {price}</td>
                     <td>
                       <div className={styles.count}>
                         <button
@@ -184,7 +184,7 @@ export default function Cart() {
             </button>
             <div className={styles.checkout}>
               <div>
-                <Link to="/#products">&larr; Continue Shopping</Link>
+                <Link to="/#products" style={{fontWeight: '700'}}>&larr; Continue Shopping</Link>
               </div>
               <br />
               <Card cardClass={styles.card}>
@@ -194,7 +194,7 @@ export default function Cart() {
                 <br />
                 <div className={styles.text}>
                   <h4>Subtotal:</h4>
-                  <h3>${cartTotalAmount.toFixed(2)}</h3>
+                  <h3>NGN {cartTotalAmount.toFixed(2)}</h3>
                 </div>
                 <p>Taxes and shippings calculated at checkout</p>
                 <br />

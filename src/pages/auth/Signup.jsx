@@ -9,7 +9,6 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { ImCheckmark } from "react-icons/im";
 import { IoIosEye, IoMdEyeOff } from "react-icons/io";
 import spinnerImg from "../../assets/spinner.jpg";
-import Loader from "../../components/loader/Loader";
 import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
@@ -154,7 +153,7 @@ export default function Signup() {
 
   return (
     <>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <section className={`container ${styles.auth}`}>
         <Card>
           <div className={styles.form}>
@@ -242,7 +241,7 @@ export default function Signup() {
                     <img
                       src={spinnerImg}
                       alt="loading..."
-                      style={{ width: "30px", height: "30px" }}
+                      style={{ width: "25px", height: "25px" }}
                     />
                   ) : (
                     "Continue"

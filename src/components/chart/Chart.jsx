@@ -77,7 +77,7 @@ export default function Chart() {
   return (
     <div className={styles.chart}>
       <Card cardClass={styles.card}>
-        <h3>Order status chart</h3>
+        <h3><b>Order status chart</b></h3>
         <Bar options={options} data={data} />;
       </Card>
     </div>

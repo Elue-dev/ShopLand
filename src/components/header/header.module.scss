@@ -27,6 +27,7 @@ header {
     width: 25%;
     color: #fff;
     cursor: pointer;
+    font-weight: 700;
     span {
       color: #c07d53;
     }
@@ -76,6 +77,12 @@ header {
         right: -1rem;
         font-weight: 500;
       }
+    }
+
+    .mode {
+      list-style: none;
+      margin-left: 1.3rem;
+      cursor: pointer;
     }
 
     span {

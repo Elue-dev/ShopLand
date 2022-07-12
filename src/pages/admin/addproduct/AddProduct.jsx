@@ -238,7 +238,7 @@ export default function AddProduct() {
               rerquiredcols="30"
               rows="10"
             />
-            <button className="--btn --btn-primary">
+            <button className="--btn --btn-primary --btn-block">
               {detectForm(id, "Save Product", "Edit Product")}
             </button>
           </form>

@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import styles from "./auth.module.scss";
 import { useAuth } from "../../contexts/authContext";
 import Loader from "../../components/loader/Loader";
+import spinnerImg from "../../assets/spinner.jpg";
 import { useSelector } from "react-redux";
 import { selectPreviousURL } from "../../redux/slice/cartSlice";
 
@@ -55,9 +56,9 @@ export default function Login() {
     } catch (error) {
       if (error.message === "Firebase: Error (auth/user-not-found).") {
         setError("User not found");
-        // window.setTimeout(() => {
-        //   setError("");
-        // }, 3000);
+        window.setTimeout(() => {
+          setError("");
+        }, 3000);
       }
       if (error.message === "Firebase: Error (auth/wrong-password).") {
         setError("Wrong password");
@@ -121,7 +122,7 @@ export default function Login() {
 
   return (
     <>
-      {loading && <Loader />}
+      {/* {loading && <Loader />} */}
       <section className={`container ${styles.auth}`}>
         <div className={styles.img}>
           <img src={loginImg} alt="login" width="400" />
@@ -160,8 +161,19 @@ export default function Login() {
                   Continue
                 </button>
               ) : (
-                <button className="--btn --btn-primary --btn-block">
-                  Continue
+                <button
+                  type="submit"
+                  className="--btn --btn-primary --btn-block"
+                >
+                  {loading ? (
+                    <img
+                      src={spinnerImg}
+                      alt="loading..."
+                      style={{ width: "25px", height: "25px" }}
+                    />
+                  ) : (
+                    "Continue"
+                  )}
                 </button>
               )}
 

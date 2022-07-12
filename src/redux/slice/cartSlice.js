@@ -24,10 +24,6 @@ const cartSlice = createSlice({
         //item already exists
         //increase the cart quantity
         state.cartItems[productIndex].cartQuantity += 1;
-        toast.info(`${action.payload.name} quantity was increased by 1`, {
-          position: "top-left",
-          pauseOnFocusLoss: false,
-        });
       } else {
         //item dosent exist
         //add item to cart
@@ -49,10 +45,6 @@ const cartSlice = createSlice({
       );
       if (state.cartItems[productIndex].cartQuantity > 1) {
         state.cartItems[productIndex].cartQuantity -= 1;
-        toast.info(`${action.payload.name} quantity was decreased by 1`, {
-          position: "top-left",
-          pauseOnFocusLoss: false,
-        });
       } else if (state.cartItems[productIndex].cartQuantity === 1) {
         const newCartItem = state.cartItems.filter(
           (item) => item.id !== action.payload.id

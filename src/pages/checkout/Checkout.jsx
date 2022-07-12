@@ -39,8 +39,8 @@ const Checkout = () => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://localhost:5600/create-payment-intent", {
-      mode: 'no-cors',
+    fetch("https://shoplandcomm.herokuapp.com/create-payment-intent", {
+      mode: "no-cors",
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -62,10 +62,13 @@ const Checkout = () => {
       })
       .catch((error) => {
         setMessage("Failed to initialize checkout. Please try again.");
-        toast.error("Something went wrong, this could be due to network issues", {
-          autoClose: 5000,
-          pauseOnFocusLoss: false,
-        });
+        toast.error(
+          "Something went wrong, this could be due to network issues",
+          {
+            autoClose: 5000,
+            pauseOnFocusLoss: false,
+          }
+        );
       });
   }, [billingAddress, shippingAddress, customerEmail, cartItems, description]);
 

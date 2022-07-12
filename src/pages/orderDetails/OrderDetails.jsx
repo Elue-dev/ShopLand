@@ -16,7 +16,7 @@ const OrderDetails = () => {
   return (
     <section>
       <div className={`container ${styles.table}`}>
-        <h2>Order Details</h2>
+        <h2>Order Information</h2>
         <div>
           <Link to="/order-history">&larr; Back To Orders</Link>
         </div>

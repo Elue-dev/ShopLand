@@ -17,21 +17,21 @@ export default function Reset() {
   const resetUserPassword = async (e) => {
     e.preventDefault();
 
-    if (email === '') {
-      setError('Enter your email')
+    if (email === "") {
+      setError("Enter your email");
       window.setTimeout(() => {
-        setError('');
+        setError("");
       }, 2000);
-      return
+      return;
     }
 
     try {
-      setError('');
-      setMessage('');
-      setLoading(true)
+      setError("");
+      setMessage("");
+      setLoading(true);
       await resetPassword(email);
-      setEmail('');
-      setLoading(false)
+      setEmail("");
+      setLoading(false);
       setMessage(
         "Check your inbox for further instructions (Ensure to check spam folder)."
       );
@@ -61,12 +61,12 @@ export default function Reset() {
         }, 3000);
       }
     }
-    setLoading(false)
+    setLoading(false);
   };
 
   return (
     <section className={`container ${styles.auth}`}>
-       {loading && <Loader />}
+      {loading && <Loader />}
       <div className={styles.img}>
         <img src={resetImg} alt="login" width="400" />
       </div>
@@ -75,6 +75,13 @@ export default function Reset() {
           <h2>Reset Password</h2>
           {error && <p className="alert error">{error}</p>}
           {message && <p className="alert message">{message}</p>}
+          <div className={styles.info}>
+            <p>
+              Ensure to check your spam folder. If the link appears not to be
+              clickable, you may have to copy the link and paste in your browser
+              and continue.
+            </p>
+          </div>
           <form>
             <input
               type="email"

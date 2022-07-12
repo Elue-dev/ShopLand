@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiMenuAddLine, RiShoppingCartLine } from "react-icons/ri";
 import { VscEyeClosed } from "react-icons/vsc";

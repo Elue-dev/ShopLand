@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Mukta:wght@200;300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Mukta:wght@200;300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@200;300;400;500;600;700&display=swap");
 /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Poppins:wght@200;300;400;500;600;700&family=Rubik+Moonrocks&display=swap");
 
 :root {
   --font-family: "Poppins", sans-serif;
@@ -40,8 +39,10 @@ html {
 }
 
 body {
-  font-family: 'Mukta', sans-serif;
+  font-family: "Mukta", sans-serif;
 }
+
+body
 
 section {
   width: 100%;
@@ -55,12 +56,14 @@ section {
 }
 .alert {
   color: #fff;
-  padding: .1rem;
+  padding: 0.1rem;
   width: 100%;
   text-align: left;
   font-weight: 700;
   margin-bottom: 1rem;
+  padding: 0.5rem;
 }
+
 .error {
   background: pink;
   color: red;
@@ -318,7 +321,7 @@ p {
   align-items: center;
   transition: all 0.3s;
 }
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   .--btn {
     font-size: 1.4rem;
   }
@@ -473,4 +476,16 @@ a {
 a:hover {
   color: var(--color-dark);
   font-size: 1.5rem;
+}
+
+.App.dark {
+  background: #222;
+}
+.App.dark h1,
+.App.dark p,
+.App.dark span,
+.App.dark div,
+.App.dark a,
+.App.dark span {
+  color: #f7f7f7;
 }

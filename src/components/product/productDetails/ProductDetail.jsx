@@ -36,7 +36,6 @@ export default function ProductDetail() {
   return (
     <section>
       <div className={`container ${styles.product}`}>
-        <h2>Product Details</h2>
         <div>
           <Link to="/#products">&larr; Back To Products</Link>
         </div>
@@ -105,7 +104,7 @@ export default function ProductDetail() {
         <br />
         {product ? (
           <span className={styles.add}>
-            <BsInfoCircle />
+            <BsInfoCircle size={13} />
             &nbsp; You can add reviews when you purchase a product.
           </span>
         ) : null}

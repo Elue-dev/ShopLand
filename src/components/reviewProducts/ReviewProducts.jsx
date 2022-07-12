@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { selectUserID } from "../../redux/slice/authSlice";
 import Card from "../card/Card";
 import styles from "./reviewProducts.module.scss";
@@ -20,6 +20,7 @@ const ReviewProducts = () => {
   const { user } = useAuth();
   const { document } = useFetchDocument("Products", id);
   const userID = useSelector(selectUserID);
+  const navigate = useNavigate()
 
   useEffect(() => {
     setProduct(document);
@@ -44,6 +45,7 @@ const ReviewProducts = () => {
       toast.success("Your review has been submitted");
       setRate(0);
       setReview("");
+      navigate('/order-history')
     } catch (error) {
       toast.error(error.message);
     }
@@ -85,7 +87,7 @@ const ReviewProducts = () => {
               cols="30"
               rows="10"
             ></textarea>
-            <button type="submit" className="--btn --btn-primary">
+            <button type="submit" className="--btn --btn-primary --btn-block">
               Submit Review
             </button>
           </form>
