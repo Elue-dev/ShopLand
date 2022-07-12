@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Card from "../../components/card/Card";
 import { FaGoogle } from "react-icons/fa";
+import { IoIosEye, IoMdEyeOff } from "react-icons/io";
 import loginImg from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,6 +14,8 @@ import { selectPreviousURL } from "../../redux/slice/cartSlice";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const passwordRef = useRef();
+  const [view, setView] = useState(false);
   const [disable, setDisable] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -52,9 +55,9 @@ export default function Login() {
     } catch (error) {
       if (error.message === "Firebase: Error (auth/user-not-found).") {
         setError("User not found");
-        window.setTimeout(() => {
-          setError("");
-        }, 3000);
+        // window.setTimeout(() => {
+        //   setError("");
+        // }, 3000);
       }
       if (error.message === "Firebase: Error (auth/wrong-password).") {
         setError("Wrong password");
@@ -81,6 +84,15 @@ export default function Login() {
       }
     }
     setLoading(false);
+  };
+
+  const handleShowPassword = () => {
+    setView(!view);
+    if (passwordRef.current.type === "password") {
+      passwordRef.current.setAttribute("type", "text");
+    } else {
+      passwordRef.current.setAttribute("type", "password");
+    }
   };
 
   const handleGoogleSignIn = async () => {
@@ -127,13 +139,19 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <label className={styles.label}>
               <input
                 type="password"
                 value={password}
+                ref={passwordRef}
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+               <span onClick={handleShowPassword}>
+                  {view ? <IoIosEye /> : <IoMdEyeOff />}
+                </span>
+              </label>
               {disable ? (
                 <button
                   disabled
@@ -163,7 +181,7 @@ export default function Login() {
               <p>
                 No Shop<span>Land</span> account?
               </p>
-              <Link to="/signup">Sign Up</Link>
+              &nbsp; <Link to="/signup">Sign Up</Link>
             </span>
           </div>
         </Card>

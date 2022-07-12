@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import spinnerImg from "../../../assets/spinner.jpg";
 import StarsRating from "react-star-rate";
+import { BsInfoCircle } from "react-icons/bs";
+import { ImEyePlus } from "react-icons/im";
 import styles from "./productDetails.module.scss";
 import { useDispatch } from "react-redux";
 import {
@@ -62,6 +64,10 @@ export default function ProductDetail() {
               >
                 ADD TO CART
               </button>
+              <Link to="/cart">
+                <ImEyePlus />
+                &nbsp; View cart
+              </Link>
             </div>
           </div>
         )}
@@ -86,7 +92,7 @@ export default function ProductDetail() {
                           </span>
                           <br />
                           <span>
-                          <b>By: {name}</b>
+                            <b>By: {name}</b>
                           </span>
                         </div>
                       );
@@ -96,6 +102,13 @@ export default function ProductDetail() {
             </div>
           </Card>
         )}
+        <br />
+        {product ? (
+          <span className={styles.add}>
+            <BsInfoCircle />
+            &nbsp; You can add reviews when you purchase a product.
+          </span>
+        ) : null}
       </div>
     </section>
   );

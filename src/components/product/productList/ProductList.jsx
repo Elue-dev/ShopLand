@@ -21,7 +21,7 @@ export default function ProductList({ products }) {
 
   // ========pagination==========
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(9);
+  const [productsPerPage] = useState(8);
 
   //get current products
   const indexOfLastProduct = currentPage * productsPerPage;

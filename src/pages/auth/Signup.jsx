@@ -11,7 +11,7 @@ import { IoIosEye, IoMdEyeOff } from "react-icons/io";
 import spinnerImg from "../../assets/spinner.jpg";
 import Loader from "../../components/loader/Loader";
 import { v4 as uuidv4 } from "uuid";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection, setDoc, Timestamp } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 
 export default function Signup() {
@@ -89,7 +89,8 @@ export default function Signup() {
       createdAt: Timestamp.now().toDate(),
     };
     try {
-      addDoc(collection(database, "Users"), usersConfig);
+      const usersRef = collection(database, "Users");
+      await addDoc(usersRef, usersConfig);
     } catch (error) {
       console.log(error.message);
     }
