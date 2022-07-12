@@ -4,6 +4,11 @@ const cors = require("cors");
 const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SK);
 
 const app = express();
+var server = require('http').createServer(app);
+app.use(function(req, res, next) {
+  var reqType = req.headers["x-forwarded-proto"];
+  reqType == 'https' ? next() : res.redirect("https://" + req.headers.host + req.url);
+});
 app.use(cors());
 app.use(express.json());
 const path = require("path");
