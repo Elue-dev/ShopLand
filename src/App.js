@@ -26,7 +26,7 @@ function App() {
       <BrowserRouter>
         <ToastContainer
           toastStyle={{
-            backgroundColor: "#ff847c",
+            backgroundColor: "#c07d53",
             color: "#fff",
             fontSize: "1.6rem",
           }}

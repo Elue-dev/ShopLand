@@ -20,9 +20,9 @@ import useFetchCollection from "../../../hooks/useFetchCollection";
 import Chart from "../../../components/chart/Chart";
 
 //Icons
-const earningIcon = <AiFillDollarCircle size={30} color="#1f93ff" />;
-const productIcon = <BsCart4 size={30} color="#111" />;
-const ordersIcon = <FaCartArrowDown size={30} color="#ff847c" />;
+const earningIcon = <AiFillDollarCircle size={30} color="#c07d53" />;
+const productIcon = <BsCart4 size={30} color="#000" />;
+const ordersIcon = <FaCartArrowDown size={30} color="#3c4448" />;
 
 const Home = () => {
   const products = useSelector(selectProducts);
@@ -61,7 +61,7 @@ const Home = () => {
                 style={{ width: "20px", height: "20px" }}
               />
             ) : (
-              `$${totalOrderAmount}`
+              `NGN ${totalOrderAmount}`
             )
           }
           icon={earningIcon}

@@ -1,6 +1,7 @@
 .info-box {
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 4rem;
 }
 
 .card {
@@ -11,11 +12,11 @@
 }
 
 .card1 {
-  border-bottom: 3px solid #1f93ff;
+  border-bottom: 3px solid #c07d53;
 }
 .card2 {
-  border-bottom: 3px solid #111;
+  border-bottom: 3px solid #000;
 }
 .card3 {
-  border-bottom: 3px solid #ff847c;
+  border-bottom: 3px solid #3c4448;
 }

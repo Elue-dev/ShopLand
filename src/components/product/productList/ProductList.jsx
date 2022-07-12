@@ -56,7 +56,7 @@ export default function ProductList({ products }) {
         <div className={styles.icons}>
           <BsFillGridFill
             size={22}
-            color="#ff847c"
+            color="#c07d53"
             onClick={() => setGrid(true)}
           />
           <FaListAlt size={24} color="#111" onClick={() => setGrid(false)} />
@@ -92,7 +92,7 @@ export default function ProductList({ products }) {
           style={{ textAlign: "center", margin: "2rem 0", fontSize: "1.9rem" }}
         >
           <b>
-            Products including ' <i style={{ color: "#ff847c" }}>{search}</i> '
+            Products including ' <i style={{ color: "#c07d53" }}>{search}</i> '
           </b>
         </p>
       )}

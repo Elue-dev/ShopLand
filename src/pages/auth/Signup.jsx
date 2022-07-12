@@ -1,19 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import signinImg from "../../assets/register.png";
 import Card from "../../components/card/Card";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./auth.module.scss";
 import { useAuth } from "../../contexts/authContext";
+import { GoPrimitiveDot } from "react-icons/go";
+import { ImCheckmark } from "react-icons/im";
+import { IoIosEye, IoMdEyeOff } from "react-icons/io";
+import spinnerImg from "../../assets/spinner.jpg";
 import Loader from "../../components/loader/Loader";
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from "uuid";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const passwordRef = useRef();
+  const [view, setView] = useState(false);
+  const [caseCondition, setCaseCondition] = useState(false);
+  const [numberCondition, setNumberCondition] = useState(false);
+  const [charCondition, setCharCondition] = useState(false);
+  const [lengthCondition, setLengthCondition] = useState(false);
+  const [passwordComplete, setPasswordComplete] = useState(false);
+  const [passFocus, setPassFocus] = useState(false);
   const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -23,13 +34,6 @@ export default function Signup() {
 
   const registerUser = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      window.setTimeout(() => {
-        setError("");
-      }, 3000);
-      return;
-    }
 
     try {
       setLoading(true);
@@ -91,6 +95,51 @@ export default function Signup() {
     }
   };
 
+  const handleShowPassword = () => {
+    setView(!view);
+    if (passwordRef.current.type === "password") {
+      passwordRef.current.setAttribute("type", "text");
+    } else {
+      passwordRef.current.setAttribute("type", "password");
+    }
+  };
+
+  useEffect(() => {
+    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+      setCaseCondition(true);
+    } else {
+      setCaseCondition(false);
+    }
+    if (password.match(/([0-9])/)) {
+      setNumberCondition(true);
+    } else {
+      setNumberCondition(false);
+    }
+    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+      setCharCondition(true);
+    } else {
+      setCharCondition(false);
+    }
+    if (password.length > 5 && password.length <= 12) {
+      setLengthCondition(true);
+    } else {
+      setLengthCondition(false);
+    }
+
+    if (caseCondition && numberCondition && charCondition && lengthCondition) {
+      setPasswordComplete(true);
+    } else {
+      setPasswordComplete(false);
+    }
+  }, [
+    password,
+    caseCondition,
+    numberCondition,
+    charCondition,
+    lengthCondition,
+    passwordComplete,
+  ]);
+
   return (
     <>
       {loading && <Loader />}
@@ -114,23 +163,88 @@ export default function Signup() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <input
-                type="password"
-                value={password}
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm Password"
-                required
-              />
-              <button type="submit" className="--btn --btn-primary --btn-block">
-                Continue
-              </button>
+              <label className={styles.label}>
+                <input
+                  type="password"
+                  value={password}
+                  ref={passwordRef}
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  onFocus={() => setPassFocus(true)}
+                  required
+                />
+                <span onClick={handleShowPassword}>
+                  {view ? <IoIosEye /> : <IoMdEyeOff />}
+                </span>
+              </label>
+
+              <div
+                className={
+                  passFocus
+                    ? `${styles.indicator} ${styles.show}`
+                    : `${styles.indicator}`
+                }
+              >
+                <span className={styles.strength}>Password must include:</span>
+                <ul>
+                  <li
+                    className={
+                      caseCondition ? `${styles.green}` : `${styles.red}`
+                    }
+                  >
+                    {caseCondition ? <ImCheckmark /> : <GoPrimitiveDot />}
+                    &nbsp; Uppercase & lowercase letters
+                  </li>
+                  <li
+                    className={
+                      lengthCondition ? `${styles.green}` : `${styles.red}`
+                    }
+                  >
+                    {lengthCondition ? <ImCheckmark /> : <GoPrimitiveDot />}
+                    &nbsp; 6-12 characters
+                  </li>
+                  <li
+                    className={
+                      numberCondition ? `${styles.green}` : `${styles.red}`
+                    }
+                  >
+                    {numberCondition ? <ImCheckmark /> : <GoPrimitiveDot />}
+                    &nbsp; At least a number
+                  </li>
+                  <li
+                    className={
+                      charCondition ? `${styles.green}` : `${styles.red}`
+                    }
+                  >
+                    {charCondition ? <ImCheckmark /> : <GoPrimitiveDot />}
+                    &nbsp; At least one special character (!@#$%^&*)
+                  </li>
+                </ul>
+              </div>
+              {passwordComplete && (
+                <button
+                  type="submit"
+                  className="--btn --btn-primary --btn-block"
+                >
+                  {loading ? (
+                    <img
+                      src={spinnerImg}
+                      alt="loading..."
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  ) : (
+                    "Continue"
+                  )}
+                </button>
+              )}
+              {!passwordComplete && (
+                <button
+                  disabled
+                  className={`${styles.button} ${styles.disabled}`}
+                >
+                  Continue
+                </button>
+              )}
               <span className={styles.register}>
                 <p>
                   Have a Shop<span>Land</span> account?

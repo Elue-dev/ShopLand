@@ -69,7 +69,7 @@ export default function Chart() {
       {
         label: "Order Count",
         data: [placed, processing, shipped, delievered],
-        backgroundColor: "#003b46",
+        backgroundColor: "#c07d53",
       },
     ],
   };

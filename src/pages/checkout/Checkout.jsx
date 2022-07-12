@@ -38,7 +38,6 @@ const Checkout = () => {
   const description = `ShopLand  payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 
   useEffect(() => {
-    // http://localhost:4242/create-payment-intent
     // Create PaymentIntent as soon as the page loads
     fetch("http://localhost:4242/create-payment-intent", {
       method: "POST",

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import Card from "../../components/card/Card";
 import styles from "./contact.module.scss";
-import { FaPhoneAlt, FaEnvelope, FaTwitter } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
@@ -61,7 +61,7 @@ const Contact = () => {
               />
               <label>Message</label>
               <textarea name="message" cols="30" rows="10"></textarea>
-              <button className="--btn --btn-primary">Send Message</button>
+              <button className="--btn --btn-primary --btn-block">Send Message</button>
             </Card>
           </form>
 
@@ -72,19 +72,33 @@ const Contact = () => {
               <div className={styles.icons}>
                 <span>
                   <FaPhoneAlt />
-                  <p>+234 705 141 6545</p>
+                  <p>+234 810 733 9039</p>
                 </span>
                 <span>
                   <FaEnvelope />
-                  <p>Support@eshop.com</p>
+                  <p>support@shopland.com</p>
                 </span>
                 <span>
                   <GoLocation />
-                  <p>Abuja, Nigeria</p>
+                  <p>Lagos, Nigeria</p>
                 </span>
                 <span>
                   <FaTwitter />
-                  <p>@ZinoTrust</p>
+                  <a
+                    href="https://www.linkedin.com/in/wisdom-elue-8822a5188"
+                    style={{ color: "#ffff", fontSize: "1.5rem" }}
+                  >
+                    eluewisdom_
+                  </a>
+                </span>
+                <span>
+                  <FaLinkedin />
+                  <a
+                    href="https://www.twitter.com/eluewisdom_"
+                    style={{ color: "#ffff", fontSize: "1.5rem" }}
+                  >
+                    Wisdom Elue
+                  </a>
                 </span>
               </div>
             </Card>
@@ -96,9 +110,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
-// 'service_jnv0i0f',
-//     'template_fxbkfjk',
-//     form.current,
-//     'LI-G3ioYQBUa9IpIn'

@@ -16,8 +16,10 @@ import {
 import { FaTrashAlt } from "react-icons/fa";
 import Card from "../../components/card/Card";
 import styles from "./cart.module.scss";
+import cartEmpty from "../../assets/cartempty.png";
 import Notiflix from "notiflix";
 import { selectIsLoggedIn } from "../../redux/slice/authSlice";
+import useFetchCollection from "../../hooks/useFetchCollection";
 
 export default function Cart() {
   const cartItems = useSelector(selectCartItems);
@@ -26,6 +28,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
+  const { data } = useFetchCollection("Products");
 
   const increaseCart = (cart) => {
     dispatch(ADD_TO_CART(cart));
@@ -52,8 +55,8 @@ export default function Cart() {
       {
         width: "320px",
         borderRadius: "5px",
-        titleColor: "red",
-        okButtonBackground: "red",
+        titleColor: "#c07d53",
+        okButtonBackground: "#c07d53",
         cssAnimationStyle: "zoom",
       }
     );
@@ -76,17 +79,43 @@ export default function Cart() {
     }
   };
 
+  console.log(data);
+
   return (
     <section className={styles.cart}>
       <div className={`container ${styles.table}`}>
-        <h2>Shopping Cart</h2>
+        {cartItems.length ? <h2>Cart</h2> : null}
         {cartItems.length === 0 ? (
           <>
-            <p>Your cart is currently empty</p>
-            <br />
-            <div>
-              <Link to="/#products">&larr; Continue Shopping</Link>
+            <div className={styles["cart-empty"]}>
+              <img src={cartEmpty} className={styles.image} />
+              <div>
+                <Link to="/#products" className={styles.link}>
+                  &larr; Continue Shopping
+                </Link>
+              </div>
             </div>
+            <br />
+            <br />
+            <>
+              <h3><b>Products you may like</b></h3>
+              <div className={styles.related}>
+                {data?.slice(4, 10).map((product) => {
+                  const { id, name, imageUrl, price } = product;
+                  return (
+                    <Link to={`/product-details/${id}`}>
+                    <Card key={id}>
+                      <div className={styles.details}>
+                        <img src={imageUrl} alt={name} />
+                        <p>{name}</p>
+                        <p>NGN {price}</p>
+                      </div>
+                    </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </>
           </>
         ) : (
           <table>

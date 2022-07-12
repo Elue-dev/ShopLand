@@ -73,8 +73,8 @@ export default function ViewProducts() {
       {
         width: "320px",
         borderRadius: "5px",
-        titleColor: "#ff847c",
-        okButtonBackground: "#ff847c",
+        titleColor: "#c07d53",
+        okButtonBackground: "#c07d53",
         cssAnimationStyle: "zoom",
       }
     );
@@ -153,7 +153,7 @@ export default function ViewProducts() {
                     </td>
                     <td>{name}</td>
                     <td>{category}</td>
-                    <td>${price}</td>
+                    <td>NGN {price}</td>
                     <td className={styles.icons}>
                       <Link to={`/admin/add-product/${id}`}>
                         <FaEdit size={20} color="green" />

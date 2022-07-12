@@ -61,7 +61,7 @@ export default function Product() {
             className={styles.icon}
             onClick={() => setShowFilter(!showFilter)}
           >
-            <FaCogs size={20} color="#ff847c" />
+            <FaCogs size={20} color="#c07d53" />
             &nbsp;{" "}
             <p>
               <b>{showFilter ? "Hide Filters" : "Show Filters"}</b>

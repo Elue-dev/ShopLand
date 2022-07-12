@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../components/card/Card";
 import { FaGoogle } from "react-icons/fa";
 import loginImg from "../../assets/login.png";
@@ -13,6 +13,7 @@ import { selectPreviousURL } from "../../redux/slice/cartSlice";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [disable, setDisable] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -27,8 +28,17 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    if (!email || !password) {
+      setDisable(true);
+    } else {
+      setDisable(false);
+    }
+  }, [email, password]);
+
   const loginUser = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
       setError("");
@@ -124,10 +134,19 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              {disable ? (
+                <button
+                  disabled
+                  className={`${styles.button} ${styles.disabled}`}
+                >
+                  Continue
+                </button>
+              ) : (
+                <button className="--btn --btn-primary --btn-block">
+                  Continue
+                </button>
+              )}
 
-              <button className="--btn --btn-primary --btn-block">
-                Continue
-              </button>
               <div className={styles.links}>
                 <Link to="/reset">Forgot password?</Link>
               </div>
