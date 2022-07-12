@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SK );
+const stripe = require("stripe")(process.env.REACT_APP_STRIPE_SK);
 
 const app = express();
 app.use(cors());
@@ -63,5 +63,5 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
-const PORT = 4242;
+const PORT = process.env.PORT || 4300;
 app.listen(PORT, () => console.log(`Node server listening on port ${PORT}`));
