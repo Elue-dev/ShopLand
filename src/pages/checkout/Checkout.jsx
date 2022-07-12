@@ -37,9 +37,13 @@ const Checkout = () => {
 
   const description = `ShopLand  payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 
+  const header = new Headers({ "Access-Control-Allow-Origin": "*" });
+
+
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch("https://shop-land.netlify.app/create-payment-intent", {
+      mode: 'no-cors',
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
