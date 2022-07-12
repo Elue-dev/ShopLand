@@ -37,12 +37,9 @@ const Checkout = () => {
 
   const description = `ShopLand  payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 
-  const header = new Headers({ "Access-Control-Allow-Origin": "*" });
-
-
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("https://shop-land.netlify.app/create-payment-intent", {
+    fetch("https://localhost:5600/create-payment-intent", {
       mode: 'no-cors',
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -64,8 +61,8 @@ const Checkout = () => {
         setClientSecret(data.clientSecret);
       })
       .catch((error) => {
-        setMessage("Failed to initialize checkout");
-        toast.error("Something went wrong", {
+        setMessage("Failed to initialize checkout. Please try again.");
+        toast.error("Something went wrong, this could be due to network issues", {
           autoClose: 5000,
           pauseOnFocusLoss: false,
         });

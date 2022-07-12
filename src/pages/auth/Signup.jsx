@@ -11,8 +11,10 @@ import { IoIosEye, IoMdEyeOff } from "react-icons/io";
 import spinnerImg from "../../assets/spinner.jpg";
 import Loader from "../../components/loader/Loader";
 import { v4 as uuidv4 } from "uuid";
-import { addDoc, collection, setDoc, Timestamp } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
+import { useSelector } from "react-redux";
+import { selectPreviousURL } from "../../redux/slice/cartSlice";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -31,6 +33,15 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const { signup, updateName } = useAuth();
+  const previousURL = useSelector(selectPreviousURL);
+
+  const redirectUser = () => {
+    if (previousURL.includes("cart")) {
+      return navigate("/cart");
+    } else {
+      navigate("/");
+    }
+  };
 
   const registerUser = async (e) => {
     e.preventDefault();
@@ -42,7 +53,7 @@ export default function Signup() {
       await updateName(userName);
       setLoading(false);
       // window.location.reload()
-      navigate("/");
+      redirectUser()
       toast.success("Successfully signed in", {
         autoClose: 5000,
         pauseOnFocusLoss: false,

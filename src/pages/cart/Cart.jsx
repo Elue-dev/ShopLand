@@ -79,8 +79,6 @@ export default function Cart() {
     }
   };
 
-  console.log(data);
-
   return (
     <section className={styles.cart}>
       <div className={`container ${styles.table}`}>
