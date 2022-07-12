@@ -79,7 +79,7 @@ const ReviewProducts = () => {
             />
             <label>Review</label>
             <textarea
-              value={review.trim()}
+              value={review}
               required
               onChange={(e) => setReview(e.target.value)}
               cols="30"
