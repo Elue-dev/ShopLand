@@ -17,6 +17,14 @@ export default function Saved() {
 
   return (
     <section>
+      {savedItems.length ? (
+        <h2>
+          You currently have <b>{savedItems.length}</b>{" "}
+          {savedItems.length === 1 ? "saved item" : "saved items"}
+        </h2>
+      ) : null}
+
+      <br />
       <div className={` container ${styles.saved}`}>
         {savedItems.length === 0 ? (
           <div className={styles.empty}>
@@ -30,12 +38,13 @@ export default function Saved() {
             </div>
           </div>
         ) : null}
+
         {savedItems.map((saved) => {
           return (
             <div key={saved.id} className={styles["saved-item"]}>
               <img src={saved.imageUrl} alt={saved.name} />
-              <p>{saved.name}</p>
-              <p>NGN {new Intl.NumberFormat().format(saved.price)}</p>
+              <p><b>{saved.name}</b></p>
+              <p><b>NGN {new Intl.NumberFormat().format(saved.price)}</b></p>
               <div className={styles.buttons}>
                 <button className="--btn --btn-block">
                   <Link to={`/product-details/${saved.id}`}>See details</Link>

@@ -168,9 +168,9 @@ export default function Header() {
                   My orders
                 </NavLink>
               </ShowOnLogin>
-                <NavLink to="/saved-products" className={activeLink}>
-                  Saved ({saved.length})
-                </NavLink>
+              <NavLink to="/saved-products" className={activeLink}>
+                Saved<span style={{ color: "#c07d53" }}>({saved.length})</span>
+              </NavLink>
               <ShowOnLogin>
                 <NavLink to="/" onClick={logoutUser}>
                   Log out

@@ -5,11 +5,13 @@ import StarsRating from "react-star-rate";
 import { BsInfoCircle } from "react-icons/bs";
 import { ImEyePlus } from "react-icons/im";
 import styles from "./productDetails.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_TO_CART,
   CALCULATE_TOTAL_QUANTITY,
+  REMOVE_FROM_SAVED,
   SAVE_FOR_LATER,
+  selectSavedItems,
 } from "../../../redux/slice/cartSlice";
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
@@ -21,6 +23,7 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
+  const savedItems = useSelector(selectSavedItems);
 
   //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
   const filteredReviews = data.filter((review) => review.productID === id);
@@ -37,6 +40,11 @@ export default function ProductDetail() {
   const addToSaved = (product) => {
     dispatch(SAVE_FOR_LATER(product));
   };
+
+  const removeFromSaved = (product) => {
+    dispatch(REMOVE_FROM_SAVED(product));
+  };
+
 
   return (
     <section>
@@ -71,12 +79,21 @@ export default function ProductDetail() {
                 >
                   ADD TO CART
                 </button>
+                {savedItems.some((s) => s.id === product.id) ? (
+                  <button
+                    className={`--btn --btn-danger ${styles.later}`}
+                    onClick={() => removeFromSaved(product)}
+                  >
+                    REMOVE FROM SAVED
+                  </button>
+                ) : (
                   <button
                     className={`--btn --btn-danger ${styles.later}`}
                     onClick={() => addToSaved(product)}
                   >
                     SAVE FOR LATER
                   </button>
+                )}
               </div>
               <Link to="/cart">
                 <ImEyePlus />

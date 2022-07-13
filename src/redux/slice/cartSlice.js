@@ -124,7 +124,7 @@ const cartSlice = createSlice({
         (item) => item.id !== action.payload.id
       );
       state.savedItems = newSavedItem;
-      toast.info(`${action.payload.name} removed from your saved items`, {
+      toast.info(`${action.payload.name} removed from your saved products`, {
         position: "top-left",
         pauseOnFocusLoss: false,
       });
