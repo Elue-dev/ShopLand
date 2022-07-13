@@ -61,7 +61,7 @@ export default function OrderHistory() {
                             <div className={styles.details}>
                               <img src={imageUrl} alt={name} />
                               <p>{name}</p>
-                              <p>NGN {price}</p>
+                              <p>NGN {new Intl.NumberFormat().format(price)}</p>
                             </div>
                           </Card>
                         </Link>
@@ -97,7 +97,7 @@ export default function OrderHistory() {
                           {orderDate} at {orderTime}
                         </td>
                         <td>{id}</td>
-                        <td>NGN {orderAmount}</td>
+                        <td>NGN {new Intl.NumberFormat().format(orderAmount)}</td>
                         <td>
                           <p
                             className={

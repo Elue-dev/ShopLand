@@ -21,7 +21,7 @@ export default function ProductItem({product, grid, id, name, price, description
         </Link>
         <div className={styles.content}>
           <div className={styles.details}>
-            <p>NGN {price - 300}</p>
+            <p>NGN {new Intl.NumberFormat().format(price)}</p>
             <h4>{name.substring(0,21)}...</h4>
           </div>
           {!grid && (

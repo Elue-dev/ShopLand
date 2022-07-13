@@ -15,7 +15,7 @@ const OrderDetails = () => {
 
   return (
     <section>
-      <div className={`container ${styles.table}`}>
+      <div className={`container ${styles.table} ${styles.sec}`}>
         <h2>Order Information</h2>
         <div>
           <Link to="/order-history">&larr; Back To Orders</Link>
@@ -29,7 +29,7 @@ const OrderDetails = () => {
               <b>Order ID:</b> {order.id}
             </p>
             <p>
-              <b>Order Amount:</b> ${order.orderAmount}
+              <b>Order Amount:</b> NGN {new Intl.NumberFormat().format(order.orderAmount)}
             </p>
             <p>
               <b>Order Status:</b> {order.orderStatus} (This could change at anytime by the admin, ensure to check back and check status frequently)
@@ -64,9 +64,9 @@ const OrderDetails = () => {
                           style={{ width: "100px" }}
                         />
                       </td>
-                      <td>${price}</td>
+                      <td>NGN {new Intl.NumberFormat().format(price)}</td>
                       <td>{cartQuantity}</td>
-                      <td>{(price * cartQuantity).toFixed(2)}</td>
+                      <td>{new Intl.NumberFormat().format(price * cartQuantity)}</td>
                       <td className={styles.icons}>
                         <Link to={`/review-product/${id}`}>
                           <button className="--btn --btn-primary">

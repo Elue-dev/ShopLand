@@ -66,7 +66,7 @@ export default function Orders() {
                           {orderDate} at {orderTime}
                         </td>
                         <td>{id}</td>
-                        <td>NGN {orderAmount}</td>
+                        <td>NGN {new Intl.NumberFormat().format(orderAmount)}</td>
                         <td>
                           <p
                             className={

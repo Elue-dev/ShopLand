@@ -31,7 +31,7 @@ const OrderDetails = () => {
               <b>Order ID:</b> &nbsp;{order.id}
             </p>
             <p>
-              <b>Order Amount:</b> &nbsp;${order.orderAmount}
+              <b>Order Amount:</b> &nbsp;NGN {(new Intl.NumberFormat().format(order.orderAmount))}
             </p>
             <p
               className={
@@ -74,9 +74,9 @@ const OrderDetails = () => {
                           style={{ width: "100px" }}
                         />
                       </td>
-                      <td>{price}</td>
+                      <td>{(new Intl.NumberFormat().format(price))}</td>
                       <td>{cartQuantity}</td>
-                      <td>{(price * cartQuantity).toFixed(2)}</td>
+                      <td>{(new Intl.NumberFormat().format(price * cartQuantity))}</td>
                     </tr>
                   );
                 })}

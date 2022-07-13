@@ -158,7 +158,7 @@ export default function Cart() {
                         <div className={styles.details}>
                           <img src={imageUrl} alt={name} />
                           <p>{name}</p>
-                          <p>NGN {price}</p>
+                          <p>NGN {new Intl.NumberFormat().format(price)}</p>
                         </div>
                       </Card>
                     </Link>
@@ -195,7 +195,7 @@ export default function Cart() {
                         style={{ width: "60px" }}
                       />
                     </td>
-                    <td>NGN {price}</td>
+                    <td>NGN {new Intl.NumberFormat().format(price)}</td>
                     <td>
                       <div className={styles.count}>
                         <button
@@ -215,7 +215,7 @@ export default function Cart() {
                         </button>
                       </div>
                     </td>
-                    <td>{(price * cartQuantity).toFixed(2)}</td>
+                    <td>{new Intl.NumberFormat().format(price * cartQuantity)}</td>
                     <td className={styles.icons}>
                       <FaTrashAlt
                         size={18}
@@ -248,7 +248,7 @@ export default function Cart() {
                 <br />
                 <div className={styles.text}>
                   <h4>Subtotal:</h4>
-                  <h3>NGN {cartTotalAmount.toFixed(2)}</h3>
+                  <h3>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h3>
                 </div>
                 <p>Taxes and shippings calculated at checkout</p>
                 <br />
