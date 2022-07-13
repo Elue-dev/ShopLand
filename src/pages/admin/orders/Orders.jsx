@@ -66,7 +66,7 @@ export default function Orders() {
                           {orderDate} at {orderTime}
                         </td>
                         <td>{id}</td>
-                        <td>${orderAmount}</td>
+                        <td>NGN {orderAmount}</td>
                         <td>
                           <p
                             className={
