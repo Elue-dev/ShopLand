@@ -15,7 +15,7 @@ import {
 } from "../../redux/slice/checkoutSlice";
 import { toast } from "react-toastify";
 import CheckoutForm from "../../components/checkoutForm/CheckoutForm";
-import styles from './checkoutDetails.module.scss'
+import styles from "./checkoutDetails.module.scss";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
@@ -41,7 +41,7 @@ const Checkout = () => {
   useEffect(() => {
     // http://localhost:4242/create-payment-intent
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:4000//create-payment-intent", {
+    fetch("https://shopland-comm.herokuapp.com/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -63,9 +63,12 @@ const Checkout = () => {
       })
       .catch((error) => {
         setMessage("Failed to initialize checkout. Please try again.");
-        toast.error("Something went wrong, this may be due to network or card issues.", {
-          pauseOnFocusLoss: false,
-        });
+        toast.error(
+          "Something went wrong, this may be due to network or card issues.",
+          {
+            pauseOnFocusLoss: false,
+          }
+        );
       });
   }, []);
 
@@ -80,7 +83,9 @@ const Checkout = () => {
   return (
     <>
       <section>
-        <div className={`container ${styles.details}`}>{!clientSecret && <h3>{message}</h3>}</div>
+        <div className={`container ${styles.details}`}>
+          {!clientSecret && <h3>{message}</h3>}
+        </div>
       </section>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
