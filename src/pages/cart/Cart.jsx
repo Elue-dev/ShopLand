@@ -207,7 +207,7 @@ export default function Cart() {
                           className="--btn"
                           onClick={() => decreaseCart(cart)}
                         >
-                          -s
+                          -
                         </button>
                         <p>
                           <b>{cartQuantity}</b>
