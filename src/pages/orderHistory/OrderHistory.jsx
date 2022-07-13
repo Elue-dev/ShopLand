@@ -56,8 +56,8 @@ export default function OrderHistory() {
                     {products.data?.slice(0, 6).map((product) => {
                       const { id, name, imageUrl, price } = product;
                       return (
-                        <Link to={`/product-details/${id}`}>
-                          <Card key={id}>
+                        <Link key={id} to={`/product-details/${id}`}>
+                          <Card >
                             <div className={styles.details}>
                               <img src={imageUrl} alt={name} />
                               <p>{name}</p>
