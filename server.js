@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/", (req, res) => {
-  res.send("Welcome to eShop website.");
+  res.send("Welcome to ShopLand website.");
 });
 
 const array = [];
@@ -63,5 +63,5 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 4242;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log(`Node server listening on port ${PORT}`));

@@ -2,6 +2,7 @@
   "name": "starter-template",
   "version": "0.1.0",
   "private": true,
+  
   "dependencies": {
     "@emailjs/browser": "^3.6.2",
     "@reduxjs/toolkit": "^1.8.3",

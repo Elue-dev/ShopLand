@@ -106,7 +106,7 @@ export default function Cart() {
                       <div className={styles.details}>
                         <img src={imageUrl} alt={name} />
                         <p>{name}</p>
-                        <p>NGN {price}</p>
+                        <p>${price}</p>
                       </div>
                     </Card>
                     </Link>

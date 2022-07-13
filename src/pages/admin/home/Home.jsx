@@ -61,7 +61,7 @@ const Home = () => {
                 style={{ width: "20px", height: "20px" }}
               />
             ) : (
-              `NGN ${totalOrderAmount}`
+              `$${totalOrderAmount}`
             )
           }
           icon={earningIcon}

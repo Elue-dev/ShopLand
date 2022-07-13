@@ -153,7 +153,7 @@ export default function ViewProducts() {
                     </td>
                     <td>{name}</td>
                     <td>{category}</td>
-                    <td>NGN {price}</td>
+                    <td>${price}</td>
                     <td className={styles.icons}>
                       <Link to={`/admin/add-product/${id}`}>
                         <FaEdit size={20} color="green" />

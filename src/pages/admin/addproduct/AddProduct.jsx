@@ -199,7 +199,7 @@ export default function AddProduct() {
             </Card>
             <label>Product Price:</label>
             <input
-              type="number"
+              type="text"
               placeholder="Product Price"
               value={product.price}
               name="price"

@@ -19,6 +19,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.scss";
 import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
+import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -48,9 +49,9 @@ function App() {
           />
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout-details" element={<CheckoutDetails />} />
+          <Route path="/checkout-details" element={<ProtectedRoute><CheckoutDetails /></ProtectedRoute>} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="/checkout-success" element={<ProtectedRoute><CheckoutSuccess /></ProtectedRoute>} />
           <Route path="/order-history" element={<OrderHistory />} />
           <Route path="/order-details/:id" element={<OrderDetails />} />
           <Route path="/review-product/:id" element={<ReviewProducts />} />
