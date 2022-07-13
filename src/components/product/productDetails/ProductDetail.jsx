@@ -48,7 +48,7 @@ export default function ProductDetail() {
             </div>
             <div className={styles.content}>
               <h3>{product.name}</h3>
-              <p className={styles.price}>${product.price}</p>
+              <p className={styles.price}><span className={styles.init}>${product.price}</span> ${product.price - 300}</p>
               <p>{product.description}</p>
               <p>
                 <b>SKU:</b> {product.id}

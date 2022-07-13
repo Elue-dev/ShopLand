@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import CheckoutForm from "../../components/checkoutForm/CheckoutForm";
 import styles from "./checkoutDetails.module.scss";
 
+
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const Checkout = () => {
@@ -35,6 +36,7 @@ const Checkout = () => {
     dispatch(CALCULATE_SUBTOTAL());
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
+
 
   const description = `ShopLand  payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 

@@ -18,8 +18,12 @@ import Card from "../../components/card/Card";
 import styles from "./cart.module.scss";
 import cartEmpty from "../../assets/cartempty.png";
 import Notiflix from "notiflix";
-import { selectIsLoggedIn } from "../../redux/slice/authSlice";
+import { selectEmail, selectIsLoggedIn, selectUserID, selectUserName } from "../../redux/slice/authSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
+import PaystackPop from "@paystack/inline-js";
+import { toast } from "react-toastify";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { database } from "../../firebase/firebase";
 
 export default function Cart() {
   const cartItems = useSelector(selectCartItems);
@@ -29,6 +33,12 @@ export default function Cart() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
   const { data } = useFetchCollection("Products");
+
+  const totalAmount = useSelector(selectCartTotalAmounts);
+  const customerEmail = useSelector(selectEmail);
+  const name = useSelector(selectUserName)
+  const userID = useSelector(selectUserID);
+  const userEmail = useSelector(selectEmail);
 
   const increaseCart = (cart) => {
     dispatch(ADD_TO_CART(cart));
@@ -69,10 +79,50 @@ export default function Cart() {
   }, [dispatch, cartItems]);
 
   const url = window.location.href;
+  const saveOrder = () => {
+    const today = new Date();
+    const date = today.toDateString();
+    const time = today.toLocaleTimeString();
+    const orderConfig = {
+      userID,
+      userEmail,
+      orderDate: date,
+      orderTime: time,
+      orderAmount: cartTotalAmount,
+      orderStatus: "Order Placed...",
+      cartItems,
+      createdAt: Timestamp.now().toDate(),
+    };
+    try {
+      addDoc(collection(database, "Orders"), orderConfig);
+      dispatch(CLEAR_CART());
+      navigate("/checkout-success");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   const checkout = () => {
+    const initiatePayment = () => {
+      const paystack = new PaystackPop();
+      paystack.newTransaction({
+        key: process.env.REACT_APP_PAYSTACK_KEY,
+        amount: totalAmount * 100,
+        email: customerEmail,
+        name,
+        onSuccess () {
+          saveOrder()
+          navigate('/checkout-success')
+        },
+        onCancel () {
+          console.log('')
+        }
+      });
+    };
+
     if (isLoggedIn) {
-      navigate("/checkout-details");
+      // navigate("/checkout-details");
+      initiatePayment();
     } else {
       dispatch(SAVE_URL(url));
       navigate("/login");
@@ -96,19 +146,21 @@ export default function Cart() {
             <br />
             <br />
             <>
-              <h3><b>Products you may like</b></h3>
+              <h3>
+                <b>Products you may like</b>
+              </h3>
               <div className={styles.related}>
                 {data?.slice(5, 11).map((product) => {
                   const { id, name, imageUrl, price } = product;
                   return (
                     <Link key={id} to={`/product-details/${id}`}>
-                    <Card >
-                      <div className={styles.details}>
-                        <img src={imageUrl} alt={name} />
-                        <p>{name}</p>
-                        <p>${price}</p>
-                      </div>
-                    </Card>
+                      <Card>
+                        <div className={styles.details}>
+                          <img src={imageUrl} alt={name} />
+                          <p>{name}</p>
+                          <p>NGN {price}</p>
+                        </div>
+                      </Card>
                     </Link>
                   );
                 })}
@@ -184,7 +236,9 @@ export default function Cart() {
             </button>
             <div className={styles.checkout}>
               <div>
-                <Link to="/#products" style={{fontWeight: '700'}}>&larr; Continue Shopping</Link>
+                <Link to="/#products" style={{ fontWeight: "700" }}>
+                  &larr; Continue Shopping
+                </Link>
               </div>
               <br />
               <Card cardClass={styles.card}>

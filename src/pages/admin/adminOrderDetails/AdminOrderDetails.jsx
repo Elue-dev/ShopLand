@@ -9,11 +9,11 @@ const OrderDetails = () => {
   const [order, setOrder] = useState(null);
   const { id } = useParams();
   const { document } = useFetchDocument("Orders", id);
-  console.log(order);
 
   useEffect(() => {
     setOrder(document);
   }, [document]);
+  console.log(order)
 
   return (
     <>
@@ -40,21 +40,11 @@ const OrderDetails = () => {
                   : `${styles.pending}`
               }
             >
-              <b>Order Status:</b> &nbsp;{order.orderStatus}
+              <b>Order Status:</b> &nbsp;{order.orderStatus}<br />
+              <b>Order placed by:</b> &nbsp;{order.userEmail}
             </p>
+            
             <br />
-            <p>
-              <b style={{ textDecoration: "underline" }}>Shipping Address</b>
-              <br />
-              <b>Address:</b> {order.shippingAddress.line1},
-              {order.shippingAddress.line2}, {order.shippingAddress.city}
-              <br />
-              <b>State:</b> &nbsp;{order.shippingAddress.state}
-              <br />
-              <b>Country:</b> &nbsp;{order.shippingAddress.country}
-              <br />
-              <b>Phone Number:</b> &nbsp;{order.shippingAddress.phone}
-            </p>
             <br />
             <table>
               <thead>

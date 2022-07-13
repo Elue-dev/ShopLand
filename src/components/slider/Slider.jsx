@@ -48,9 +48,7 @@ export default function Slider() {
               <div className="content">
                 <h2>{slide.desc}</h2>
                 <hr />
-                <a href="#products" className="--btn --btn-danger">
-                  Shop Now
-                </a>
+                <h3>CHECK PRODUCTS BELOW &darr;</h3>
               </div>
             </>
           )}

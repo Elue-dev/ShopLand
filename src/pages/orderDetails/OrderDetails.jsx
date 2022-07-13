@@ -26,13 +26,13 @@ const OrderDetails = () => {
         ) : (
           <>
             <p>
-              <b>Order ID</b> {order.id}
+              <b>Order ID:</b> {order.id}
             </p>
             <p>
-              <b>Order Amount</b> ${order.orderAmount}
+              <b>Order Amount:</b> ${order.orderAmount}
             </p>
             <p>
-              <b>Order Status</b> {order.orderStatus}
+              <b>Order Status:</b> {order.orderStatus} (This could change at anytime by the admin, ensure to check back and check status frequently)
             </p>
             <br />
             <table>
