@@ -121,7 +121,7 @@ export default function AddProduct() {
       setDoc(docRef, {
         name: product.name,
         imageUrl: product.imageUrl,
-        price: (new Intl.NumberFormat().format(Number(product.price))),
+        price: Number(product.price),
         category: product.category,
         brand: product.brand,
         description: product.description,
