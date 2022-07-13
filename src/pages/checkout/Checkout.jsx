@@ -38,7 +38,6 @@ const Checkout = () => {
 
   const description = `ShopLand  payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 
-  // "proxy": "http://localhost:4000",
   useEffect(() => {
     // http://localhost:4242/create-payment-intent
     // Create PaymentIntent as soon as the page loads
