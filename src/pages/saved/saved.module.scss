@@ -25,13 +25,17 @@
     }
     :nth-child(2) {
       background-color: #c07d53;
-
       color: #fff;
     }
   }
   .empty {
     text-align: center;
     padding-top: 3rem;
+    h2 {
+        @media (max-width: 500px) {
+            font-size: 1.8rem;
+        }
+    }
     .basket-empty {
       font-size: 20rem;
       margin-bottom: 1rem;

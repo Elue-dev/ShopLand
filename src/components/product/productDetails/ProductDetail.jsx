@@ -14,7 +14,6 @@ import {
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import Card from "../../card/Card";
-import ShowOnLogin from "../../hiddenLinks/HiddenLink";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -72,14 +71,12 @@ export default function ProductDetail() {
                 >
                   ADD TO CART
                 </button>
-                <ShowOnLogin>
                   <button
                     className={`--btn --btn-danger ${styles.later}`}
                     onClick={() => addToSaved(product)}
                   >
                     SAVE FOR LATER
                   </button>
-                </ShowOnLogin>
               </div>
               <Link to="/cart">
                 <ImEyePlus />

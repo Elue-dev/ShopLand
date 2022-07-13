@@ -98,12 +98,17 @@ header {
       }
     }
     .welcome {
-      color: "#fff";
+      color: #fff;
       background: #c07d53;
       padding: 0.5rem;
-      border-radius: .3rem;
+      border-radius: 0.3rem;
       &:hover {
         color: #fff;
+      }
+      @media (max-width: 500px) {
+        padding: 0px 1rem;
+        background: none;
+        color: #c07d53;
       }
     }
   }
