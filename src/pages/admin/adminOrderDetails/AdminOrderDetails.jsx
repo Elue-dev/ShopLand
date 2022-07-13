@@ -74,9 +74,9 @@ const OrderDetails = () => {
                           style={{ width: "100px" }}
                         />
                       </td>
-                      <td>{(new Intl.NumberFormat().format(price))}</td>
+                      <td>NGN {(new Intl.NumberFormat().format(price))}</td>
                       <td>{cartQuantity}</td>
-                      <td>{(new Intl.NumberFormat().format(price * cartQuantity))}</td>
+                      <td>NGN {(new Intl.NumberFormat().format(price * cartQuantity))}</td>
                     </tr>
                   );
                 })}

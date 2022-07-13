@@ -51,7 +51,7 @@ header {
         a {
           color: #fff;
           &:hover {
-            color: #c07d53;
+            color: #fff;
           }
         }
       }
@@ -65,9 +65,6 @@ header {
       display: flex;
       color: #fff;
       position: relative;
-      &:hover {
-        color: #c07d53;
-      }
       &.active {
         color: var(--color-danger);
       }
@@ -96,11 +93,17 @@ header {
     .links a {
       margin: 0 5px;
       color: #fff;
-      &:hover {
-        color: #c07d53;
-      }
       &.active {
         color: var(--color-danger);
+      }
+    }
+    .welcome {
+      color: "#fff";
+      background: #c07d53;
+      padding: 0.5rem;
+      border-radius: .3rem;
+      &:hover {
+        color: #fff;
       }
     }
   }

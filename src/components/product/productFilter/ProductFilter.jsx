@@ -76,7 +76,7 @@ export default function ProductFilter({ showFilter, setShowFilter }) {
           ))}
         </select>
         <h4>Price</h4>
-        <p>${`${price}`}</p>
+        <p>NGN {new Intl.NumberFormat().format(price)}</p>
         <div className="styles price">
           <input
             type="range"

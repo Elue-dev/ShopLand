@@ -6,6 +6,7 @@ import {
   Signup,
   Reset,
   Admin,
+  Saved,
   Cart,
   CheckoutDetails,
   Checkout,
@@ -49,6 +50,7 @@ function App() {
           />
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/saved-products" element={<Saved />} />
           <Route path="/checkout-details" element={<ProtectedRoute><CheckoutDetails /></ProtectedRoute>} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout-success" element={<ProtectedRoute><CheckoutSuccess /></ProtectedRoute>} />

@@ -18,7 +18,12 @@ import Card from "../../components/card/Card";
 import styles from "./cart.module.scss";
 import cartEmpty from "../../assets/cartempty.png";
 import Notiflix from "notiflix";
-import { selectEmail, selectIsLoggedIn, selectUserID, selectUserName } from "../../redux/slice/authSlice";
+import {
+  selectEmail,
+  selectIsLoggedIn,
+  selectUserID,
+  selectUserName,
+} from "../../redux/slice/authSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
 import PaystackPop from "@paystack/inline-js";
 import { toast } from "react-toastify";
@@ -36,7 +41,7 @@ export default function Cart() {
 
   const totalAmount = useSelector(selectCartTotalAmounts);
   const customerEmail = useSelector(selectEmail);
-  const name = useSelector(selectUserName)
+  const name = useSelector(selectUserName);
   const userID = useSelector(selectUserID);
   const userEmail = useSelector(selectEmail);
 
@@ -110,13 +115,13 @@ export default function Cart() {
         amount: totalAmount * 100,
         email: customerEmail,
         name,
-        onSuccess () {
-          saveOrder()
-          navigate('/checkout-success')
+        onSuccess() {
+          saveOrder();
+          navigate("/checkout-success");
         },
-        onCancel () {
-          console.log('')
-        }
+        onCancel() {
+          console.log("");
+        },
       });
     };
 
@@ -202,7 +207,7 @@ export default function Cart() {
                           className="--btn"
                           onClick={() => decreaseCart(cart)}
                         >
-                          -
+                          -s
                         </button>
                         <p>
                           <b>{cartQuantity}</b>
@@ -215,7 +220,9 @@ export default function Cart() {
                         </button>
                       </div>
                     </td>
-                    <td>{new Intl.NumberFormat().format(price * cartQuantity)}</td>
+                    <td>
+                      {new Intl.NumberFormat().format(price * cartQuantity)}
+                    </td>
                     <td className={styles.icons}>
                       <FaTrashAlt
                         size={18}

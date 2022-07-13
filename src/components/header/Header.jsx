@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiMenuAddLine, RiShoppingCartLine } from "react-icons/ri";
 import { VscEyeClosed } from "react-icons/vsc";
@@ -16,6 +16,7 @@ import { AdminOnlyLink } from "../adminOnlyRoute/AdminOnlyRoute";
 import {
   CALCULATE_TOTAL_QUANTITY,
   selectCartTotalQuantity,
+  selectSavedItems,
 } from "../../redux/slice/cartSlice";
 
 const logo = (
@@ -37,6 +38,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const { logout } = useAuth();
   const cartTotalQty = useSelector(selectCartTotalQuantity);
+  const saved = useSelector(selectSavedItems);
 
   const cart = (
     <span className={styles.cart}>
@@ -151,7 +153,7 @@ export default function Header() {
                 </NavLink>
               </ShowOnLogout>
               <ShowOnLogin>
-                <a style={{ color: "#c07d53" }}>
+                <a className={styles.welcome}>
                   <FaUserCircle size={16} />
                   &nbsp; Hi, {displayName}
                 </a>
@@ -164,6 +166,11 @@ export default function Header() {
               <ShowOnLogin>
                 <NavLink to="/order-history" className={activeLink}>
                   My orders
+                </NavLink>
+              </ShowOnLogin>
+              <ShowOnLogin>
+                <NavLink to="/saved-products" className={activeLink}>
+                  Saved ({saved.length})
                 </NavLink>
               </ShowOnLogin>
               <ShowOnLogin>

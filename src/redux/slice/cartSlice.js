@@ -5,6 +5,9 @@ const initialState = {
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
+  savedItems: localStorage.getItem("savedItems")
+    ? JSON.parse(localStorage.getItem("savedItems"))
+    : [],
   cartTotalQuantity: 0,
   cartTotalAmounts: 0,
   previousURL: "",
@@ -106,6 +109,28 @@ const cartSlice = createSlice({
     SAVE_URL: (state, action) => {
       state.previousURL = action.payload;
     },
+    SAVE_FOR_LATER: (state, action) => {
+      console.log(action.payload)
+      let tempProducts = { ...action.payload, savedQuantity: 1 };
+      state.savedItems.push(tempProducts);
+      toast.success(`${action.payload.name} was saved for later`, {
+        position: "top-left",
+        pauseOnFocusLoss: false,
+      });
+      localStorage.setItem("savedItems", JSON.stringify(state.savedItems));
+    },
+    REMOVE_FROM_SAVED: (state, action) => {
+      const newSavedItem = state.savedItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+      state.savedItems = newSavedItem;
+      toast.info(`${action.payload.name} removed from your saved items`, {
+        position: "top-left",
+        pauseOnFocusLoss: false,
+      });
+      //save cart to LS
+      localStorage.setItem("savedItems", JSON.stringify(state.savedItems));
+    }
   },
 });
 
@@ -117,9 +142,12 @@ export const {
   CALCULATE_SUBTOTAL,
   CALCULATE_TOTAL_QUANTITY,
   SAVE_URL,
+  SAVE_FOR_LATER,
+  REMOVE_FROM_SAVED
 } = cartSlice.actions;
 
 export const selectCartItems = (state) => state.cart.cartItems;
+export const selectSavedItems = (state) => state.cart.savedItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmounts = (state) => state.cart.cartTotalAmounts;
 export const selectPreviousURL = (state) => state.cart.previousURL;

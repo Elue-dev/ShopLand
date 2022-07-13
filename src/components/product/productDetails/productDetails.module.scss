@@ -51,6 +51,14 @@
         }
       }
     }
+    .cart-buttons {
+      display: flex;
+      .later {
+        background: #555;
+        border: 2px solid #555;
+        color: #fff;
+      }
+    }
     .add {
       background: #000;
       color: #fff;

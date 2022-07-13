@@ -9,10 +9,12 @@ import { useDispatch } from "react-redux";
 import {
   ADD_TO_CART,
   CALCULATE_TOTAL_QUANTITY,
+  SAVE_FOR_LATER,
 } from "../../../redux/slice/cartSlice";
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import Card from "../../card/Card";
+import ShowOnLogin from "../../hiddenLinks/HiddenLink";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -28,9 +30,13 @@ export default function ProductDetail() {
     setProduct(document);
   }, [document]);
 
-  const addTocart = (product) => {
+  const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
     dispatch(CALCULATE_TOTAL_QUANTITY());
+  };
+
+  const addToSaved = (product) => {
+    dispatch(SAVE_FOR_LATER(product));
   };
 
   return (
@@ -48,7 +54,10 @@ export default function ProductDetail() {
             </div>
             <div className={styles.content}>
               <h3>{product.name}</h3>
-              <p className={styles.price}> NGN {new Intl.NumberFormat().format(product.price)}</p>
+              <p className={styles.price}>
+                {" "}
+                NGN {new Intl.NumberFormat().format(product.price)}
+              </p>
               <p>{product.description}</p>
               <p>
                 <b>SKU:</b> {product.id}
@@ -56,13 +65,22 @@ export default function ProductDetail() {
               <p>
                 <b>Brand:</b> {product.brand}
               </p>
-              <div className={styles.count}></div>
-              <button
-                className="--btn --btn-danger"
-                onClick={() => addTocart(product)}
-              >
-                ADD TO CART
-              </button>
+              <div className={styles["cart-buttons"]}>
+                <button
+                  className="--btn --btn-danger"
+                  onClick={() => addToCart(product)}
+                >
+                  ADD TO CART
+                </button>
+                <ShowOnLogin>
+                  <button
+                    className={`--btn --btn-danger ${styles.later}`}
+                    onClick={() => addToSaved(product)}
+                  >
+                    SAVE FOR LATER
+                  </button>
+                </ShowOnLogin>
+              </div>
               <Link to="/cart">
                 <ImEyePlus />
                 &nbsp; View cart
