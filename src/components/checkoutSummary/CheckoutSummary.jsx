@@ -32,7 +32,7 @@ export default function CheckoutSummary() {
             </p>
             <div className={styles.text}>
               <h4>Subtotal:</h4>
-              <h3>${cartTotalAmount.toFixed(2)}</h3>
+              <h3>NGN {cartTotalAmount.toFixed(2)}</h3>
             </div>
             {cartItems.map((item, index) => {
               const { id, name, price, cartQuantity } = item;
@@ -40,8 +40,8 @@ export default function CheckoutSummary() {
                 <Card key={id} cardClass={styles.card}>
                   <h4>Product: {name}</h4>
                   <p>Quantity: {cartQuantity}</p>
-                  <p>Unit price: ${price}</p>
-                  <p>Set Price: ${price * cartQuantity}</p>
+                  <p>Unit price: NGN {price}</p>
+                  <p>Set Price: NGN {price * cartQuantity}</p>
                 </Card>
               );
             })}
