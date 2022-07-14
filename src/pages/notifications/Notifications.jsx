@@ -12,7 +12,6 @@ export default function Notifications() {
   const notifs = useSelector(selectOrderHistory);
   const dispatch = useDispatch();
   const userID = useSelector(selectUserID);
-  console.log(data);
 
   useEffect(() => {
     dispatch(STORE_ORDERS(data));
