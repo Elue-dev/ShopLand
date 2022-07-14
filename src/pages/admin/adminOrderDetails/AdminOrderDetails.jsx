@@ -13,7 +13,6 @@ const OrderDetails = () => {
   useEffect(() => {
     setOrder(document);
   }, [document]);
-  console.log(order)
 
   return (
     <>
@@ -31,7 +30,8 @@ const OrderDetails = () => {
               <b>Order ID:</b> &nbsp;{order.id}
             </p>
             <p>
-              <b>Order Amount:</b> &nbsp;NGN {(new Intl.NumberFormat().format(order.orderAmount))}
+              <b>Order Amount:</b> &nbsp;NGN{" "}
+              {new Intl.NumberFormat().format(order.orderAmount)}
             </p>
             <p
               className={
@@ -40,16 +40,19 @@ const OrderDetails = () => {
                   : `${styles.pending}`
               }
             >
-              <b>Order Status:</b> &nbsp;{order.orderStatus}<br />
+              <b>Order Status:</b> &nbsp;{order.orderStatus}
+              <br />
+              <b>Order Notification:</b> {order.orderNotification}
+              <br />
               <b>Order placed by:</b> &nbsp;{order.userEmail}
             </p>
-            
+
             <br />
             <br />
             <table>
               <thead>
                 <tr>
-                  <th>s/n</th>
+                  <th>S/N</th>
                   <th>Product</th>
                   <th>Price</th>
                   <th>Quantity</th>
@@ -74,9 +77,12 @@ const OrderDetails = () => {
                           style={{ width: "100px" }}
                         />
                       </td>
-                      <td>NGN {(new Intl.NumberFormat().format(price))}</td>
+                      <td>NGN {new Intl.NumberFormat().format(price)}</td>
                       <td>{cartQuantity}</td>
-                      <td>NGN {(new Intl.NumberFormat().format(price * cartQuantity))}</td>
+                      <td>
+                        NGN{" "}
+                        {new Intl.NumberFormat().format(price * cartQuantity)}
+                      </td>
                     </tr>
                   );
                 })}

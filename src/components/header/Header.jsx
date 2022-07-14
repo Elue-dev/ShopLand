@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiMenuAddLine, RiShoppingCartLine } from "react-icons/ri";
 import { VscEyeClosed } from "react-icons/vsc";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaRegEnvelope } from "react-icons/fa";
 import styles from "./header.module.scss";
 import { useAuth } from "../../contexts/authContext";
 import { toast } from "react-toastify";
@@ -176,6 +176,11 @@ export default function Header() {
                   Log out
                 </NavLink>
               </ShowOnLogin>
+              <ShowOnLogin>
+              <NavLink to="/notifications" className={activeLink}>
+                <FaRegEnvelope />
+              </NavLink>
+            </ShowOnLogin>
             </span>
             {cart}
           </div>

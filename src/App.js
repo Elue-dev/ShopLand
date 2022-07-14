@@ -7,6 +7,7 @@ import {
   Reset,
   Admin,
   Saved,
+  Notifications,
   Cart,
   CheckoutDetails,
   Checkout,
@@ -49,6 +50,7 @@ function App() {
             }
           />
           <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/notifications" element={<Notifications />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/saved-products" element={<Saved />} />
           <Route path="/checkout-details" element={<ProtectedRoute><CheckoutDetails /></ProtectedRoute>} />

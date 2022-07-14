@@ -32,7 +32,7 @@ const OrderDetails = () => {
               <b>Order Amount:</b> NGN {new Intl.NumberFormat().format(order.orderAmount)}
             </p>
             <p>
-              <b>Order Status:</b> {order.orderStatus} (This could change at anytime by the admin, ensure to check back and check status frequently)
+              <b>Order Status:</b> {order.orderStatus} {order.orderStatus === 'Delivered' ? "" :'(This could change at anytime, check here or your inbox for changes to this status)' }
             </p>
             <br />
             <table>

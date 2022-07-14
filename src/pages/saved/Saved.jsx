@@ -31,7 +31,7 @@ export default function Saved() {
             <div className={styles.empty}>
               <MdOutlineFreeCancellation className={styles["basket-empty"]} />{" "}
               <br />
-              <h2>You have not saved any products yet</h2>
+              <h2>You have no products on your saved list</h2>
               <button className="--btn --btn-block">
                 <Link to="/#products">&larr; Start Exploring</Link>
               </button>

@@ -84,6 +84,7 @@ export default function Cart() {
   }, [dispatch, cartItems]);
 
   const url = window.location.href;
+  
   const saveOrder = () => {
     const today = new Date();
     const date = today.toDateString();
@@ -95,6 +96,7 @@ export default function Cart() {
       orderTime: time,
       orderAmount: cartTotalAmount,
       orderStatus: "Order Placed...",
+      orderNotification: 'Your order has beenPlaced.....',
       cartItems,
       createdAt: Timestamp.now().toDate(),
     };
