@@ -84,7 +84,7 @@ export default function Cart() {
   }, [dispatch, cartItems]);
 
   const url = window.location.href;
-  
+
   const saveOrder = () => {
     const today = new Date();
     const date = today.toDateString();
@@ -96,7 +96,7 @@ export default function Cart() {
       orderTime: time,
       orderAmount: cartTotalAmount,
       orderStatus: "Order Placed...",
-      orderNotification: 'Your order has beenPlaced.....',
+      orderNotification: "Your order has been Placed.....",
       cartItems,
       createdAt: Timestamp.now().toDate(),
     };
@@ -240,9 +240,11 @@ export default function Cart() {
         )}
         {cartItems.length ? (
           <div className={styles.summary}>
-            <button className="--btn --btn-danger" onClick={confirmClearCart}>
-              Clear Cart
-            </button>
+            {cartItems.length > 1 ? (
+              <button className="--btn --btn-danger" onClick={confirmClearCart}>
+                Clear Cart
+              </button>
+            ) : '.'}
             <div className={styles.checkout}>
               <div>
                 <Link to="/#products" style={{ fontWeight: "700" }}>

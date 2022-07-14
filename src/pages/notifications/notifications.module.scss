@@ -1,9 +1,27 @@
 .notif {
-    padding-top: 3rem;
-    min-height: 78vh;
-}
-
-h1 {
+  padding-top: 3rem;
+  min-height: 78vh;
+  .details {
+    padding: 1rem;
+  }
+  h1 {
     text-align: center;
     text-decoration: underline;
+    text-decoration-color:#3c4448;
+    font-size: 3.3rem;
+  }
+  h2 {
+    font-size: 2.3rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .notif {
+    h1 {
+      font-size: 2rem;
+    }
+    h2 {
+      font-size: 1.7rem;
+    }
+  }
 }

@@ -33,7 +33,7 @@ const ChangeOrderStatus = ({ order, id }) => {
       setDoc(doc(database, "Orders", id), orderConfig);
 
       setIsLoading(false);
-      toast.success("Order status changes successfully");
+      toast.success("Order status & notification changed successfully");
       navigate("/admin/orders");
     } catch (error) {
       setIsLoading(false);
@@ -66,7 +66,6 @@ const ChangeOrderStatus = ({ order, id }) => {
             </span>
             <br />
 
-            {/* =====notif========= */}
             <span>
               <h4>Update Notification</h4>
               <select
@@ -77,10 +76,18 @@ const ChangeOrderStatus = ({ order, id }) => {
                 <option value="" disabled>
                   -- Choose one --
                 </option>
-                <option value="Your order has been Placed.....">Your order has been Placed.....</option>
-                <option value="Your order has been changed to the status of PROCESSING...">Your order has been changes to the status of PROCESSING...</option>
-                <option value="Your order has been changed to the status of SHIPPED...">Your order has been changes to the status of SHIPPED...</option>
-                <option value="Your order has been changed to the status of DELIEVERED!">Your order has been changes to the status of DELIEVERED!</option>
+                <option value="Your order has been Placed.....">
+                  Your order has been Placed.....
+                </option>
+                <option value="Your order has been changed to the status of PROCESSING...">
+                  Your order has been changes to the status of PROCESSING...
+                </option>
+                <option value="Your order has been changed to the status of SHIPPED...">
+                  Your order has been changes to the status of SHIPPED...
+                </option>
+                <option value="Your order has been changed to the status of DELIEVERED!">
+                  Your order has been changes to the status of DELIEVERED!
+                </option>
               </select>
             </span>
             <span>

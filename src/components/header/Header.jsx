@@ -86,7 +86,7 @@ export default function Header() {
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, displayName]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -178,7 +178,7 @@ export default function Header() {
               </ShowOnLogin>
               <ShowOnLogin>
               <NavLink to="/notifications" className={activeLink}>
-                <FaRegEnvelope />
+                <FaRegEnvelope size={15} />
               </NavLink>
             </ShowOnLogin>
             </span>

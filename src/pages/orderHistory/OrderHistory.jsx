@@ -40,82 +40,89 @@ export default function OrderHistory() {
         </p>
         <br />
         <>
-          {loading && <Loader />}
-          <div className={styles.table}>
-            {filteredOrders.length === 0 ? (
-              <>
-                <div className={styles.empty}>
-                  <TbBasketOff className={styles["basket-empty"]} /> <br />
-                  <h2>You have no orders yet.</h2>
-                </div>
+          {loading ? (
+            <Loader />
+          ) : (
+            <div className={styles.table}>
+              {filteredOrders.length === 0 ? (
                 <>
-                  <h3>
-                    <b>Recommended for you</b>
-                  </h3>
-                  <div className={styles.related}>
-                    {products.data?.slice(0, 6).map((product) => {
-                      const { id, name, imageUrl, price } = product;
+                  <div className={styles.empty}>
+                    <TbBasketOff className={styles["basket-empty"]} /> <br />
+                    <h2>You have no orders yet.</h2>
+                  </div>
+                  <>
+                    <h3>
+                      <b>Recommended for you</b>
+                    </h3>
+                    <div className={styles.related}>
+                      {products.data?.slice(0, 6).map((product) => {
+                        const { id, name, imageUrl, price } = product;
+                        return (
+                          <Link key={id} to={`/product-details/${id}`}>
+                            <Card>
+                              <div className={styles.details}>
+                                <img src={imageUrl} alt={name} />
+                                <p>{name}</p>
+                                <p>
+                                  NGN {new Intl.NumberFormat().format(price)}
+                                </p>
+                              </div>
+                            </Card>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </>
+                </>
+              ) : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>S/N</th>
+                      <th>Date</th>
+                      <th>Order ID</th>
+                      <th>Order Amount</th>
+                      <th>Order Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredOrders.map((order, index) => {
+                      const {
+                        id,
+                        orderDate,
+                        orderTime,
+                        orderAmount,
+                        orderStatus,
+                      } = order;
                       return (
-                        <Link key={id} to={`/product-details/${id}`}>
-                          <Card >
-                            <div className={styles.details}>
-                              <img src={imageUrl} alt={name} />
-                              <p>{name}</p>
-                              <p>NGN {new Intl.NumberFormat().format(price)}</p>
-                            </div>
-                          </Card>
-                        </Link>
+                        <tr key={id} onClick={() => handleClick(id)}>
+                          <td>{index + 1}</td>
+                          <td>
+                            {orderDate} at {orderTime}
+                          </td>
+                          <td>{id}</td>
+                          <td>
+                            NGN {new Intl.NumberFormat().format(orderAmount)}
+                          </td>
+                          <td>
+                            <p
+                              className={
+                                orderStatus === "Delivered"
+                                  ? `${styles.pending}`
+                                  : `${styles.delievered}`
+                              }
+                            >
+                              {orderStatus}
+                            </p>
+                          </td>
+                        </tr>
                       );
                     })}
-                  </div>
-                </>
-              </>
-            ) : (
-              <table>
-                <thead>
-                  <tr>
-                    <th>S/N</th>
-                    <th>Date</th>
-                    <th>Order ID</th>
-                    <th>Order Amount</th>
-                    <th>Order Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredOrders.map((order, index) => {
-                    const {
-                      id,
-                      orderDate,
-                      orderTime,
-                      orderAmount,
-                      orderStatus,
-                    } = order;
-                    return (
-                      <tr key={id} onClick={() => handleClick(id)}>
-                        <td>{index + 1}</td>
-                        <td>
-                          {orderDate} at {orderTime}
-                        </td>
-                        <td>{id}</td>
-                        <td>NGN {new Intl.NumberFormat().format(orderAmount)}</td>
-                        <td>
-                          <p
-                            className={
-                              orderStatus === "Delivered"
-                                ? `${styles.pending}`
-                                : `${styles.delievered}`
-                            }
-                          >
-                            {orderStatus}
-                          </p>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            )}
-          </div>
+                  </tbody>
+                </table>
+              )}
+            </div>
+          )}
         </>
       </div>
     </section>

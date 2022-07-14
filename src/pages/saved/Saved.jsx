@@ -43,8 +43,12 @@ export default function Saved() {
           return (
             <div key={saved.id} className={styles["saved-item"]}>
               <img src={saved.imageUrl} alt={saved.name} />
-              <p><b>{saved.name}</b></p>
-              <p><b>NGN {new Intl.NumberFormat().format(saved.price)}</b></p>
+              <p>
+                <b>{saved.name}</b>
+              </p>
+              <p>
+                <b>NGN {new Intl.NumberFormat().format(saved.price)}</b>
+              </p>
               <div className={styles.buttons}>
                 <button className="--btn --btn-block">
                   <Link to={`/product-details/${saved.id}`}>See details</Link>

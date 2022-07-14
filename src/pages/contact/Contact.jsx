@@ -34,7 +34,7 @@ const Contact = () => {
   return (
     <section>
       <div className={`container ${styles.contact}`}>
-        <h2>Contact Us</h2>
+        <h2>Reach out to us</h2>
         <div className={styles.section}>
           <form ref={form} onSubmit={sendEmail}>
             <Card cardClass={styles.card}>
@@ -61,7 +61,9 @@ const Contact = () => {
               />
               <label>Message</label>
               <textarea name="message" cols="30" rows="10"></textarea>
-              <button className="--btn --btn-primary --btn-block">Send Message</button>
+              <button className="--btn --btn-primary --btn-block">
+                Send Message
+              </button>
             </Card>
           </form>
 
