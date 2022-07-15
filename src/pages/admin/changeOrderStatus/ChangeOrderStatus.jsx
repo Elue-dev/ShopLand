@@ -67,7 +67,7 @@ const ChangeOrderStatus = ({ order, id }) => {
             <br />
 
             <span>
-              <h4>Update Notification</h4>
+              <h4>Update Notification<br /> (Must correspond with status)</h4>
               <select
                 value={notif}
                 onChange={(e) => setNotif(e.target.value)}
@@ -80,13 +80,13 @@ const ChangeOrderStatus = ({ order, id }) => {
                   Your order has been Placed.....
                 </option>
                 <option value="Your order has been changed to the status of PROCESSING...">
-                  Your order has been changes to the status of PROCESSING...
+                  Your order has been changed to the status of PROCESSING...
                 </option>
                 <option value="Your order has been changed to the status of SHIPPED...">
-                  Your order has been changes to the status of SHIPPED...
+                  Your order has been changed to the status of SHIPPED...
                 </option>
                 <option value="Your order has been changed to the status of DELIEVERED!">
-                  Your order has been changes to the status of DELIEVERED!
+                  Your order has been changed to the status of DELIEVERED!
                 </option>
               </select>
             </span>
@@ -99,34 +99,6 @@ const ChangeOrderStatus = ({ order, id }) => {
         </Card>
       </div>
 
-      {/* ======Notification======== */}
-      {/* <div className={styles.status}>
-        <Card cardClass={styles.card}>
-          <h4>Update Order Notification</h4>
-          <form onSubmit={(e) => editOrder(e, id)}>
-            <span>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                required
-              >
-                <option value="" disabled>
-                  -- Choose one --
-                </option>
-                <option value="Order Placed...">Order Placed...</option>
-                <option value="Processing...">Processing...</option>
-                <option value="Shipped...">Shipped...</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </span>
-            <span>
-              <button type="submit" className="--btn --btn-primary">
-                Update Status
-              </button>
-            </span>
-          </form>
-        </Card>
-      </div> */}
     </>
   );
 };
