@@ -78,6 +78,7 @@ const ReviewProducts = () => {
               onChange={(rate) => {
                 setRate(rate);
               }}
+              required
             />
             <label>Review</label>
             <textarea
