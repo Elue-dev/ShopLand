@@ -37,5 +37,8 @@ view the activities of the applications such as total earnings and orders.
 
 <img width="1440" alt="Screen Shot 2022-07-18 at 16 35 47" src="https://user-images.githubusercontent.com/79481288/179548897-b67a61ad-e763-45eb-ae19-e0cc14032090.png">
 
+<img width="1436" alt="Screen Shot 2022-07-18 at 16 44 45" src="https://user-images.githubusercontent.com/79481288/179550150-7dc3e78c-2d12-4dc1-85d3-b987cec09fe9.png">
+
+
 
 
