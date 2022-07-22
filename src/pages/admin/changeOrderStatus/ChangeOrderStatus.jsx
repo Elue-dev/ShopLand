@@ -1,17 +1,33 @@
 import { doc, setDoc, Timestamp } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { database } from "../../../firebase/firebase";
 import Card from "../../../components/card/Card";
 import Loader from "../../../components/loader/Loader";
 import styles from "./changeOrderStatus.module.scss";
+import { BsInfoCircle } from "react-icons/bs";
 
 const ChangeOrderStatus = ({ order, id }) => {
   const [status, setStatus] = useState("");
   const [notif, setNotif] = useState("");
+  const [disable, setDisable] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (order !== null && order.orderNotification !== null) {
+      if (
+        order.orderNotification ===
+          "Your order has been changed to the status of DELIEVERED!" ||
+        order.orderStatus === "Delivered"
+      ) {
+        setDisable(true);
+      } else {
+        setDisable(false);
+      }
+    }
+  }, [order]);
 
   const editOrder = (e, id) => {
     e.preventDefault();
@@ -47,6 +63,20 @@ const ChangeOrderStatus = ({ order, id }) => {
 
       <div className={styles.status}>
         <Card cardClass={styles.card}>
+          {disable ? (
+            <p className={styles["order-alert"]}>
+              <BsInfoCircle size={13} />
+              &nbsp; Product has been delievered, so you can't change it's
+              status.
+            </p>
+          ) : null}
+          {!disable ? (
+            <p className={styles["order-alert"]}>
+              <BsInfoCircle size={13} />
+              &nbsp; Only change status and notification to Delievered when you
+              have confirmed that the user has gotten this product.
+            </p>
+          ) : null}
           <h4>Update Status</h4>
           <form onSubmit={(e) => editOrder(e, id)}>
             <span>
@@ -54,6 +84,7 @@ const ChangeOrderStatus = ({ order, id }) => {
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
                 required
+                disabled={disable}
               >
                 <option value="" disabled>
                   -- Choose one --
@@ -67,11 +98,15 @@ const ChangeOrderStatus = ({ order, id }) => {
             <br />
 
             <span>
-              <h4>Update Notification<br /> (Must correspond with status)</h4>
+              <h4>
+                Update Notification
+                <br /> (Must correspond with status)
+              </h4>
               <select
                 value={notif}
                 onChange={(e) => setNotif(e.target.value)}
                 required
+                disabled={disable}
               >
                 <option value="" disabled>
                   -- Choose one --
@@ -98,7 +133,6 @@ const ChangeOrderStatus = ({ order, id }) => {
           </form>
         </Card>
       </div>
-
     </>
   );
 };

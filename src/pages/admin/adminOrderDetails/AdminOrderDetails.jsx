@@ -6,6 +6,8 @@ import { Link, useParams } from "react-router-dom";
 import ChangeOrderStatus from "../changeOrderStatus/ChangeOrderStatus";
 
 const OrderDetails = () => {
+  const [disableStatus, setDisableStatus] = useState(false);
+  const [notif, setNotif] = useState(null);
   const [order, setOrder] = useState(null);
   const { id } = useParams();
   const { document } = useFetchDocument("Orders", id);

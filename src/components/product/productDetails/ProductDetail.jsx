@@ -16,6 +16,7 @@ import {
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import Card from "../../card/Card";
+import { selectUserID } from "../../../redux/slice/authSlice";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -23,6 +24,7 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
+  const user = useSelector(selectUserID);
   const savedItems = useSelector(selectSavedItems);
 
   //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
@@ -44,7 +46,6 @@ export default function ProductDetail() {
   const removeFromSaved = (product) => {
     dispatch(REMOVE_FROM_SAVED(product));
   };
-
 
   return (
     <section>
@@ -113,7 +114,6 @@ export default function ProductDetail() {
                   {product &&
                     filteredReviews?.map((customerReview, index) => {
                       const { rate, review, reviewDate, name } = customerReview;
-
                       return (
                         <div key={index} className={styles.review}>
                           <StarsRating value={rate} />
