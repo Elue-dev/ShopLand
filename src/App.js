@@ -22,11 +22,13 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.scss";
 import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   return (
     <>
       <BrowserRouter>
+      <ScrollToTop />
         <ToastContainer
           toastStyle={{
             backgroundColor: "#c07d53",
