@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <ScrollToTop />
+        <ScrollToTop />
         <ToastContainer
           toastStyle={{
             backgroundColor: "#c07d53",
