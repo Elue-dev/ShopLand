@@ -51,8 +51,7 @@ export default function Signup() {
       await signup(email, password);
       await updateName(userName);
       setLoading(false);
-      // window.location.reload()
-      redirectUser()
+      redirectUser();
       toast.success("Successfully signed in", {
         autoClose: 5000,
         pauseOnFocusLoss: false,

@@ -23,6 +23,7 @@ import "./App.scss";
 import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import ScrollToTop from "./ScrollToTop";
+import DeleteAccount from "./pages/auth/DeleteAccount";
 
 function App() {
   return (
@@ -43,6 +44,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/reset" element={<Reset />} />
+          <Route
+            path="/delete-account"
+            element={
+              <ProtectedRoute>
+                <DeleteAccount />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/*"
             element={

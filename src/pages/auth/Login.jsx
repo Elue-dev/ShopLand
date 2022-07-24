@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import styles from "./auth.module.scss";
 import { useAuth } from "../../contexts/authContext";
-import Loader from "../../components/loader/Loader";
 import spinnerImg from "../../assets/spinner.jpg";
 import { useSelector } from "react-redux";
 import { selectPreviousURL } from "../../redux/slice/cartSlice";
@@ -122,7 +121,6 @@ export default function Login() {
 
   return (
     <>
-      {/* {loading && <Loader />} */}
       <section className={`container ${styles.auth}`}>
         <div className={styles.img}>
           <img src={loginImg} alt="login" width="400" />
@@ -141,15 +139,15 @@ export default function Login() {
                 required
               />
               <label className={styles.label}>
-              <input
-                type="password"
-                value={password}
-                ref={passwordRef}
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-               <span onClick={handleShowPassword}>
+                <input
+                  type="password"
+                  value={password}
+                  ref={passwordRef}
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <span onClick={handleShowPassword}>
                   {view ? <IoIosEye /> : <IoMdEyeOff />}
                 </span>
               </label>

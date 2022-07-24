@@ -112,8 +112,22 @@ header {
         color: #c07d53;
       }
     }
+    .delete {
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      outline: 0;
+      border: 0;
+      border-radius: 0.3rem;
+      padding: 0.5rem 0.6rem;
+      margin-left: 1.3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+    }
   }
-
   .menu-icon {
     cursor: pointer;
     display: none;

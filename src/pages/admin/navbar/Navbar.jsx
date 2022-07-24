@@ -42,6 +42,11 @@ export default function Navbar() {
               Users
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/admin/deleted-users" className={activeLink}>
+              Deleted Users
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>
