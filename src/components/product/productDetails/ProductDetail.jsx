@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import spinnerImg from "../../../assets/spinner.jpg";
-import StarsRating from "react-star-rate";
+import StarRatings from "react-star-ratings";
 import { BsInfoCircle } from "react-icons/bs";
 import { ImEyePlus } from "react-icons/im";
 import styles from "./productDetails.module.scss";
@@ -16,7 +16,6 @@ import {
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import Card from "../../card/Card";
-import { selectUserID } from "../../../redux/slice/authSlice";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -24,7 +23,6 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
-  const user = useSelector(selectUserID);
   const savedItems = useSelector(selectSavedItems);
 
   //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
@@ -116,7 +114,13 @@ export default function ProductDetail() {
                       const { rate, review, reviewDate, name } = customerReview;
                       return (
                         <div key={index} className={styles.review}>
-                          <StarsRating value={rate} />
+                          <br />
+                          <StarRatings
+                            rating={rate}
+                            starDimension="30px"
+                            starRatedColor="gold"
+                            starSpacing="3px"
+                          />
                           <p>{review}</p>
                           <span>
                             <b>{reviewDate}</b>

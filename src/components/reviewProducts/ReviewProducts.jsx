@@ -20,7 +20,7 @@ const ReviewProducts = () => {
   const { user } = useAuth();
   const { document } = useFetchDocument("Products", id);
   const userID = useSelector(selectUserID);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     setProduct(document);
@@ -45,7 +45,7 @@ const ReviewProducts = () => {
       toast.success("Your review has been submitted");
       setRate(0);
       setReview("");
-      navigate('/order-history')
+      navigate("/order-history");
     } catch (error) {
       toast.error(error.message);
     }
