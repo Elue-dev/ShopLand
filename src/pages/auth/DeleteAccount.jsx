@@ -27,7 +27,7 @@ export default function DeleteAccount() {
   const [disable, setDisable] = useState(false);
 
   const userEmail = user.email;
-  const credential = EmailAuthProvider.credential(userEmail, password);
+  const credential = EmailAuthProvider.credential(email, password);
 
   useEffect(() => {
     if (!email || !password) {
@@ -47,17 +47,26 @@ export default function DeleteAccount() {
         setPassword("");
       })
       .catch((err) => {
-        if (err.message === "Firebase: Error (auth/user-token-expired).")
+        if (err.message === "Firebase: Error (auth/user-token-expired).") {
           setError(
             "it has been long since your last login, please logout and login again to proceed"
           );
+          window.setTimeout(() => {
+            setError("");
+          }, 3000);
+        }
         if (err.message === "Firebase: Error (auth/wrong-password).") {
           setError("Wrong password");
           window.setTimeout(() => {
             setError("");
           }, 3000);
         }
-
+        if (err.message === "Firebase: Error (auth/user-mismatch).") {
+          setError("Invalid Email");
+          window.setTimeout(() => {
+            setError("");
+          }, 3000);
+        }
         setLoading(false);
       });
   };
