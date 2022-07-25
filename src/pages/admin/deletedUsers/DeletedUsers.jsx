@@ -23,7 +23,7 @@ export default function Users() {
           {loading && <Loader />}
           <div className={styles.table}>
             {deletedUsers.length === 0 ? (
-              <p>You have no users at the moment</p>
+              <p>You have no deleted users at the moment</p>
             ) : (
               <table>
                 <thead>

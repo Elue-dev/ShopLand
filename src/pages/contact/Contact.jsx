@@ -87,7 +87,7 @@ const Contact = () => {
                 <span>
                   <FaTwitter />
                   <a
-                    href="https://www.linkedin.com/in/wisdom-elue-8822a5188"
+                    href="https://www.twitter.com/eluewisdom_"
                     style={{ color: "#ffff", fontSize: "1.5rem" }}
                   >
                     eluewisdom_
@@ -96,7 +96,7 @@ const Contact = () => {
                 <span>
                   <FaLinkedin />
                   <a
-                    href="https://www.twitter.com/eluewisdom_"
+                    href="https://www.linkedin.com/in/wisdom-elue-8822a5188"
                     style={{ color: "#ffff", fontSize: "1.5rem" }}
                   >
                     Wisdom Elue

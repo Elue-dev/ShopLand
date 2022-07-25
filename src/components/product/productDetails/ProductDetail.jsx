@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import spinnerImg from "../../../assets/spinner.jpg";
 import StarRatings from "react-star-ratings";
 import { BsInfoCircle } from "react-icons/bs";
@@ -24,6 +24,7 @@ export default function ProductDetail() {
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
   const savedItems = useSelector(selectSavedItems);
+  const navigate = useNavigate();
 
   //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
   const filteredReviews = data.filter((review) => review.productID === id);
@@ -49,7 +50,9 @@ export default function ProductDetail() {
     <section>
       <div className={`container ${styles.product}`}>
         <div>
-          <Link to="/#products">&larr; Back To Products</Link>
+          <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+            &larr; Go back
+          </p>
         </div>
         {product === null ? (
           <img src={spinnerImg} alt="loading" style={{ width: "80px" }} />

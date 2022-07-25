@@ -77,9 +77,9 @@ export default function Reset() {
           {message && <p className="alert message">{message}</p>}
           <div className={styles.info}>
             <p>
-              Ensure to check your spam folder. If the link appears not to be
-              clickable, you may have to copy the link and paste in your browser
-              and continue.
+              If the email goes to your spam folder, click on 'Report as not
+              spam', this will move the mail from spam to your inbox. then go to your
+              inbox and continue from there.
             </p>
           </div>
           <form>
