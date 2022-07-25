@@ -33,7 +33,7 @@ export default function Reset() {
       setEmail("");
       setLoading(false);
       setMessage(
-        "Check your inbox for further instructions (Ensure to check spam folder)."
+        "Check your inbox for further instructions (Ensure to check spam folder, click on 'Report as not spam and continue from inbox')."
       );
       window.setTimeout(() => {
         setMessage("REDIRECTING...");
@@ -78,8 +78,8 @@ export default function Reset() {
           <div className={styles.info}>
             <p>
               If the email goes to your spam folder, click on 'Report as not
-              spam', this will move the mail from spam to your inbox. then go to your
-              inbox and continue from there.
+              spam', this will move the mail from spam to your inbox. then go to
+              your inbox and continue from there.
             </p>
           </div>
           <form>
