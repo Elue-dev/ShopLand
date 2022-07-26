@@ -27,7 +27,7 @@ const OrderDetails = () => {
     setOrder(document);
   }, [document]);
 
-  if (!order || !filteredAddress) {
+  if (!order) {
     return <Loader />;
   }
 
