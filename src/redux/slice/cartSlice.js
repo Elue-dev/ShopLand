@@ -92,7 +92,6 @@ const cartSlice = createSlice({
       const totalAmount = subtotalArray.reduce((curr, init) => {
         return curr + init;
       }, 0);
-      console.log(totalAmount)
       state.cartTotalAmounts = totalAmount;
     },
     CALCULATE_TOTAL_QUANTITY: (state) => {

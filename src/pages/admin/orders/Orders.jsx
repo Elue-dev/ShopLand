@@ -26,6 +26,10 @@ export default function Orders() {
   //unlike the orders page for the user where we had to make sure the order history that is fetched belongs to the logged in user
   //we are just displaying ALL the orders in the database
 
+  if (orders.length === 0) {
+    return <Loader />;
+  }
+
   return (
     <section>
       <div className={`container ${styles.order}`}>
@@ -35,7 +39,6 @@ export default function Orders() {
         </p>
         <br />
         <>
-          {loading && <Loader />}
           <div className={styles.table}>
             {orders.length === 0 ? (
               <p>No order found.</p>

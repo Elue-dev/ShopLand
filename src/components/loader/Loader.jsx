@@ -1,14 +1,19 @@
-import ReactDOM from 'react-dom'
-import loaderImg from '../../assets/loader.gif'
-import styles from './loader.module.scss'
+import { useEffect, useState } from "react";
+import BounceLoader from "react-spinners/BounceLoader";
+import "./loader.scss";
 
 export default function Loader() {
-  return ReactDOM.createPortal (
-    <div className={styles.wrapper}>
-        <div className={styles.loader}>
-            <img src={loaderImg} alt="loading..." />
-        </div>
-    </div>,
-    document.getElementById('loader')
-  )
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+  });
+
+  return (
+    <div className="loader">
+      {loading && (
+        <BounceLoader color={"#c07d53"} loading={loading} size={50} />
+      )}
+    </div>
+  );
 }

@@ -48,13 +48,16 @@ export default function Users() {
     );
   };
 
+  if (users.length === 0) {
+    return <Loader />;
+  }
+
   return (
     <section className={styles.sec}>
       <div className={`container ${styles.order}`}>
         <h2>Users</h2>
         <br />
         <>
-          {loading && <Loader />}
           <div className={styles.table}>
             {users.length === 0 ? (
               <p>You have no users at the moment</p>

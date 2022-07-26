@@ -14,7 +14,6 @@ import {
   CALCULATE_TOTAL_ORDER_AMOUNTS,
   selectOrderHistory,
   selectTotalOrderAmount,
-  STORE_ADDRESS,
   STORE_ORDERS,
 } from "../../../redux/slice/orderSlice";
 import useFetchCollection from "../../../hooks/useFetchCollection";
@@ -27,7 +26,6 @@ const ordersIcon = <FaCartArrowDown size={30} color="#3c4448" />;
 
 const Home = () => {
   const products = useSelector(selectProducts);
-  console.log(products)
   
   const orders = useSelector(selectOrderHistory);
   const totalOrderAmount = useSelector(selectTotalOrderAmount);

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useFetchDocument from "../../../hooks/useFetchDocuments";
 import styles from "./adminOrderDetails.module.scss";
-import spinnerImg from "../../../assets/spinner.jpg";
 import { Link, useParams } from "react-router-dom";
 import ChangeOrderStatus from "../changeOrderStatus/ChangeOrderStatus";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectAddressHistory,
-  STORE_ADDRESS,
-} from "../../../redux/slice/orderSlice";
+import { useDispatch } from "react-redux";
+import { STORE_ADDRESS } from "../../../redux/slice/orderSlice";
 import useFetchCollection from "../../../hooks/useFetchCollection";
-import { selectEmail, selectUserID } from "../../../redux/slice/authSlice";
+import Card from "../../../components/card/Card";
+import Loader from "../../../components/loader/Loader";
 
 const OrderDetails = () => {
   const [order, setOrder] = useState(null);
@@ -32,6 +29,10 @@ const OrderDetails = () => {
     setOrder(document);
   }, [document]);
 
+  if (!order || !filteredAddress) {
+    return <Loader />;
+  }
+
   return (
     <>
       <div className={styles.table}>
@@ -39,115 +40,135 @@ const OrderDetails = () => {
           <Link to="/admin/orders">&larr; Back To Orders</Link>
         </div>
         <br />
-        <h3 style={{ textDecoration: "underline" }}>Order Details</h3>
-        {order === null ? (
-          <img src={spinnerImg} alt="Loading..." style={{ width: "50px" }} />
-        ) : (
-          <>
-            <p>
-              <b>Order ID:</b> &nbsp;{order.id}
-            </p>
-            <p>
-              <b>Order Amount:</b> &nbsp;NGN{" "}
-              {new Intl.NumberFormat().format(order.orderAmount)}
-            </p>
-            <p
-              className={
-                order.orderStatus === "Delivered"
-                  ? `${styles.delievered}`
-                  : `${styles.pending}`
-              }
-            >
-              <b>Order Status:</b> &nbsp;{order.orderStatus}
+        <div className={styles.flex}>
+          <Card cardClass={styles.card}>
+            <h3 style={{ textDecoration: "underline" }}>Order Details</h3>
+            <>
+              <p>
+                <b>Order ID:</b> &nbsp;{order.id}
+              </p>
+              <p>
+                <b>Order Amount:</b> &nbsp;NGN{" "}
+                {new Intl.NumberFormat().format(order.orderAmount)}
+              </p>
+              <p
+                className={
+                  order.orderStatus === "Delivered"
+                    ? `${styles.delievered}`
+                    : `${styles.pending}`
+                }
+              >
+                <b>Order Status:</b> &nbsp;{order.orderStatus}
+                <br />
+                <b>Order Notification:</b> {order.orderNotification}
+                <br />
+                <b>Order placed by:</b> &nbsp;{order.userEmail}
+                <br />
+                {filteredAddress && (
+                  <>
+                    <b>Time Of Order: </b> &nbsp;{filteredAddress.time}
+                    <br />
+                    <b>Date Of Order: </b> &nbsp; {filteredAddress.date}
+                  </>
+                )}
+              </p>
               <br />
-              <b>Order Notification:</b> {order.orderNotification}
-              <br />
-              <b>Order placed by:</b> &nbsp;{order.userEmail}
-            </p>
-            <br />
-            <h3 style={{ textDecoration: "underline" }}>Customer Details</h3>
-            {filteredAddress ? (
-              <div>
-                <p>
-              <b>Name: </b>
-              {filteredAddress.name}
-            </p>
-            <p>
-              <b>Phone Number: </b>
-              {filteredAddress.phone}
-            </p>
-            <p>
-              <b>Name: </b>
-              {filteredAddress.name}
-            </p>
-            <p>
-              <b>Address 1: </b>
-              {filteredAddress.line1}
-            </p>
-            <p>
-              <b>Address 2: </b>
-              {filteredAddress.line2}
-            </p>
-            <p>
-              <b>State: </b>
-              {filteredAddress.state}
-            </p>
-            <p>
-              <b>Time Of Order: </b>
-              {filteredAddress.time}
-            </p>
-            <p>
-              <b>Date Of Order: </b>
-              {filteredAddress.date}
-            </p>
-              </div>
-            ) : (
-              <h4>This order was made before the address functionality was added.</h4>
-            )}
-            <br />
-            <br />
-            <table>
-              <thead>
-                <tr>
-                  <th>S/N</th>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
+            </>
+          </Card>
+
+          <div>
+            <div>
+              {filteredAddress ? (
+                <Card cardClass={styles.card}>
+                  <h3 style={{ textDecoration: "underline" }}>
+                    Customer Details
+                  </h3>
+                  {filteredAddress ? (
+                    <div>
+                      <p>
+                        <b>Name: </b>
+                        {filteredAddress.name}
+                      </p>
+                      <p>
+                        <b>Phone Number: </b>
+                        {filteredAddress.phone}
+                      </p>
+                      <p>
+                        <b>Name: </b>
+                        {filteredAddress.name}
+                      </p>
+                      <p>
+                        <b>Address 1: </b>
+                        {filteredAddress.line1}
+                      </p>
+                      <p>
+                        <b>Address 2: </b>
+                        {filteredAddress.line2}
+                      </p>
+                      <p>
+                        <b>Country: </b>
+                        {filteredAddress.country}
+                      </p>
+                      <p>
+                        <b>State: </b>
+                        {filteredAddress.state}
+                      </p>
+
+                      <br />
+                    </div>
+                  ) : (
+                    <h4>
+                      This order was made before the address functionality was
+                      added.
+                    </h4>
+                  )}
+                </Card>
+              ) : (
+                <h4>
+                  This order was made before the address functionality was
+                  added.
+                </h4>
+              )}
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <table>
+          <thead>
+            <tr>
+              <th>S/N</th>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {order.cartItems.map((cart, index) => {
+              const { id, name, price, imageUrl, cartQuantity } = cart;
+              return (
+                <tr key={id}>
+                  <td>
+                    <b>{index + 1}</b>
+                  </td>
+                  <td>
+                    <p>
+                      <b>{name}</b>
+                    </p>
+                    <img src={imageUrl} alt={name} style={{ width: "100px" }} />
+                  </td>
+                  <td>NGN {new Intl.NumberFormat().format(price)}</td>
+                  <td>{cartQuantity}</td>
+                  <td>
+                    NGN {new Intl.NumberFormat().format(price * cartQuantity)}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {order.cartItems.map((cart, index) => {
-                  const { id, name, price, imageUrl, cartQuantity } = cart;
-                  return (
-                    <tr key={id}>
-                      <td>
-                        <b>{index + 1}</b>
-                      </td>
-                      <td>
-                        <p>
-                          <b>{name}</b>
-                        </p>
-                        <img
-                          src={imageUrl}
-                          alt={name}
-                          style={{ width: "100px" }}
-                        />
-                      </td>
-                      <td>NGN {new Intl.NumberFormat().format(price)}</td>
-                      <td>{cartQuantity}</td>
-                      <td>
-                        NGN{" "}
-                        {new Intl.NumberFormat().format(price * cartQuantity)}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </>
-        )}
-        {order && <ChangeOrderStatus order={order} id={id} />}
+              );
+            })}
+          </tbody>
+        </table>
+        <ChangeOrderStatus order={order} id={id} />
       </div>
     </>
   );

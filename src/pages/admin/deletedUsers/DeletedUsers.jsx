@@ -17,7 +17,7 @@ export default function Users() {
   return (
     <section className={styles.sec}>
       <div className={`container ${styles.order}`}>
-        <h2>Deleted Users</h2>
+       {!loading && <h2>Deleted Users</h2>}
         <br />
         <>
           {loading && <Loader />}
