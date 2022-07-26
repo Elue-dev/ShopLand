@@ -18,9 +18,10 @@ export default function Notifications() {
   }, [dispatch, data]);
 
   const filteredNotifs = notifs.filter((notif) => notif.userID === userID);
+
   return (
     <div className={`container ${styles.notif}`}>
-      <h1>Notifications on the status of your order</h1>
+      {!loading && <h1>Notifications on the status of your order</h1>}
       <br />
       {loading ? (
         <Loader />
