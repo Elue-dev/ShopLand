@@ -5,9 +5,11 @@ import { FaPhoneAlt, FaEnvelope, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const form = useRef();
+  const navigate = useNavigate();
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -34,7 +36,11 @@ const Contact = () => {
   return (
     <section>
       <div className={`container ${styles.contact}`}>
+        <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+          &larr; Go back
+        </p>
         <h2>Reach out to us</h2>
+        <br />
         <div className={styles.section}>
           <form ref={form} onSubmit={sendEmail}>
             <Card cardClass={styles.card}>

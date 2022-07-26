@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { RiMenuAddLine, RiShoppingCartLine } from "react-icons/ri";
 import { VscEyeClosed } from "react-icons/vsc";
+import { IoLogInOutline } from "react-icons/io5";
+import { FiUserPlus } from "react-icons/fi";
 import { FaUserCircle, FaRegEnvelope, FaUserTimes } from "react-icons/fa";
 import styles from "./header.module.scss";
 import { useAuth } from "../../contexts/authContext";
@@ -158,7 +160,7 @@ export default function Header() {
                   &nbsp; Hi, {displayName}
                 </a>
               </ShowOnLogin>
-              <ShowOnLogout>
+              <ShowOnLogout className={styles.flex}>
                 <NavLink to="/signup" className={activeLink}>
                   Sign Up
                 </NavLink>
@@ -176,18 +178,17 @@ export default function Header() {
                   Log out
                 </NavLink>
               </ShowOnLogin>
-              <ShowOnLogout>
+              <ShowOnLogin>
                 <NavLink to="/notifications" className={activeLink}>
                   <FaRegEnvelope size={15} />
                 </NavLink>
-              </ShowOnLogout>
+              </ShowOnLogin>
             </span>
             {cart}
             <ShowOnLogin>
               <Link to="/delete-account">
                 <button className={styles.delete}>
-                  <FaUserTimes size={15} />
-                  &nbsp;Delete Account
+                  <FaUserTimes size={20} />
                 </button>
               </Link>
             </ShowOnLogin>

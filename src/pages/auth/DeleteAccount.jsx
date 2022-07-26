@@ -167,7 +167,7 @@ export default function DeleteAccount() {
                 disabled
                 className={`${styles.button} ${styles.disabled}`}
               >
-                Proceed
+                Delete Account
               </button>
             ) : (
               <button type="submit" className="--btn --btn-primary --btn-block">
@@ -178,7 +178,7 @@ export default function DeleteAccount() {
                     style={{ width: "25px", height: "25px" }}
                   />
                 ) : (
-                  "Proceed"
+                  "Delete Account"
                 )}
               </button>
             )}

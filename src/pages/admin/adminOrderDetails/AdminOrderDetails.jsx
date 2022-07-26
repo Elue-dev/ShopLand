@@ -4,13 +4,29 @@ import styles from "./adminOrderDetails.module.scss";
 import spinnerImg from "../../../assets/spinner.jpg";
 import { Link, useParams } from "react-router-dom";
 import ChangeOrderStatus from "../changeOrderStatus/ChangeOrderStatus";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectAddressHistory,
+  STORE_ADDRESS,
+} from "../../../redux/slice/orderSlice";
+import useFetchCollection from "../../../hooks/useFetchCollection";
+import { selectEmail, selectUserID } from "../../../redux/slice/authSlice";
 
 const OrderDetails = () => {
-  const [disableStatus, setDisableStatus] = useState(false);
-  const [notif, setNotif] = useState(null);
   const [order, setOrder] = useState(null);
   const { id } = useParams();
   const { document } = useFetchDocument("Orders", id);
+  const dispatch = useDispatch();
+  const { data } = useFetchCollection("Shipping-Address");
+  console.log(data);
+  const filteredAddress = data.find(
+    (address) => address.userEmail === order?.userEmail
+  );
+  console.log(filteredAddress);
+
+  useEffect(() => {
+    dispatch(STORE_ADDRESS(data));
+  }, [dispatch, data]);
 
   useEffect(() => {
     setOrder(document);
@@ -19,11 +35,11 @@ const OrderDetails = () => {
   return (
     <>
       <div className={styles.table}>
-        <h2>Order Details</h2>
         <div>
           <Link to="/admin/orders">&larr; Back To Orders</Link>
         </div>
         <br />
+        <h3 style={{ textDecoration: "underline" }}>Order Details</h3>
         {order === null ? (
           <img src={spinnerImg} alt="Loading..." style={{ width: "50px" }} />
         ) : (
@@ -48,7 +64,46 @@ const OrderDetails = () => {
               <br />
               <b>Order placed by:</b> &nbsp;{order.userEmail}
             </p>
-
+            <br />
+            <h3 style={{ textDecoration: "underline" }}>Customer Details</h3>
+            {filteredAddress ? (
+              <div>
+                <p>
+              <b>Name: </b>
+              {filteredAddress.name}
+            </p>
+            <p>
+              <b>Phone Number: </b>
+              {filteredAddress.phone}
+            </p>
+            <p>
+              <b>Name: </b>
+              {filteredAddress.name}
+            </p>
+            <p>
+              <b>Address 1: </b>
+              {filteredAddress.line1}
+            </p>
+            <p>
+              <b>Address 2: </b>
+              {filteredAddress.line2}
+            </p>
+            <p>
+              <b>State: </b>
+              {filteredAddress.state}
+            </p>
+            <p>
+              <b>Time Of Order: </b>
+              {filteredAddress.time}
+            </p>
+            <p>
+              <b>Date Of Order: </b>
+              {filteredAddress.date}
+            </p>
+              </div>
+            ) : (
+              <h4>This order was made before the address functionality was added.</h4>
+            )}
             <br />
             <br />
             <table>
@@ -92,7 +147,7 @@ const OrderDetails = () => {
             </table>
           </>
         )}
-        <ChangeOrderStatus order={order} id={id} />
+        {order && <ChangeOrderStatus order={order} id={id} />}
       </div>
     </>
   );

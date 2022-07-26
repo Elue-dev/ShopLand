@@ -1,35 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import checkoutImg from "../../assets/checkout.webp";
 import {
   CALCULATE_SUBTOTAL,
   CALCULATE_TOTAL_QUANTITY,
   selectCartItems,
   selectCartTotalAmounts,
+  CLEAR_CART,
 } from "../../redux/slice/cartSlice";
 import { selectEmail } from "../../redux/slice/authSlice";
-import {
-  selectBillingAddress,
-  selectShippingAddress,
-} from "../../redux/slice/checkoutSlice";
+import { selectShippingAddress } from "../../redux/slice/checkoutSlice";
 import { toast } from "react-toastify";
-import CheckoutForm from "../../components/checkoutForm/CheckoutForm";
+import { selectUserID, selectUserName } from "../../redux/slice/authSlice";
+import PaystackPop from "@paystack/inline-js";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { database } from "../../firebase/firebase";
+
 import styles from "./checkoutDetails.module.scss";
-
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
+import { useNavigate } from "react-router-dom";
+import CheckoutSummary from "../../components/checkoutSummary/CheckoutSummary";
+import Card from "../../components/card/Card";
+import "./checkoutDetails.module.scss";
 
 const Checkout = () => {
-  const [message, setMessage] = useState("Initializing checkout...");
-  const [clientSecret, setClientSecret] = useState("");
-
+  const navigate = useNavigate();
   const cartItems = useSelector(selectCartItems);
   const totalAmount = useSelector(selectCartTotalAmounts);
   const customerEmail = useSelector(selectEmail);
+  const cartTotalAmount = useSelector(selectCartTotalAmounts);
+
+  const name = useSelector(selectUserName);
+  const userID = useSelector(selectUserID);
+  const userEmail = useSelector(selectEmail);
 
   const shippingAddress = useSelector(selectShippingAddress);
-  const billingAddress = useSelector(selectBillingAddress);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -37,63 +41,99 @@ const Checkout = () => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
 
-
-  const description = `ShopLand  payment: email: ${customerEmail}, Amount: ${totalAmount}`;
-
-  useEffect(() => {
-    // http://localhost:4242/create-payment-intent
-    // Create PaymentIntent as soon as the page loads
-    fetch("https://shopland-comm.herokuapp.com/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        items: cartItems,
-        userEmail: customerEmail,
-        shipping: shippingAddress,
-        billing: billingAddress,
-        description,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return res.json().then((json) => Promise.reject(json));
-      })
-      .then((data) => {
-        setClientSecret(data.clientSecret);
-      })
-      .catch((error) => {
-        setMessage("Failed to initialize checkout. Please try again.");
-        toast.error(
-          "Something went wrong, this may be due to network or card issues.",
-          {
-            pauseOnFocusLoss: false,
-          }
-        );
-      });
-  }, []);
-
-  const appearance = {
-    theme: "stripe",
+  const saveOrder = () => {
+    const today = new Date();
+    const date = today.toDateString();
+    const time = today.toLocaleTimeString();
+    const orderConfig = {
+      userID,
+      userEmail,
+      orderDate: date,
+      orderTime: time,
+      orderAmount: cartTotalAmount,
+      orderStatus: "Order Placed...",
+      orderNotification: "Your order has been Placed.....",
+      cartItems,
+      createdAt: Timestamp.now().toDate(),
+    };
+    try {
+      addDoc(collection(database, "Orders"), orderConfig);
+      dispatch(CLEAR_CART());
+      navigate("/checkout-success");
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
-  const options = {
-    clientSecret,
-    appearance,
+
+  const saveAddress = () => {
+    const today = new Date();
+    const date = today.toDateString();
+    const time = today.toLocaleTimeString();
+    const addressConfig = {
+      userID,
+      userEmail,
+      city: shippingAddress.city,
+      country: shippingAddress.country,
+      line1: shippingAddress.line1,
+      line2: shippingAddress.line2,
+      name: shippingAddress.name,
+      phone: shippingAddress.phone,
+      state: shippingAddress.state,
+      postal_code: shippingAddress.postal_code,
+      date,
+      time,
+      cartItems,
+      createdAt: Timestamp.now().toDate(),
+    };
+    try {
+      addDoc(collection(database, "Shipping-Address"), addressConfig);
+      dispatch(CLEAR_CART());
+      navigate("/checkout-success");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const checkout = () => {
+    const initiatePayment = () => {
+      const paystack = new PaystackPop();
+      paystack.newTransaction({
+        key: process.env.REACT_APP_PAYSTACK_KEY,
+        amount: totalAmount * 100,
+        email: customerEmail,
+        name,
+        onSuccess() {
+          saveOrder();
+          saveAddress();
+          navigate("/checkout-success");
+        },
+        onCancel() {
+          console.log("");
+        },
+      });
+    };
+    initiatePayment();
   };
 
   return (
     <>
-      <section>
-        <div className={`container ${styles.details}`}>
-          {!clientSecret && <h3>{message}</h3>}
+      <section className={`container ${styles.section}`}>
+        <img src={checkoutImg} alt="checkout" style={{ width: "40%" }} />
+        <div className={styles.checkout}>
+          <div>
+            <Card cardClass={styles.card}>
+              <CheckoutSummary />
+              <br />
+              <button
+                className="--btn --btn-primary --btn-block"
+                onClick={checkout}
+              >
+                Checkout
+              </button>
+            </Card>
+          </div>
         </div>
       </section>
-      {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm />
-        </Elements>
-      )}
     </>
   );
 };

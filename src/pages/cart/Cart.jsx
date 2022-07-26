@@ -110,35 +110,39 @@ export default function Cart() {
   };
 
   const checkout = () => {
-    const initiatePayment = () => {
-      const paystack = new PaystackPop();
-      paystack.newTransaction({
-        key: process.env.REACT_APP_PAYSTACK_KEY,
-        amount: totalAmount * 100,
-        email: customerEmail,
-        name,
-        onSuccess() {
-          saveOrder();
-          navigate("/checkout-success");
-        },
-        onCancel() {
-          console.log("");
-        },
-      });
-    };
+    // const initiatePayment = () => {
+    //   const paystack = new PaystackPop();
+    //   paystack.newTransaction({
+    //     key: process.env.REACT_APP_PAYSTACK_KEY,
+    //     amount: totalAmount * 100,
+    //     email: customerEmail,
+    //     name,
+    //     onSuccess() {
+    //       saveOrder();
+    //       navigate("/checkout-success");
+    //     },
+    //     onCancel() {
+    //       console.log("");
+    //     },
+    //   });
+    // };
 
     if (isLoggedIn) {
-      // navigate("/checkout-details");
-      initiatePayment();
+      navigate("/checkout-details");
+      // initiatePayment();
     } else {
       dispatch(SAVE_URL(url));
       navigate("/login");
     }
+    
   };
 
   return (
     <section className={styles.cart}>
       <div className={`container ${styles.table}`}>
+      <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+            &larr; Go back
+          </p>
         {cartItems.length ? <h2>Cart</h2> : null}
         {cartItems.length === 0 ? (
           <>
@@ -244,7 +248,9 @@ export default function Cart() {
               <button className="--btn --btn-danger" onClick={confirmClearCart}>
                 Clear Cart
               </button>
-            ) : '.'}
+            ) : (
+              "."
+            )}
             <div className={styles.checkout}>
               <div>
                 <Link to="/#products" style={{ fontWeight: "700" }}>
@@ -259,9 +265,9 @@ export default function Cart() {
                 <br />
                 <div className={styles.text}>
                   <h4>Subtotal:</h4>
-                  <h3>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h3>
+                  &nbsp; <h3>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h3>
                 </div>
-                <p>Taxes and shippings calculated at checkout</p>
+                {/* <p>Taxes and shippings calculated at checkout</p> */}
                 <br />
                 <button
                   className="--btn --btn-primary --btn-block"

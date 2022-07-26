@@ -92,6 +92,7 @@ const cartSlice = createSlice({
       const totalAmount = subtotalArray.reduce((curr, init) => {
         return curr + init;
       }, 0);
+      console.log(totalAmount)
       state.cartTotalAmounts = totalAmount;
     },
     CALCULATE_TOTAL_QUANTITY: (state) => {
@@ -110,7 +111,7 @@ const cartSlice = createSlice({
       state.previousURL = action.payload;
     },
     SAVE_FOR_LATER: (state, action) => {
-      console.log(action.payload)
+      console.log(action.payload);
       let tempProducts = { ...action.payload, savedQuantity: 1 };
       state.savedItems.push(tempProducts);
       toast.success(`${action.payload.name} was saved for later`, {
@@ -130,7 +131,7 @@ const cartSlice = createSlice({
       });
       //save cart to LS
       localStorage.setItem("savedItems", JSON.stringify(state.savedItems));
-    }
+    },
   },
 });
 
@@ -143,7 +144,7 @@ export const {
   CALCULATE_TOTAL_QUANTITY,
   SAVE_URL,
   SAVE_FOR_LATER,
-  REMOVE_FROM_SAVED
+  REMOVE_FROM_SAVED,
 } = cartSlice.actions;
 
 export const selectCartItems = (state) => state.cart.cartItems;

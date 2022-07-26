@@ -4,7 +4,6 @@
   
     .card {
       width: 100%;
-      max-width: 500px;
       padding: 1rem;
       h3 {
         font-weight: 300;
@@ -54,6 +53,13 @@
       margin: auto;
     }
   }
+  .section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    gap: 4rem;
+  }
   
   @media screen and (max-width: 700px) {
     .checkout {
@@ -63,5 +69,8 @@
           width: 100%;
         }
       }
+    }
+    .section {
+      flex-direction: column;
     }
   }

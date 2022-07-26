@@ -106,7 +106,12 @@ export default function ProductDetail() {
         )}
         {product && (
           <Card cardClass={styles.card}>
-            <h3>Product Review(s)</h3>
+            <h3>
+              {filteredReviews.length === 1 ? "Review" : "Reviews"}
+              <span style={{ fontSize: "1.6rem" }}>
+                &nbsp;({filteredReviews.length} total)
+              </span>
+            </h3>
             <div>
               {filteredReviews.length === 0 ? (
                 <p>There are no reviews for this product yet</p>
