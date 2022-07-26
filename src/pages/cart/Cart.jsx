@@ -221,7 +221,7 @@ export default function Cart() {
                   &nbsp;{" "}
                   <h4>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h4>
                 </div>
-                <p>Shipping Address will be filled at checkout</p>
+                <p><b>Delievery fee would be included at checkout</b></p>
                 <br />
                 <button
                   className="--btn --btn-primary --btn-block"
