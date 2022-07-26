@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { selectUserID } from "../../redux/slice/authSlice";
-import { BsFillCheckCircleFill } from "react-icons/bs";
 import Card from "../card/Card";
 import styles from "./reviewProducts.module.scss";
 import StarsRating from "react-star-rate";
@@ -17,7 +16,6 @@ const ReviewProducts = () => {
   const [rate, setRate] = useState(0);
   const [review, setReview] = useState("");
   const [product, setProduct] = useState(null);
-  const [message, setMessage] = useState("Review submitted");
   const { id } = useParams();
   const { user } = useAuth();
   const { document } = useFetchDocument("Products", id);
@@ -28,7 +26,7 @@ const ReviewProducts = () => {
     setProduct(document);
   }, [document]);
 
-  const submitReview = (e) => {
+  const submitReview = async (e) => {
     e.preventDefault();
 
     const today = new Date();
@@ -43,11 +41,11 @@ const ReviewProducts = () => {
       createdAt: Timestamp.now().toDate(),
     };
     try {
-      addDoc(collection(database, "Reviews"), reviewConfig);
+      await addDoc(collection(database, "Reviews"), reviewConfig);
       toast.success("Your review has been submitted, thank you.");
-      navigate("/order-history");
       setRate(0);
       setReview("");
+      navigate("/order-history");
     } catch (error) {
       toast.error(error.message);
     }
