@@ -5,6 +5,7 @@ const initialState = {
   addressHistory: [],
   totalOrderAmount: null,
   successURL: "",
+  delieveryFee: 3000
 };
 
 const orderSlice = createSlice({
@@ -41,5 +42,6 @@ export const selectOrderHistory = (state) => state.orders.orderHistory;
 export const selectAddressHistory = (state) => state.orders.addressHistory;
 export const selectTotalOrderAmount = (state) => state.orders.totalOrderAmount;
 export const selectSuccessURL = (state) => state.orders.successURL;
+export const selectDelieveryFee = (state) => state.orders.delieveryFee;
 
 export default orderSlice.reducer;

@@ -121,7 +121,7 @@ export default function CheckoutDetails() {
               />
 
               <button type="submit" className="--btn --btn-primary --btn-block">
-                Proceed to checkout
+               View order & checkout
               </button>
             </Card>
             <br />

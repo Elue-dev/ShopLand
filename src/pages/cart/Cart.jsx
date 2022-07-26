@@ -227,7 +227,8 @@ export default function Cart() {
                   className="--btn --btn-primary --btn-block"
                   onClick={checkout}
                 >
-                  Checkout
+                  Proceed to checkout ({cartTotalQuantity}{" "}
+                  {cartTotalQuantity=== 1 ? "item" : "items"})
                 </button>
               </Card>
             </div>

@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import CheckoutSummary from "../../components/checkoutSummary/CheckoutSummary";
 import Card from "../../components/card/Card";
 import "./checkoutDetails.module.scss";
-import { SAVE_SUCCESS_URL } from "../../redux/slice/orderSlice";
+import { SAVE_SUCCESS_URL, selectDelieveryFee } from "../../redux/slice/orderSlice";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -35,7 +35,9 @@ const Checkout = () => {
   const userEmail = useSelector(selectEmail);
 
   const shippingAddress = useSelector(selectShippingAddress);
-
+  const delieveryFee = useSelector(selectDelieveryFee)
+  const subtotal = totalAmount + delieveryFee
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(CALCULATE_SUBTOTAL());
@@ -102,7 +104,7 @@ const Checkout = () => {
       const paystack = new PaystackPop();
       paystack.newTransaction({
         key: process.env.REACT_APP_PAYSTACK_KEY,
-        amount: totalAmount * 100,
+        amount: subtotal * 100,
         email: customerEmail,
         name,
         onSuccess() {
@@ -132,7 +134,7 @@ const Checkout = () => {
                 className="--btn --btn-primary --btn-block"
                 onClick={checkout}
               >
-                Checkout
+                PAY NGN {new Intl.NumberFormat().format(subtotal)}
               </button>
             </Card>
           </div>

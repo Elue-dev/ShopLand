@@ -6,6 +6,7 @@ import {
   selectCartTotalAmounts,
   selectCartTotalQuantity,
 } from "../.././redux/slice/cartSlice";
+import { selectDelieveryFee } from "../../redux/slice/orderSlice";
 import Card from "../card/Card";
 import styles from "./checkoutSummary.module.scss";
 
@@ -13,6 +14,9 @@ const CheckoutSummary = () => {
   const cartItems = useSelector(selectCartItems);
   const cartTotalAmount = useSelector(selectCartTotalAmounts);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+  const delieveryFee = useSelector(selectDelieveryFee)
+  const subtotal = cartTotalAmount + delieveryFee
+  
 
   return (
     <div>
@@ -30,9 +34,12 @@ const CheckoutSummary = () => {
             <p>
               <b>{`Cart item(s): ${cartTotalQuantity}`}</b>
             </p>
+            <p>
+              <b>{`Delievery Fee: NGN ${new Intl.NumberFormat().format(delieveryFee)}`}</b>
+            </p>
             <div className={styles.text}>
               <h4>Subtotal:</h4>
-              <h3>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h3>
+              <h3>NGN {new Intl.NumberFormat().format(subtotal)}</h3>
             </div>
             {cartItems.map((item) => {
               const { id, name, price, cartQuantity } = item;
@@ -43,7 +50,10 @@ const CheckoutSummary = () => {
                   <p>Unit price: NGN {new Intl.NumberFormat().format(price)}</p>
                   <p>
                     Set price:{" "}
-                    {new Intl.NumberFormat().format(price * cartQuantity)}
+                    NGN {new Intl.NumberFormat().format(price * cartQuantity)} (adding quantity)
+                  </p>
+                  <p>
+                    Total price to checkout: NGN {new Intl.NumberFormat().format(subtotal)} (Delievery fee included)
                   </p>
                 </Card>
               );
