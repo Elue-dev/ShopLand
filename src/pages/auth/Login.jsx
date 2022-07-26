@@ -46,10 +46,6 @@ export default function Login() {
       setLoading(true);
       setError("");
       await login(email, password);
-      toast.success("Successfully logged in", {
-        autoClose: 5000,
-        pauseOnFocusLoss: false,
-      });
       setLoading(false);
       redirectUser();
     } catch (error) {
@@ -99,10 +95,6 @@ export default function Login() {
     try {
       await googleSignIn();
       redirectUser();
-      toast.success("Google sign in was successful", {
-        autoClose: 5000,
-        pauseOnFocusLoss: false,
-      });
     } catch (err) {
       if (err.message === "Firebase: Error (auth/popup-closed-by-user).") {
         setError("Google sign in failed. (You exited the google sign in)");

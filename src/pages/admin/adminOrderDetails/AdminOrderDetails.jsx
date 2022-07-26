@@ -91,10 +91,7 @@ const OrderDetails = () => {
                         <b>Phone Number: </b>
                         {filteredAddress.phone}
                       </p>
-                      <p>
-                        <b>Name: </b>
-                        {filteredAddress.name}
-                      </p>
+                     
                       <p>
                         <b>Address 1: </b>
                         {filteredAddress.line1}
@@ -110,6 +107,10 @@ const OrderDetails = () => {
                       <p>
                         <b>State: </b>
                         {filteredAddress.state}
+                      </p>
+                      <p>
+                        <b>City: </b>
+                        {filteredAddress.city}
                       </p>
 
                       <br />

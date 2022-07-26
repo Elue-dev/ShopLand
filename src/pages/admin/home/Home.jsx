@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import InfoBox from "../../../components/infoBox/InfoBox";
 import spinnerImg from "../../../assets/spinner.jpg";
 import styles from "./home.module.scss";
-import { AiFillDollarCircle } from "react-icons/ai";
+import { TbCurrencyNaira } from "react-icons/tb";
 import { BsCart4 } from "react-icons/bs";
 import { FaCartArrowDown } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ import useFetchCollection from "../../../hooks/useFetchCollection";
 import Chart from "../../../components/chart/Chart";
 
 //Icons
-const earningIcon = <AiFillDollarCircle size={30} color="#c07d53" />;
+const earningIcon = <TbCurrencyNaira size={30} color="#c07d53" />;
 const productIcon = <BsCart4 size={30} color="#000" />;
 const ordersIcon = <FaCartArrowDown size={30} color="#3c4448" />;
 
