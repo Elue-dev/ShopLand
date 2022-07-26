@@ -16,7 +16,6 @@ import { useAuth } from "../../contexts/authContext";
 const ReviewProducts = () => {
   const [rate, setRate] = useState(0);
   const [review, setReview] = useState("");
-  const [show, setShow] = useState(false);
   const [product, setProduct] = useState(null);
   const [message, setMessage] = useState("Review submitted");
   const { id } = useParams();
@@ -45,14 +44,8 @@ const ReviewProducts = () => {
     };
     try {
       addDoc(collection(database, "Reviews"), reviewConfig);
-      setShow(true);
-      window.setTimeout(() => {
-        setMessage("Redirecting...");
-      }, 3000);
-      window.setTimeout(() => {
-        navigate("/order-history");
-      }, 6000);
-
+      toast.success("Your review has been submitted, thank you.");
+      navigate("/order-history");
       setRate(0);
       setReview("");
     } catch (error) {
@@ -80,16 +73,6 @@ const ReviewProducts = () => {
         )}
 
         <Card cardClass={styles.card}>
-          {show && (
-            <span
-              className={
-                show ? `${styles.alert} ${styles.show}` : `${styles.alert}`
-              }
-            >
-              <BsFillCheckCircleFill />
-              &nbsp; {message}
-            </span>
-          )}
           <form onSubmit={(e) => submitReview(e)}>
             <label>Rating:</label>
             <StarsRating
