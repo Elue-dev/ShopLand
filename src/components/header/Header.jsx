@@ -100,10 +100,6 @@ export default function Header() {
 
   const logoutUser = async () => {
     await logout();
-    toast.success("Log out successful", {
-      autoClose: 5000,
-      pauseOnFocusLoss: false,
-    });
     navigate("/");
   };
 
