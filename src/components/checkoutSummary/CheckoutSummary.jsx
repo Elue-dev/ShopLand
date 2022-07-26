@@ -38,7 +38,7 @@ const CheckoutSummary = () => {
               const { id, name, price, cartQuantity } = item;
               return (
                 <Card key={id} cardClass={styles.card}>
-                  <h4>Product: {name}</h4>
+                  <h4>{name}</h4> 
                   <p>Quantity: {cartQuantity}</p>
                   <p>Unit price: NGN {new Intl.NumberFormat().format(price)}</p>
                   <p>

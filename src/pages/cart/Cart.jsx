@@ -25,7 +25,6 @@ import {
   selectUserName,
 } from "../../redux/slice/authSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
-import PaystackPop from "@paystack/inline-js";
 import { toast } from "react-toastify";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
@@ -39,9 +38,6 @@ export default function Cart() {
   const navigate = useNavigate();
   const { data } = useFetchCollection("Products");
 
-  const totalAmount = useSelector(selectCartTotalAmounts);
-  const customerEmail = useSelector(selectEmail);
-  const name = useSelector(selectUserName);
   const userID = useSelector(selectUserID);
   const userEmail = useSelector(selectEmail);
 
@@ -85,64 +81,21 @@ export default function Cart() {
 
   const url = window.location.href;
 
-  const saveOrder = () => {
-    const today = new Date();
-    const date = today.toDateString();
-    const time = today.toLocaleTimeString();
-    const orderConfig = {
-      userID,
-      userEmail,
-      orderDate: date,
-      orderTime: time,
-      orderAmount: cartTotalAmount,
-      orderStatus: "Order Placed...",
-      orderNotification: "Your order has been Placed.....",
-      cartItems,
-      createdAt: Timestamp.now().toDate(),
-    };
-    try {
-      addDoc(collection(database, "Orders"), orderConfig);
-      dispatch(CLEAR_CART());
-      navigate("/checkout-success");
-    } catch (error) {
-      toast.error(error.message);
-    }
-  };
-
   const checkout = () => {
-    // const initiatePayment = () => {
-    //   const paystack = new PaystackPop();
-    //   paystack.newTransaction({
-    //     key: process.env.REACT_APP_PAYSTACK_KEY,
-    //     amount: totalAmount * 100,
-    //     email: customerEmail,
-    //     name,
-    //     onSuccess() {
-    //       saveOrder();
-    //       navigate("/checkout-success");
-    //     },
-    //     onCancel() {
-    //       console.log("");
-    //     },
-    //   });
-    // };
-
     if (isLoggedIn) {
       navigate("/checkout-details");
-      // initiatePayment();
     } else {
       dispatch(SAVE_URL(url));
       navigate("/login");
     }
-    
   };
 
   return (
     <section className={styles.cart}>
       <div className={`container ${styles.table}`}>
-      <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
-            &larr; Go back
-          </p>
+        <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+          &larr; Go back
+        </p>
         {cartItems.length ? <h2>Cart</h2> : null}
         {cartItems.length === 0 ? (
           <>
@@ -265,9 +218,10 @@ export default function Cart() {
                 <br />
                 <div className={styles.text}>
                   <h4>Subtotal:</h4>
-                  &nbsp; <h3>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h3>
+                  &nbsp;{" "}
+                  <h4>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h4>
                 </div>
-                {/* <p>Taxes and shippings calculated at checkout</p> */}
+                <p>Shipping Address will be filled at checkout</p>
                 <br />
                 <button
                   className="--btn --btn-primary --btn-block"

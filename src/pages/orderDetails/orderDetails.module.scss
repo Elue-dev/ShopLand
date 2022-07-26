@@ -1,10 +1,15 @@
 .sec {
   min-height: 80vh;
 }
+.heading {
+  text-decoration: underline;
+  color: var(--color-sec);
+  text-align: left;
+}
 
 .table {
   padding: 5px;
-  width: 100%;
+  width: 95%;
   overflow-x: auto;
 
   table {
@@ -73,5 +78,12 @@
   }
   & > * {
     margin-right: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  h3 {
+    font-size: 2rem;
+    margin-left: 0;
   }
 }

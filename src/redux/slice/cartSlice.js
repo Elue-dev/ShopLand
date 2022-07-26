@@ -75,10 +75,6 @@ const cartSlice = createSlice({
     },
     CLEAR_CART: (state) => {
       state.cartItems = [];
-      toast.success("Your cart has been cleared", {
-        position: "top-left",
-        pauseOnFocusLoss: false,
-      });
       //save cart to LS
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },

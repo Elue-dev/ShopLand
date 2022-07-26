@@ -15,11 +15,9 @@ const OrderDetails = () => {
   const { document } = useFetchDocument("Orders", id);
   const dispatch = useDispatch();
   const { data } = useFetchCollection("Shipping-Address");
-  console.log(data);
   const filteredAddress = data.find(
     (address) => address.userEmail === order?.userEmail
   );
-  console.log(filteredAddress);
 
   useEffect(() => {
     dispatch(STORE_ADDRESS(data));
