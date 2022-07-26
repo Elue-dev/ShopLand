@@ -4,6 +4,7 @@ const initialState = {
   orderHistory: [],
   addressHistory: [],
   totalOrderAmount: null,
+  successURL: "",
 };
 
 const orderSlice = createSlice({
@@ -26,15 +27,19 @@ const orderSlice = createSlice({
     },
     STORE_ADDRESS: (state, action) => {
       state.addressHistory = action.payload;
-    }
+    },
+    SAVE_SUCCESS_URL: (state, action) => {
+      state.successURL = action.payload;
+    },
   },
 });
 
-export const { STORE_ORDERS, STORE_ADDRESS, CALCULATE_TOTAL_ORDER_AMOUNTS } =
+export const { STORE_ORDERS, STORE_ADDRESS, CALCULATE_TOTAL_ORDER_AMOUNTS,  SAVE_SUCCESS_URL } =
   orderSlice.actions;
 
 export const selectOrderHistory = (state) => state.orders.orderHistory;
 export const selectAddressHistory = (state) => state.orders.addressHistory;
 export const selectTotalOrderAmount = (state) => state.orders.totalOrderAmount;
+export const selectSuccessURL = (state) => state.orders.successURL;
 
 export default orderSlice.reducer;

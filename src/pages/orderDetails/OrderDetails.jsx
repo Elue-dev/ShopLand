@@ -19,7 +19,7 @@ const OrderDetails = () => {
     setOrder(document);
   }, [document]);
 
-  if (!order || !filteredAddress) {
+  if (!order) {
     return <Loader />;
   }
 
@@ -46,7 +46,7 @@ const OrderDetails = () => {
               : "(This could change at anytime, check here or your inbox for changes to this status)"}
           </p>
           <br />
-          {filteredAddress && (
+          {filteredAddress ? (
             <>
               <h3 className={styles.heading}>Address Information</h3>
               <p>
@@ -81,6 +81,11 @@ const OrderDetails = () => {
                 <b>Date Of Order: </b>
                 {filteredAddress.date}
               </p>
+            </>
+          ) : (
+            <>
+            <h3 className={styles.heading}>Address Information</h3>
+            <p>Sorry, this order was made before the address functionality was added. This would show upon subsequent orders.</p>
             </>
           )}
           <br />

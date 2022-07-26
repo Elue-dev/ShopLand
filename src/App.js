@@ -24,8 +24,13 @@ import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
 import ProtectedRoute from "./components/protectedRoute/ProtectedRoute";
 import ScrollToTop from "./ScrollToTop";
 import DeleteAccount from "./pages/auth/DeleteAccount";
+import { useSelector } from "react-redux";
+import { selectSuccessURL } from "./redux/slice/orderSlice";
+import RedirectSuccess from "./components/RedirectSuccess";
 
 function App() {
+  const successUrl = useSelector(selectSuccessURL);
+
   return (
     <>
       <BrowserRouter>
@@ -91,9 +96,11 @@ function App() {
           <Route
             path="/checkout-success"
             element={
-              <ProtectedRoute>
+              successUrl.includes("checkout") ? (
                 <CheckoutSuccess />
-              </ProtectedRoute>
+              ) : (
+                <RedirectSuccess />
+              )
             }
           />
           <Route

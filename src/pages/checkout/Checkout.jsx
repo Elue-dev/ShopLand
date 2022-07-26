@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import CheckoutSummary from "../../components/checkoutSummary/CheckoutSummary";
 import Card from "../../components/card/Card";
 import "./checkoutDetails.module.scss";
+import { SAVE_SUCCESS_URL } from "../../redux/slice/orderSlice";
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -94,6 +95,8 @@ const Checkout = () => {
     }
   };
 
+  const url = window.location.href;
+
   const checkout = () => {
     const initiatePayment = () => {
       const paystack = new PaystackPop();
@@ -106,6 +109,7 @@ const Checkout = () => {
           saveOrder();
           saveAddress();
           navigate("/checkout-success");
+          dispatch(SAVE_SUCCESS_URL(url));
         },
         onCancel() {
           console.log("");
