@@ -52,10 +52,6 @@ export default function Signup() {
       await updateName(userName);
       setLoading(false);
       redirectUser();
-      toast.success("Successfully signed in", {
-        autoClose: 5000,
-        pauseOnFocusLoss: false,
-      });
     } catch (error) {
       if (error.message === "Firebase: Error (auth/email-already-in-use).") {
         setError("Email already in use");
