@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import spinnerImg from "../../../assets/spinner.jpg";
 import StarRatings from "react-star-ratings";
-import { BsInfoCircle } from "react-icons/bs";
+import { BsInfoCircle, BsFillCheckCircleFill } from "react-icons/bs";
 import { ImEyePlus } from "react-icons/im";
 import styles from "./productDetails.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +35,7 @@ export default function ProductDetail() {
 
   const addToCart = (product) => {
     dispatch(ADD_TO_CART(product));
+    navigate('/cart')
     dispatch(CALCULATE_TOTAL_QUANTITY());
   };
 
@@ -85,8 +86,11 @@ export default function ProductDetail() {
                   <button
                     className={`--btn --btn-danger ${styles.later}`}
                     onClick={() => removeFromSaved(product)}
+                    disabled
+                    style={{ opacity: ".3", cursor: "not-allowed" }}
                   >
-                    REMOVE FROM SAVED
+                    <BsFillCheckCircleFill />
+                    &nbsp; PRODUCT SAVED
                   </button>
                 ) : (
                   <button

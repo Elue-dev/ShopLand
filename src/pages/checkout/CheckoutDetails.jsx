@@ -94,7 +94,7 @@ export default function CheckoutDetails() {
               />
               <label>Postal code:</label>
               <input
-                type="text"
+                type="number"
                 placeholder="Postal code"
                 required
                 name="postal_code"

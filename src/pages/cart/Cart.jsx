@@ -93,8 +93,11 @@ export default function Cart() {
   return (
     <section className={styles.cart}>
       <div className={`container ${styles.table}`}>
-        <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
-          &larr; Go back
+        <p
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer", fontSize: "3rem" }}
+        >
+          &larr;
         </p>
         {cartItems.length ? <h2>Cart</h2> : null}
         {cartItems.length === 0 ? (
@@ -221,14 +224,16 @@ export default function Cart() {
                   &nbsp;{" "}
                   <h4>NGN {new Intl.NumberFormat().format(cartTotalAmount)}</h4>
                 </div>
-                <p><b>Delievery fee would be included at checkout</b></p>
+                <p>
+                  <b>Delievery fee would be included at checkout</b>
+                </p>
                 <br />
                 <button
                   className="--btn --btn-primary --btn-block"
                   onClick={checkout}
                 >
                   Proceed to checkout ({cartTotalQuantity}{" "}
-                  {cartTotalQuantity=== 1 ? "item" : "items"})
+                  {cartTotalQuantity === 1 ? "item" : "items"})
                 </button>
               </Card>
             </div>

@@ -32,10 +32,6 @@ const cartSlice = createSlice({
         //add item to cart
         let tempProducts = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProducts);
-        toast.success(`${action.payload.name} added to cart`, {
-          position: "top-left",
-          pauseOnFocusLoss: false,
-        });
       }
       //save cart to LS
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -109,10 +105,6 @@ const cartSlice = createSlice({
       console.log(action.payload);
       let tempProducts = { ...action.payload, savedQuantity: 1 };
       state.savedItems.push(tempProducts);
-      toast.success(`${action.payload.name} was saved for later`, {
-        position: "top-left",
-        pauseOnFocusLoss: false,
-      });
       localStorage.setItem("savedItems", JSON.stringify(state.savedItems));
     },
     REMOVE_FROM_SAVED: (state, action) => {
@@ -120,10 +112,6 @@ const cartSlice = createSlice({
         (item) => item.id !== action.payload.id
       );
       state.savedItems = newSavedItem;
-      toast.info(`${action.payload.name} removed from your saved products`, {
-        position: "top-left",
-        pauseOnFocusLoss: false,
-      });
       //save cart to LS
       localStorage.setItem("savedItems", JSON.stringify(state.savedItems));
     },

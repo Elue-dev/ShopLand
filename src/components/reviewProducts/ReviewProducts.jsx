@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { selectUserID } from "../../redux/slice/authSlice";
+import { BsFillCheckCircleFill } from "react-icons/bs";
 import Card from "../card/Card";
 import styles from "./reviewProducts.module.scss";
 import StarsRating from "react-star-rate";
@@ -15,7 +16,9 @@ import { useAuth } from "../../contexts/authContext";
 const ReviewProducts = () => {
   const [rate, setRate] = useState(0);
   const [review, setReview] = useState("");
+  const [show, setShow] = useState(false);
   const [product, setProduct] = useState(null);
+  const [message, setMessage] = useState("Review submitted");
   const { id } = useParams();
   const { user } = useAuth();
   const { document } = useFetchDocument("Products", id);
@@ -42,10 +45,16 @@ const ReviewProducts = () => {
     };
     try {
       addDoc(collection(database, "Reviews"), reviewConfig);
-      toast.success("Your review has been submitted");
+      setShow(true);
+      window.setTimeout(() => {
+        setMessage("Redirecting...");
+      }, 3000);
+      window.setTimeout(() => {
+        navigate("/order-history");
+      }, 6000);
+
       setRate(0);
       setReview("");
-      navigate("/order-history");
     } catch (error) {
       toast.error(error.message);
     }
@@ -71,6 +80,16 @@ const ReviewProducts = () => {
         )}
 
         <Card cardClass={styles.card}>
+          {show && (
+            <span
+              className={
+                show ? `${styles.alert} ${styles.show}` : `${styles.alert}`
+              }
+            >
+              <BsFillCheckCircleFill />
+              &nbsp; {message}
+            </span>
+          )}
           <form onSubmit={(e) => submitReview(e)}>
             <label>Rating:</label>
             <StarsRating
