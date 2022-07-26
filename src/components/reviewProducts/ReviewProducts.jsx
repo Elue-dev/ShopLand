@@ -15,6 +15,7 @@ import { useAuth } from "../../contexts/authContext";
 const ReviewProducts = () => {
   const [rate, setRate] = useState(0);
   const [review, setReview] = useState("");
+  const [error, setError] = useState(null);
   const [product, setProduct] = useState(null);
   const { id } = useParams();
   const { user } = useAuth();
@@ -28,6 +29,18 @@ const ReviewProducts = () => {
 
   const submitReview = async (e) => {
     e.preventDefault();
+
+    if (rate === 0) {
+      setError("Please give a star rating, star rating cannot be blank.");
+      window.setTimeout(() => setError(""), 5000);
+      return;
+    }
+
+    if (review === '') {
+      setError("You left the review blank, please enter something before submitting.");
+      window.setTimeout(() => setError(""), 5000);
+      return;
+    }
 
     const today = new Date();
     const date = today.toDateString();
@@ -72,18 +85,18 @@ const ReviewProducts = () => {
 
         <Card cardClass={styles.card}>
           <form onSubmit={(e) => submitReview(e)}>
+            {error && <p className="alert error">{error}</p>}
             <label>Rating:</label>
             <StarsRating
               value={rate}
               onChange={(rate) => {
                 setRate(rate);
               }}
-              required
             />
             <label>Review</label>
             <textarea
               value={review}
-              required
+              // required
               onChange={(e) => setReview(e.target.value)}
               cols="30"
               rows="10"
