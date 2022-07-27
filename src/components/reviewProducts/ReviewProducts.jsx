@@ -36,8 +36,10 @@ const ReviewProducts = () => {
       return;
     }
 
-    if (review === '') {
-      setError("You left the review blank, please enter something before submitting.");
+    if (review === "") {
+      setError(
+        "You left the review blank, please enter something before submitting."
+      );
       window.setTimeout(() => setError(""), 5000);
       return;
     }
@@ -67,6 +69,11 @@ const ReviewProducts = () => {
   return (
     <section>
       <div className={`container ${styles.review}`}>
+        <div>
+          <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+            &larr; Go back
+          </p>
+        </div>
         <h2>Rate This Product</h2>
         {product === null ? (
           <img src={spinnerImg} alt="Loading..." style={{ width: "50px" }} />
