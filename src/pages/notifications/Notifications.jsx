@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../../components/card/Card";
 import Loader from "../../components/loader/Loader";
 import useFetchCollection from "../../hooks/useFetchCollection";
@@ -14,6 +14,7 @@ export default function Notifications() {
 
   const notifs = useSelector(selectOrderHistory);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const userID = useSelector(selectUserID);
 
   useEffect(() => {
@@ -24,6 +25,11 @@ export default function Notifications() {
 
   return (
     <div className={`container ${styles.notif}`}>
+      <div>
+        <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+          &larr; Go back
+        </p>
+      </div>
       {!loading && <h1>Notifications on the status of your order</h1>}
       <br />
       {loading ? (
@@ -58,7 +64,7 @@ export default function Notifications() {
                             <RiSearchEyeLine
                               className={styles.icon}
                               size={30}
-                              color={'#000'}
+                              color={"#000"}
                             />
                           </Link>
                           <div className={styles.details}>

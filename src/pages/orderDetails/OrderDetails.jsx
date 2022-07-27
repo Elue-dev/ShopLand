@@ -48,6 +48,19 @@ const OrderDetails = () => {
               ? ""
               : "(This could change at anytime, check here or your inbox for changes to this status)"}
           </p>
+          {/* {filteredNotifs.orderDate} */}
+          {/* {filteredAddress && (
+            <>
+              <p>
+                <b>Time Of Order: </b>
+                {filteredAddress.time}
+              </p>
+              <p>
+                <b>Date Of Order: </b>
+                {filteredAddress.date}
+              </p>
+            </>
+          )} */}
           <br />
           {filteredAddress ? (
             <>
@@ -75,14 +88,6 @@ const OrderDetails = () => {
               <p>
                 <b>State: </b>
                 {filteredAddress.state}
-              </p>
-              <p>
-                <b>Time Of Order: </b>
-                {filteredAddress.time}
-              </p>
-              <p>
-                <b>Date Of Order: </b>
-                {filteredAddress.date}
               </p>
             </>
           ) : (

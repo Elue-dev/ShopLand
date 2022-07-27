@@ -32,6 +32,11 @@ export default function OrderHistory() {
   return (
     <section className={styles.sec}>
       <div className={`container ${styles.order}`}>
+        <div>
+          <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+            &larr; Go back
+          </p>
+        </div>
         {filteredOrders.length ? <h2>Your Order History</h2> : null}
         <p>
           <b>
