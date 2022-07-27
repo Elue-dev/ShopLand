@@ -1,14 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Card from "../../components/card/Card";
 import Loader from "../../components/loader/Loader";
 import useFetchCollection from "../../hooks/useFetchCollection";
 import { selectUserID } from "../../redux/slice/authSlice";
 import { selectOrderHistory, STORE_ORDERS } from "../../redux/slice/orderSlice";
+import { RiSearchEyeLine } from "react-icons/ri";
 import styles from "./notifications.module.scss";
 
 export default function Notifications() {
   const { data, loading } = useFetchCollection("Orders");
+
   const notifs = useSelector(selectOrderHistory);
   const dispatch = useDispatch();
   const userID = useSelector(selectUserID);
@@ -51,6 +54,13 @@ export default function Notifications() {
                     return (
                       <div key={id}>
                         <Card cardClass={styles.card}>
+                          <Link to={`/order-details/${id}`}>
+                            <RiSearchEyeLine
+                              className={styles.icon}
+                              size={30}
+                              color={'#000'}
+                            />
+                          </Link>
                           <div className={styles.details}>
                             {orderNotification ===
                             "Your order has been changed to the status of DELIEVERED!" ? (
@@ -74,6 +84,7 @@ export default function Notifications() {
                             </h2>
                           </div>
                         </Card>
+
                         <br />
                       </div>
                     );
