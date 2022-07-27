@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import useFetchDocuments from "../../hooks/useFetchDocuments";
-import spinnerImg from "../../assets/spinner.jpg";
 import styles from "./orderDetails.module.scss";
 import useFetchCollection from "../../hooks/useFetchCollection";
 import Loader from "../../components/loader/Loader";
@@ -11,6 +10,8 @@ const OrderDetails = () => {
   const { id } = useParams();
   const { document } = useFetchDocuments("Orders", id);
   const { data } = useFetchCollection("Shipping-Address");
+  const navigate = useNavigate();
+
   const filteredAddress = data.find(
     (address) => address.userEmail === order?.userEmail
   );
@@ -27,7 +28,9 @@ const OrderDetails = () => {
     <section>
       <div className={`container ${styles.table} ${styles.sec}`}>
         <div>
-          <Link to="/order-history">&larr; Back To Orders</Link>
+          <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+            &larr; Go back
+          </p>
         </div>
         <br />
         <>
@@ -84,8 +87,11 @@ const OrderDetails = () => {
             </>
           ) : (
             <>
-            <h3 className={styles.heading}>Address Information</h3>
-            <p>Sorry, this order was made before the address functionality was added. This would show upon subsequent orders.</p>
+              <h3 className={styles.heading}>Address Information</h3>
+              <p>
+                Sorry, this order was made before the address functionality was
+                added. This would show upon subsequent orders.
+              </p>
             </>
           )}
           <br />
