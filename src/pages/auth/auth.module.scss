@@ -154,3 +154,12 @@
     margin-top: 1rem;
   }
 }
+
+@media (max-width: 300px) {
+  .auth {
+    .form {
+      width: auto;
+    }
+  }
+  
+}

@@ -95,7 +95,7 @@ export default function Cart() {
       <div className={`container ${styles.table}`}>
         <p
           onClick={() => navigate(-1)}
-          style={{ cursor: "pointer", fontSize: "3rem" }}
+          style={{ cursor: "pointer", fontSize: "3rem", marginBottom: '2rem' }}
         >
           &larr;
         </p>

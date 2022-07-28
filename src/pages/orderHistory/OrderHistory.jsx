@@ -33,7 +33,14 @@ export default function OrderHistory() {
     <section className={styles.sec}>
       <div className={`container ${styles.order}`}>
         <div>
-          <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+          <p
+            onClick={() => navigate(-1)}
+            style={{
+              cursor: "pointer",
+              marginBottom: "2rem",
+              marginBottom: "2rem",
+            }}
+          >
             &larr; Go back
           </p>
         </div>

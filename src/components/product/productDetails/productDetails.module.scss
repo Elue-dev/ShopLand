@@ -77,7 +77,6 @@
   }
 }
 
-
 @media screen and (max-width: 700px) {
   .product {
     .details {
@@ -101,5 +100,21 @@
 @media screen and (max-width: 450px) {
   .product .details .img {
     height: 125px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .product {
+    padding: 0 7px;
+  }
+  .product .add {
+    font-size: 1rem;
+  }
+  .product h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .product p {
+    font-size: 1.4rem;
   }
 }
