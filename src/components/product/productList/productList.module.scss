@@ -80,8 +80,12 @@
 }
 
 @media (max-width: 500px) {
+  .product-list {
+    padding: 0 10px;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 50px;
   }
 }

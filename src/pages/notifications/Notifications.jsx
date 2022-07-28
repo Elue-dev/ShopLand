@@ -26,7 +26,7 @@ export default function Notifications() {
   return (
     <div className={`container ${styles.notif}`}>
       <div>
-        <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+        <p onClick={() => navigate(-1)} style={{ cursor: "pointer", marginBottom: '2rem' }}>
           &larr; Go back
         </p>
       </div>

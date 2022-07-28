@@ -490,3 +490,13 @@ a:hover {
 .App.dark span {
   color: #f7f7f7;
 }
+
+@media (max-width: 300px) {
+ .--btn {
+  font-size: 1rem;
+ }
+
+ .container {
+  padding: 0;
+ }
+}

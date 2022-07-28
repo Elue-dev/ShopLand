@@ -28,7 +28,10 @@ const OrderDetails = () => {
     <section>
       <div className={`container ${styles.table} ${styles.sec}`}>
         <div>
-          <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+          <p
+            onClick={() => navigate(-1)}
+            style={{ cursor: "pointer", marginBottom: "2rem" }}
+          >
             &larr; Go back
           </p>
         </div>

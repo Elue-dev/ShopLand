@@ -36,7 +36,7 @@ const Contact = () => {
   return (
     <section>
       <div className={`container ${styles.contact}`}>
-        <p onClick={() => navigate(-1)} style={{ cursor: "pointer" }}>
+        <p onClick={() => navigate(-1)} style={{ cursor: "pointer", marginBottom: '2rem' }}>
           &larr; Go back
         </p>
         <h2>Reach out to us</h2>
