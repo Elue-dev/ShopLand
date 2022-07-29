@@ -1,0 +1,63 @@
+.home {
+  .bot {
+    position: fixed;
+    bottom: 4rem;
+    right: 7rem;
+    transform: scale(0);
+    transition: transform 0.3s ease-in-out;
+  }
+  .button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    button {
+      background: var(--color-danger);
+      height: 5rem;
+      width: 5rem;
+      border-radius: 50%;
+      border: 0;
+      outline: 0;
+      cursor: pointer;
+      .bot-icon {
+        font-size: 3rem;
+        color: #fff;
+      }
+    }
+  }
+  .card {
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    font-size: 1.5rem;
+    .bot-container {
+      width: 300px;
+      padding: 1rem;
+      left: 50rem;
+      bottom: 10rem;
+      background: rgb(232, 232, 232);
+      font-size: 3rem;
+    }
+  }
+  .show {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 540px) {
+  .home {
+    .bot {
+      bottom: 6rem;
+      right: 6rem;
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .home {
+    .bot {
+      right: 5rem;
+    }
+  }
+}

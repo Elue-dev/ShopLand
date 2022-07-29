@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   Home,
@@ -27,9 +28,18 @@ import DeleteAccount from "./pages/auth/DeleteAccount";
 import { useSelector } from "react-redux";
 import { selectSuccessURL } from "./redux/slice/orderSlice";
 import RedirectSuccess from "./components/RedirectSuccess";
+import ChatBot from "./pages/home/ChatBot";
+import styles from './pages/home/home.module.scss'
+import { SiGooglemessages } from "react-icons/si";
 
 function App() {
   const successUrl = useSelector(selectSuccessURL);
+  const [show, setShow] = useState(false);
+
+  const handleBotVisibility = () => {
+    setShow(!show);
+  };
+
 
   return (
     <>
@@ -129,6 +139,20 @@ function App() {
           />
           <Route path="*" element={<Error404 />} />
         </Routes>
+
+        <div className={styles.home}>
+        <div
+          className={show ? `${styles.bot} ${styles.show}` : `${styles.bot}`}
+        >
+          <ChatBot />
+        </div>
+        <div className={styles.button}>
+          <button onClick={handleBotVisibility}>
+            <SiGooglemessages className={styles["bot-icon"]} />
+          </button>
+        </div>
+        </div>
+       
         <Footer />
       </BrowserRouter>
     </>
