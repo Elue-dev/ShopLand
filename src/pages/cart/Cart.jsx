@@ -91,7 +91,7 @@ export default function Cart() {
   };
 
   return (
-    <section className={styles.cart}>
+    <section className={`container ${styles.cart}`}>
       <div className={`container ${styles.table}`}>
         <p
           onClick={() => navigate(-1)}
