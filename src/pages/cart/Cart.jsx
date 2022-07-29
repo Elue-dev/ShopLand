@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -14,20 +14,13 @@ import {
   SAVE_URL,
 } from "../../redux/slice/cartSlice";
 import { FaTrashAlt } from "react-icons/fa";
+import { MdError } from "react-icons/md";
 import Card from "../../components/card/Card";
 import styles from "./cart.module.scss";
 import cartEmpty from "../../assets/cartempty.png";
 import Notiflix from "notiflix";
-import {
-  selectEmail,
-  selectIsLoggedIn,
-  selectUserID,
-  selectUserName,
-} from "../../redux/slice/authSlice";
+import { selectIsLoggedIn } from "../../redux/slice/authSlice";
 import useFetchCollection from "../../hooks/useFetchCollection";
-import { toast } from "react-toastify";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
-import { database } from "../../firebase/firebase";
 
 export default function Cart() {
   const cartItems = useSelector(selectCartItems);
@@ -37,11 +30,24 @@ export default function Cart() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
   const { data } = useFetchCollection("Products");
+  const [amount, setAmount] = useState("");
+  const [error, setError] = useState(null);
 
-  const userID = useSelector(selectUserID);
-  const userEmail = useSelector(selectEmail);
+  useEffect(() => {
+    cartItems.map((amt) => setAmount(amt));
+  }, [cartItems]);
 
   const increaseCart = (cart) => {
+    if (cart.cartQuantity >= cart.count) {
+      setError(
+        `Sorry, this product currently has a total of ${cart.count} items available, you cannot add more than that.`
+      );
+      window.setTimeout(() => setError(""), 10000);
+      return;
+    } else {
+      setError("");
+    }
+
     dispatch(ADD_TO_CART(cart));
   };
 
@@ -95,11 +101,17 @@ export default function Cart() {
       <div className={`container ${styles.table}`}>
         <p
           onClick={() => navigate(-1)}
-          style={{ cursor: "pointer", fontSize: "3rem", marginBottom: '2rem' }}
+          style={{ cursor: "pointer", fontSize: "3rem", marginBottom: "2rem" }}
         >
           &larr;
         </p>
         {cartItems.length ? <h2>Cart</h2> : null}
+        {error && (
+          <p className={`${styles.flex} ${styles.error}`}>
+            <MdError className={styles["error-icon"]} />
+            {error}
+          </p>
+        )}
         {cartItems.length === 0 ? (
           <>
             <div className={styles["cart-empty"]}>
@@ -148,7 +160,7 @@ export default function Cart() {
             </thead>
             <tbody>
               {cartItems.map((cart, index) => {
-                const { id, name, price, imageUrl, cartQuantity } = cart;
+                const { id, name, price, imageUrl, cartQuantity, count } = cart;
                 return (
                   <tr key={id}>
                     <td>{index + 1}</td>
@@ -183,7 +195,7 @@ export default function Cart() {
                       </div>
                     </td>
                     <td>
-                      {new Intl.NumberFormat().format(price * cartQuantity)}
+                      NGN {new Intl.NumberFormat().format(price * cartQuantity)}
                     </td>
                     <td className={styles.icons}>
                       <FaTrashAlt

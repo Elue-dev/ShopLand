@@ -11,6 +11,7 @@ const initialState = {
   cartTotalQuantity: 0,
   cartTotalAmounts: 0,
   previousURL: "",
+  cartCount: 0,
 };
 
 const cartSlice = createSlice({
@@ -56,6 +57,17 @@ const cartSlice = createSlice({
       }
       //save cart to LS
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    SET_CART: (state, action) => {
+      console.log(action.payload);
+      // const cartIndex = state.cartItems.findIndex(
+      //   (
+      //     item //returns -1
+      //   ) => item.id === action.payload.id
+      // );
+      // state.cartCount[cartIndex].cartCount = action.payload;
+      let tempProducts = { ...action.payload, cartCount: 1 };
+      state.cartCount = tempProducts;
     },
     REMOVE_FROM_CART: (state, action) => {
       const newCartItem = state.cartItems.filter(
@@ -121,6 +133,7 @@ const cartSlice = createSlice({
 export const {
   ADD_TO_CART,
   DECREASE_CART,
+  SET_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
   CALCULATE_SUBTOTAL,
@@ -132,6 +145,7 @@ export const {
 
 export const selectCartItems = (state) => state.cart.cartItems;
 export const selectSavedItems = (state) => state.cart.savedItems;
+export const selectCartCount = (state) => state.cart.cartCount;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmounts = (state) => state.cart.cartTotalAmounts;
 export const selectPreviousURL = (state) => state.cart.previousURL;

@@ -83,6 +83,9 @@ export default function ProductDetail() {
               <p>
                 <b>Brand:</b> {product.brand}
               </p>
+              <p>
+                <b>Number available in stock:</b> {product.count}
+              </p>
               <p
                 className={
                   product.Availability === "Out of stock"
