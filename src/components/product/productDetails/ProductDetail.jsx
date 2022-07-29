@@ -22,7 +22,6 @@ import Card from "../../card/Card";
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [disable, setDisable] = useState(false);
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
@@ -40,7 +39,7 @@ export default function ProductDetail() {
   const addToCart = (product) => {
     if (product?.Availability === "Out of stock") {
       setError(true);
-      setTimeout(() =>setError(false), 10000)
+      setTimeout(() => setError(false), 10000);
       return;
     }
     dispatch(ADD_TO_CART(product));
@@ -102,20 +101,15 @@ export default function ProductDetail() {
               </p>
               {error && (
                 <p className={`${styles.flex} ${styles.error}`}>
-                  <MdError />
-                  &nbsp;Sorry, this product is currently out of stock, but you can save for
-                  later.
+                  <MdError className={styles["error-icon"]} />
+                  &nbsp;Sorry, this product is currently out of stock, but you
+                  can save for later.
                 </p>
               )}
               <div className={styles["cart-buttons"]}>
                 <button
-                  className={
-                    disable
-                      ? `--btn --btn-danger ${styles.disable}`
-                      : "--btn --btn-danger "
-                  }
+                  className="--btn --btn-danger "
                   onClick={() => addToCart(product)}
-                  disabled={disable}
                 >
                   ADD TO CART
                 </button>

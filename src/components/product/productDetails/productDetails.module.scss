@@ -56,6 +56,9 @@
       .error {
         color: crimson;
       }
+      .error-icon {
+        font-size: 1.5rem;
+      }
       .out-of-stock {
         background: crimson;
         color: #fff;
@@ -130,6 +133,13 @@
 @media screen and (max-width: 450px) {
   .product .details .img {
     height: 125px;
+  }
+  .product .details .content .error-icon {
+    font-size: 2.3rem;
+  }
+  .product .details .content .error {
+    gap: 1rem;
+    font-size: 1.3rem;
   }
 }
 

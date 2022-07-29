@@ -19,7 +19,6 @@ const filterSlice = createSlice({
     },
     SORT_PRODUCTS: (state, action) => {
       const { products, sort } = action.payload;
-      console.log(sort);
 
       let tempProducts = [];
       if (sort === "latest") {
