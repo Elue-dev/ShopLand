@@ -25,7 +25,7 @@ export default function ProductItem({
   const addToCart = (product) => {
     if (product?.Availability === "Out of stock") {
       setError(true);
-      setTimeout(() => setError(false), 10000);
+      setTimeout(() => setError(false), 7000);
       return;
     }
     dispatch(ADD_TO_CART(product));

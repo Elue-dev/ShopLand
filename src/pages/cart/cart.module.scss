@@ -51,6 +51,19 @@
   padding: 5px;
   width: 100%;
   overflow-x: auto;
+  .flex {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-size: 1.6rem;
+    gap: 1rem;
+  }
+  .error {
+    color: crimson;
+    background-color: pink;
+    padding: .2rem .5rem;
+    font-weight: 700;
+  }
 
   table {
     border-collapse: collapse;
@@ -132,6 +145,12 @@
   .image {
     width: auto;
     height: 300px;
+  }
+  .table .error {
+    font-size: 1.3rem;
+  }
+  .table .error-icon {
+    font-size: 2.5rem;
   }
   .related {
     display: flex;

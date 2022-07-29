@@ -34,6 +34,7 @@ const initialState = {
   category: "",
   availability: "",
   brand: "",
+  count: "",
   description: "",
 };
 
@@ -47,6 +48,7 @@ export default function AddProduct() {
   });
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   function detectForm(id, arg1, arg2) {
@@ -89,6 +91,13 @@ export default function AddProduct() {
     e.preventDefault();
     setLoading(true);
 
+    if (product.count < 0) {
+      setError("Product availabe cannot be less than 0");
+      window.setTimeout(() => setError(""), 7000);
+      setLoading(false);
+      return;
+    }
+
     try {
       const collectionRef = collection(database, "Products");
       addDoc(collectionRef, {
@@ -98,6 +107,7 @@ export default function AddProduct() {
         price: Number(product.price),
         category: product.category,
         brand: product.brand,
+        count: Number(product.count),
         description: product.description,
         createdAt: Timestamp.now().toDate(),
       });
@@ -125,6 +135,22 @@ export default function AddProduct() {
       deleteObject(storageRef);
     }
 
+    if (product.count < 0) {
+      setError("Product availabe cannot be less than 0");
+      window.setTimeout(() => setError(""), 7000);
+      setLoading(false);
+      return;
+    }
+
+    if (product.availability === "Out of stock" && product.count > 0) {
+      setError(
+        "Since this product is out of stock, product available has to be 0"
+      );
+      window.setTimeout(() => setError(""), 7000);
+      setLoading(false);
+      return;
+    }
+
     try {
       const docRef = doc(database, "Products", id);
       setDoc(docRef, {
@@ -134,6 +160,7 @@ export default function AddProduct() {
         price: Number(product.price),
         category: product.category,
         brand: product.brand,
+        count: Number(product.count),
         description: product.description,
         createdAt: productEdit.createdAt,
         editedAt: Timestamp.now().toDate(),
@@ -155,6 +182,18 @@ export default function AddProduct() {
       {products && (
         <div className={styles.product}>
           <h2>{detectForm(id, "Add New Product", "Edit Product")}</h2>
+          <span>
+            {detectForm(
+              id,
+              null,
+              <p className={styles.warning}>
+                Do not refresh this page, this would cause the data to be
+                unavailable, but if for some reason it refreshes, leave this
+                page and come back again and the data would be back, then you
+                can proceed to edit this product.
+              </p>
+            )}
+          </span>
 
           <Card cardClass={styles.card}>
             <label style={{ fontSize: "1.4rem", fontWeight: 500 }}>
@@ -170,7 +209,7 @@ export default function AddProduct() {
               <input
                 type="text"
                 placeholder="Product Name"
-                value={product.name}
+                value={product && product.name}
                 name="name"
                 onChange={(e) => handleInputChange(e)}
                 required
@@ -197,14 +236,14 @@ export default function AddProduct() {
                   name="image"
                   onChange={(e) => handleImageChange(e)}
                 />
-                {product.imageUrl === "" ? null : (
+                {product && product.imageUrl === "" ? null : (
                   <input
                     type="text"
                     name="imageUrl"
                     disabled
                     required
                     placeholder="Image URL:"
-                    value={product.imageUrl}
+                    value={product && product.imageUrl}
                   />
                 )}
               </Card>
@@ -212,15 +251,16 @@ export default function AddProduct() {
               <input
                 type="text"
                 placeholder="Product Price"
-                value={product.price}
+                value={product && product.price}
                 name="price"
                 onChange={(e) => handleInputChange(e)}
                 required
               />
+              <label>Choose product category:</label>
               <select
                 name="category"
                 required
-                value={product.category}
+                value={product && product.category}
                 onChange={(e) => handleInputChange(e)}
               >
                 <option value="" disabled>
@@ -235,16 +275,17 @@ export default function AddProduct() {
               <label>Product Company/Brand:</label>
               <input
                 type="text"
-                placeholder="Product Brand"
-                value={product.brand}
+                placeholder="Product Brand (e.g Nike)"
+                value={product && product.brand}
                 name="brand"
                 onChange={(e) => handleInputChange(e)}
                 required
               />
+              <label>Select availability status:</label>
               <select
                 name="availability"
                 required
-                value={product.availability || ""}
+                value={(product && product.availability) || ""}
                 onChange={(e) => handleInputChange(e)}
               >
                 <option value="" disabled>
@@ -256,10 +297,31 @@ export default function AddProduct() {
                   </option>
                 ))}
               </select>
+              <label>Number of product available:</label>
+              <input
+                type="number"
+                placeholder="The number available in stock (e.g 3)"
+                value={product && product.count}
+                name="count"
+                onChange={(e) => handleInputChange(e)}
+                required
+              />
+              {error && (
+                <p
+                  style={{
+                    color: "red",
+                    fontWeight: "700",
+                    paddingBottom: "2rem",
+                  }}
+                >
+                  {error}
+                </p>
+              )}
               <label>Product Description:</label>
               <textarea
                 name="description"
-                value={product.description}
+                placeholder="Describe this product"
+                value={product && product.description}
                 onChange={(e) => handleInputChange(e)}
                 rerquiredcols="30"
                 rows="10"

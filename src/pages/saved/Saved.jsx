@@ -6,9 +6,14 @@ import {
   selectSavedItems,
 } from "../../redux/slice/cartSlice";
 import styles from "./saved.module.scss";
+import { selectProducts } from "../../redux/slice/productSlice";
 
 export default function Saved() {
   const savedItems = useSelector(selectSavedItems);
+  const products = useSelector(selectProducts);
+
+  let filS = [];
+  savedItems.map((p) => filS.push(p));
   const dispatch = useDispatch();
 
   const removeFromSaved = (product) => {
@@ -25,7 +30,7 @@ export default function Saved() {
       ) : null}
 
       <br />
-      <div className={` container ${styles.saved}`}>
+      <div className={`container ${styles.saved}`}>
         {savedItems.length === 0 ? (
           <div className={styles.empty}>
             <div className={styles.empty}>
@@ -38,7 +43,6 @@ export default function Saved() {
             </div>
           </div>
         ) : null}
-
         {savedItems.map((saved) => {
           return (
             <div key={saved.id} className={styles["saved-item"]}>
