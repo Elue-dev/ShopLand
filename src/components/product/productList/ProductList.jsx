@@ -82,6 +82,8 @@ export default function ProductList({ products }) {
             <option value="latest">Latest</option>
             <option value="lowest-price">Lowest Price</option>
             <option value="highest-price">Highest Price</option>
+            <option value="In-stock">In-stock</option>
+            <option value="Out of stock">Out of stock</option>
             <option value="a-z">A - Z (alphabet. order)</option>
             <option value="z-a">Z - A (alphabet. order)</option>
           </select>
