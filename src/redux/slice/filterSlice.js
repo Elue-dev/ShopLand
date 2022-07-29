@@ -19,6 +19,8 @@ const filterSlice = createSlice({
     },
     SORT_PRODUCTS: (state, action) => {
       const { products, sort } = action.payload;
+      console.log(sort);
+
       let tempProducts = [];
       if (sort === "latest") {
         tempProducts = products;
@@ -42,6 +44,16 @@ const filterSlice = createSlice({
         tempProducts = products.slice().sort((a, b) => {
           return b.name.localeCompare(a.name);
         });
+      }
+      if (sort === "Out of stock") {
+        tempProducts = products.filter(
+          (product) => product.Availability === "Out of stock"
+        );
+      }
+      if (sort === "In-stock") {
+        tempProducts = products.filter(
+          (product) => product.Availability === "In-stock"
+        );
       }
 
       state.filteredProducts = tempProducts;
@@ -70,9 +82,9 @@ const filterSlice = createSlice({
     },
     FILTER_BY_PRICE: (state, action) => {
       const { products, price } = action.payload;
-      let tempProducts = []
-      tempProducts = products.filter(product => product.price <= price )
-      state.filteredProducts = tempProducts
+      let tempProducts = [];
+      tempProducts = products.filter((product) => product.price <= price);
+      state.filteredProducts = tempProducts;
     },
   },
 });
