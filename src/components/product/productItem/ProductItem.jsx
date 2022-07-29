@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { MdError } from "react-icons/md";
 import Card from "../../../components/card/Card";
 import {
   ADD_TO_CART,
@@ -19,8 +20,14 @@ export default function ProductItem({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState();
 
   const addToCart = (product) => {
+    if (product?.Availability === "Out of stock") {
+      setError(true);
+      setTimeout(() => setError(false), 10000);
+      return;
+    }
     dispatch(ADD_TO_CART(product));
     navigate("/cart");
     dispatch(CALCULATE_TOTAL_QUANTITY());
@@ -28,6 +35,9 @@ export default function ProductItem({
 
   return (
     <Card cardClass={grid ? `${styles.grid}` : `${styles.list}`}>
+      {product?.Availability === "Out of stock" && (
+        <p className={styles["out-of-stock"]}>Out of stock</p>
+      )}
       <div className={styles.img}>
         <Link to={`/product-details/${id}`}>
           <img src={imageUrl} alt={name} />
@@ -39,6 +49,12 @@ export default function ProductItem({
           </div>
           {!grid && (
             <p className={styles.desc}>{description.substring(0, 200)}...</p>
+          )}
+          {error && (
+            <p className={`${styles.flex} ${styles.error}`}>
+              <MdError />
+              &nbsp;Out of stock
+            </p>
           )}
           <button
             className="--btn --btn-danger"

@@ -101,7 +101,7 @@ export default function ProductList({ products }) {
       <div className={grid ? `${styles.grid}` : `${styles.list}`}>
         {filteredProducts.length === 0 ? (
           <h2>
-            <b>No Product(s) Found.</b>
+            <b>No Product(s) match your search.</b>
           </h2>
         ) : (
           <>

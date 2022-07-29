@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../../components/card/Card";
 import {
   ref,
@@ -22,12 +22,17 @@ const categories = [
   { id: 4, name: "Phone" },
 ];
 
+const status = [
+  { id: 1, name: "In-stock" },
+  { id: 2, name: "Out of stock" },
+];
+
 const initialState = {
   name: "",
   imageUrl: "",
-  availability: "",
   price: "",
   category: "",
+  availability: "",
   brand: "",
   description: "",
 };
@@ -87,10 +92,10 @@ export default function AddProduct() {
     try {
       const collectionRef = collection(database, "Products");
       addDoc(collectionRef, {
+        Availability: product.availability,
         name: product.name,
         imageUrl: product.imageUrl,
         price: Number(product.price),
-        Availability: product.availability,
         category: product.category,
         brand: product.brand,
         description: product.description,
@@ -123,10 +128,10 @@ export default function AddProduct() {
     try {
       const docRef = doc(database, "Products", id);
       setDoc(docRef, {
+        Availability: product.availability,
         name: product.name,
         imageUrl: product.imageUrl,
         price: Number(product.price),
-        Availability: product.availability,
         category: product.category,
         brand: product.brand,
         description: product.description,
@@ -147,121 +152,126 @@ export default function AddProduct() {
   return (
     <>
       {loading && <Loader />}
-      <div className={styles.product}>
-        <h2>{detectForm(id, "Add New Product", "Edit Product")}</h2>
+      {products && (
+        <div className={styles.product}>
+          <h2>{detectForm(id, "Add New Product", "Edit Product")}</h2>
 
-        <Card cardClass={styles.card}>
-          <label style={{ fontSize: "1.4rem", fontWeight: 500 }}>
-            Product Name:
-          </label>
-          <form
-            onSubmit={detectForm(
-              id,
-              addProductToDatabase,
-              editProductInDatabase
-            )}
-          >
-            <input
-              type="text"
-              placeholder="Product Name"
-              value={product.name}
-              name="name"
-              onChange={(e) => handleInputChange(e)}
-              required
-            />
-            <label>Product Image:</label>
-            <Card cardClass={styles.group}>
-              {uploadProgress === 0 ? null : (
-                <div className={styles.progress}>
-                  <div
-                    className={styles["progress-bar"]}
-                    style={{ width: `${uploadProgress}%` }}
-                  >
-                    {uploadProgress < 100
-                      ? `Uploading ${uploadProgress}%`
-                      : `Upload Complete ${uploadProgress}%`}
-                  </div>
-                </div>
+          <Card cardClass={styles.card}>
+            <label style={{ fontSize: "1.4rem", fontWeight: 500 }}>
+              Product Name:
+            </label>
+            <form
+              onSubmit={detectForm(
+                id,
+                addProductToDatabase,
+                editProductInDatabase
               )}
-
+            >
               <input
-                type="file"
-                accept="image/*"
-                placeholder="Product image"
-                name="image"
-                onChange={(e) => handleImageChange(e)}
+                type="text"
+                placeholder="Product Name"
+                value={product.name}
+                name="name"
+                onChange={(e) => handleInputChange(e)}
+                required
               />
-              {product.imageUrl === "" ? null : (
+              <label>Product Image:</label>
+              <Card cardClass={styles.group}>
+                {uploadProgress === 0 ? null : (
+                  <div className={styles.progress}>
+                    <div
+                      className={styles["progress-bar"]}
+                      style={{ width: `${uploadProgress}%` }}
+                    >
+                      {uploadProgress < 100
+                        ? `Uploading ${uploadProgress}%`
+                        : `Upload Complete ${uploadProgress}%`}
+                    </div>
+                  </div>
+                )}
+
                 <input
-                  type="text"
-                  name="imageUrl"
-                  disabled
-                  required
-                  placeholder="Image URL:"
-                  value={product.imageUrl}
+                  type="file"
+                  accept="image/*"
+                  placeholder="Product image"
+                  name="image"
+                  onChange={(e) => handleImageChange(e)}
                 />
-              )}
-            </Card>
-            <label>Product Price:</label>
-            <input
-              type="text"
-              placeholder="Product Price"
-              value={product.price}
-              name="price"
-              onChange={(e) => handleInputChange(e)}
-              required
-            />
-            <select
-              name="category"
-              required
-              value={product.category}
-              onChange={(e) => handleInputChange(e)}
-            >
-              <option value="" disabled>
-                --choose product category--
-              </option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
+                {product.imageUrl === "" ? null : (
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    disabled
+                    required
+                    placeholder="Image URL:"
+                    value={product.imageUrl}
+                  />
+                )}
+              </Card>
+              <label>Product Price:</label>
+              <input
+                type="text"
+                placeholder="Product Price"
+                value={product.price}
+                name="price"
+                onChange={(e) => handleInputChange(e)}
+                required
+              />
+              <select
+                name="category"
+                required
+                value={product.category}
+                onChange={(e) => handleInputChange(e)}
+              >
+                <option value="" disabled>
+                  --choose product category--
                 </option>
-              ))}
-            </select>
-            <label>Product Company/Brand:</label>
-            <input
-              type="text"
-              placeholder="Product Brand"
-              value={product.brand}
-              name="brand"
-              onChange={(e) => handleInputChange(e)}
-              required
-            />
-            <label>Product Availability:</label>
-            <select
-              name="availability"
-              required
-              value={product.availability}
-              onChange={(e) => handleInputChange(e)}
-            >
-              <option value="" disabled>
-                --choose availability status--
-              </option>
-              <option value="In-stock">In-stock</option>
-              <option value="Out of stock">Out of stock</option>
-            </select>
-            <label>Product Description:</label>
-            <textarea
-              name="description"
-              value={product.description}
-              onChange={(e) => handleInputChange(e)}
-              rerquiredcols="30"
-              rows="10"
-            />
-            <button className="--btn --btn-primary --btn-block">
-              {detectForm(id, "Save Product", "Edit Product")}
-            </button>
-          </form>
-        </Card>
-      </div>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              <label>Product Company/Brand:</label>
+              <input
+                type="text"
+                placeholder="Product Brand"
+                value={product.brand}
+                name="brand"
+                onChange={(e) => handleInputChange(e)}
+                required
+              />
+              <select
+                name="availability"
+                required
+                value={product.availability || ""}
+                onChange={(e) => handleInputChange(e)}
+              >
+                <option value="" disabled>
+                  --choose availability status--
+                </option>
+                {status.map((stat) => (
+                  <option key={stat.id} value={stat.name}>
+                    {stat.name}
+                  </option>
+                ))}
+              </select>
+              <label>Product Description:</label>
+              <textarea
+                name="description"
+                value={product.description}
+                onChange={(e) => handleInputChange(e)}
+                rerquiredcols="30"
+                rows="10"
+                required
+              />
+              <button className="--btn --btn-primary --btn-block">
+                {detectForm(id, "Save Product", "Edit Product")}
+              </button>
+            </form>
+          </Card>
+        </div>
+      )}
     </>
   );
 }
