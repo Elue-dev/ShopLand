@@ -98,6 +98,15 @@ export default function AddProduct() {
       return;
     }
 
+    if (product.availability === "In-stock" && product.count <= 0) {
+      setError(
+        "Since this product is in stock, number of product available cannot be 0"
+      );
+      window.setTimeout(() => setError(""), 10000);
+      setLoading(false);
+      return;
+    }
+
     try {
       const collectionRef = collection(database, "Products");
       addDoc(collectionRef, {
@@ -136,7 +145,7 @@ export default function AddProduct() {
     }
 
     if (product.count < 0) {
-      setError("Product availabe cannot be less than 0");
+      setError("Product available cannot be less than 0");
       window.setTimeout(() => setError(""), 7000);
       setLoading(false);
       return;
@@ -144,9 +153,18 @@ export default function AddProduct() {
 
     if (product.availability === "Out of stock" && product.count > 0) {
       setError(
-        "Since this product is out of stock, product available has to be 0"
+        "Since this product is out of stock, number of product available has to be 0"
       );
       window.setTimeout(() => setError(""), 7000);
+      setLoading(false);
+      return;
+    }
+
+    if (product.availability === "In-stock" && product.count <= 0) {
+      setError(
+        "Since this product is in stock, number of product available cannot be 0"
+      );
+      window.setTimeout(() => setError(""), 10000);
       setLoading(false);
       return;
     }
