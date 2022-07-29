@@ -4,6 +4,8 @@ import spinnerImg from "../../../assets/spinner.jpg";
 import StarRatings from "react-star-ratings";
 import { BsInfoCircle, BsFillCheckCircleFill } from "react-icons/bs";
 import { ImEyePlus } from "react-icons/im";
+import { TiCancel } from "react-icons/ti";
+import { MdError } from "react-icons/md";
 import styles from "./productDetails.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,6 +22,8 @@ import Card from "../../card/Card";
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
+  const [disable, setDisable] = useState(false);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
@@ -34,8 +38,13 @@ export default function ProductDetail() {
   }, [document]);
 
   const addToCart = (product) => {
+    if (product?.Availability === "Out of stock") {
+      setError(true);
+      setTimeout(() =>setError(false), 10000)
+      return;
+    }
     dispatch(ADD_TO_CART(product));
-    navigate('/cart')
+    navigate("/cart");
     dispatch(CALCULATE_TOTAL_QUANTITY());
   };
 
@@ -75,10 +84,38 @@ export default function ProductDetail() {
               <p>
                 <b>Brand:</b> {product.brand}
               </p>
+              <p
+                className={
+                  product.Availability === "Out of stock"
+                    ? styles["out-of-stock"]
+                    : styles["in-stock"]
+                }
+              >
+                <b className={styles.flex}>
+                  {product.Availability === "Out of stock" ? (
+                    <TiCancel size={20} />
+                  ) : (
+                    <BsFillCheckCircleFill />
+                  )}
+                  &nbsp; {product.Availability}
+                </b>
+              </p>
+              {error && (
+                <p className={`${styles.flex} ${styles.error}`}>
+                  <MdError />
+                  &nbsp;Sorry, this product is currently out of stock, but you can save for
+                  later.
+                </p>
+              )}
               <div className={styles["cart-buttons"]}>
                 <button
-                  className="--btn --btn-danger"
+                  className={
+                    disable
+                      ? `--btn --btn-danger ${styles.disable}`
+                      : "--btn --btn-danger "
+                  }
                   onClick={() => addToCart(product)}
+                  disabled={disable}
                 >
                   ADD TO CART
                 </button>

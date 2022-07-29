@@ -1,6 +1,11 @@
 import { useState } from "react";
 import Card from "../../../components/card/Card";
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { database, storage } from "../../../firebase/firebase";
 import styles from "./addProduct.module.scss";
 import { toast } from "react-toastify";
@@ -20,6 +25,7 @@ const categories = [
 const initialState = {
   name: "",
   imageUrl: "",
+  availability: "",
   price: "",
   category: "",
   brand: "",
@@ -31,11 +37,8 @@ export default function AddProduct() {
   const products = useSelector(selectProducts);
   const productEdit = products.find((item) => item.id === id);
   const [product, setProduct] = useState(() => {
-    const newState = detectForm(id, 
-      {...initialState},
-      productEdit
-      )
-      return newState
+    const newState = detectForm(id, { ...initialState }, productEdit);
+    return newState;
   });
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -87,6 +90,7 @@ export default function AddProduct() {
         name: product.name,
         imageUrl: product.imageUrl,
         price: Number(product.price),
+        Availability: product.availability,
         category: product.category,
         brand: product.brand,
         description: product.description,
@@ -112,8 +116,8 @@ export default function AddProduct() {
     setLoading(true);
 
     if (product.imageUrl !== productEdit.imageUrl) {
-      const storageRef = ref(storage, productEdit.imageUrl)
-      deleteObject(storageRef)
+      const storageRef = ref(storage, productEdit.imageUrl);
+      deleteObject(storageRef);
     }
 
     try {
@@ -122,15 +126,16 @@ export default function AddProduct() {
         name: product.name,
         imageUrl: product.imageUrl,
         price: Number(product.price),
+        Availability: product.availability,
         category: product.category,
         brand: product.brand,
         description: product.description,
         createdAt: productEdit.createdAt,
-        editedAt: Timestamp.now().toDate()
+        editedAt: Timestamp.now().toDate(),
       });
-      setLoading(false)
-      toast.success('Product successfully edited')
-      navigate('/admin/all-products')
+      setLoading(false);
+      toast.success("Product successfully edited");
+      navigate("/admin/all-products");
     } catch (error) {
       toast.error(error.message, {
         pauseOnFocusLoss: false,
@@ -230,6 +235,19 @@ export default function AddProduct() {
               onChange={(e) => handleInputChange(e)}
               required
             />
+            <label>Product Availability:</label>
+            <select
+              name="availability"
+              required
+              value={product.availability}
+              onChange={(e) => handleInputChange(e)}
+            >
+              <option value="" disabled>
+                --choose availability status--
+              </option>
+              <option value="In-stock">In-stock</option>
+              <option value="Out of stock">Out of stock</option>
+            </select>
             <label>Product Description:</label>
             <textarea
               name="description"
