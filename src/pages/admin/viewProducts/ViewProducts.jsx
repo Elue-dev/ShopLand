@@ -67,7 +67,9 @@ export default function ViewProducts() {
       "CANCEL",
       function okCb() {
         deleteProduct(id, imageUrl);
-        toast.success(`You have deleted ${name}`);
+        toast.success(
+          `${name} deleted, if you are not an authorized admin, this would be reversed within seconds.`
+        );
       },
       function cancelCb() {},
       {
@@ -92,7 +94,11 @@ export default function ViewProducts() {
           toast.error(error.message);
         });
     } catch (error) {
-      toast.error(error.message);
+      if (error.message === "Missing or insufficient permissions.") {
+        toast.error(
+          "Delete reversed, only Elue Wisdom can delete products from the database"
+        );
+      }
     }
   };
 
