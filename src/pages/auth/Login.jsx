@@ -53,19 +53,19 @@ export default function Login() {
         setError("User not found");
         window.setTimeout(() => {
           setError("");
-        }, 3000);
+        }, 6000);
       }
       if (error.message === "Firebase: Error (auth/wrong-password).") {
         setError("Wrong password");
         window.setTimeout(() => {
           setError("");
-        }, 3000);
+        }, 6000);
       }
       if (error.message === "Firebase: Error (auth/network-request-failed).") {
         setError("Please check your internet connection");
         window.setTimeout(() => {
           setError("");
-        }, 5000);
+        }, 6000);
       }
       if (
         error.message ===
@@ -76,7 +76,7 @@ export default function Login() {
         );
         window.setTimeout(() => {
           setError("");
-        }, 8000);
+        }, 12000);
       }
     }
     setLoading(false);
@@ -100,13 +100,13 @@ export default function Login() {
         setError("Google sign in failed. (You exited the google sign in)");
         window.setTimeout(() => {
           setError("");
-        }, 3500);
+        }, 6000);
       }
       if (err.message === "Firebase: Error (auth/network-request-failed).") {
         setError("Google sign in failed.");
         window.setTimeout(() => {
           setError("");
-        }, 3500);
+        }, 6000);
       }
     }
   };
