@@ -40,7 +40,7 @@ export default function Cart() {
   const increaseCart = (cart) => {
     if (cart.cartQuantity >= cart.count) {
       setError(
-        `Sorry, this product currently has a total of ${cart.count} items available, you cannot add more than that.`
+        `Sorry, this product currently has a total of ${cart.count} items available.`
       );
       window.setTimeout(() => setError(""), 10000);
       return;

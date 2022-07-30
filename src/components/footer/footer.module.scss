@@ -6,6 +6,7 @@
     margin-bottom: 3rem;
     border-bottom: 1px solid #fff;
     line-height: 2;
+  
     span {
       font-size: 2.6rem;
       font-weight: 600;
@@ -20,6 +21,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
+     
     }
     li {
       list-style: none;
@@ -51,7 +53,14 @@
 }
 
 @media (max-width: 500px) {
+  .footer ul span {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 2.1rem;
+  }
   .footer ul .flex {
     grid-template-columns: repeat(2, 1fr);
+    justify-items: baseline;
+    gap: 1rem;
   }
 }
