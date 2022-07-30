@@ -37,6 +37,9 @@ const MessageParser = ({ children, actions }) => {
     if (message.includes("thank")) {
       actions.handleThanks();
     }
+    if (message.includes("login") || message.includes("account") || message.includes("sign")) {
+      actions.handleAccount();
+    }
   };
 
   return (

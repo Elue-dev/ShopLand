@@ -42,7 +42,7 @@ export default function Cart() {
       setError(
         `Sorry, this product currently has a total of ${cart.count} items available.`
       );
-      window.setTimeout(() => setError(""), 10000);
+      window.setTimeout(() => setError(""), 7000);
       return;
     } else {
       setError("");

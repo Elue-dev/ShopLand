@@ -37,9 +37,20 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
     }));
   };
 
+  const handleAccount = () => {
+    const botMessage = createChatBotMessage(
+      "Having trouble signing in or setting up your account? let us know, go to the contact page and send us a message."
+    );
+
+    setState((prev) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+
   const handleProducts = () => {
     const botMessage = createChatBotMessage(
-      "If you have any inquiries about a product or you need assistance in any way, contact this phone number: +234-810-733-9039. All the best!.",
+      "If you have any inquiries about a product or you need assistance in any way, go to our contact page and submit your issue. All the best!.",
       {
         widget: "Product",
       }
@@ -62,6 +73,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
             handleThanks,
             handleGood,
             handleOkay,
+            handleAccount,
           },
         });
       })}
