@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import signinImg from "../../assets/register.png";
 import Card from "../../components/card/Card";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import styles from "./auth.module.scss";
 import { useAuth } from "../../contexts/authContext";
 import { GoPrimitiveDot } from "react-icons/go";
@@ -57,7 +56,7 @@ export default function Signup() {
         setError("Email already in use");
         window.setTimeout(() => {
           setError("");
-        }, 5000);
+        }, 7000);
       }
       if (
         error.message ===
@@ -66,19 +65,19 @@ export default function Signup() {
         setError("Password should be at least 6 characters");
         window.setTimeout(() => {
           setError("");
-        }, 3000);
+        }, 7000);
       }
       if (error.message === "Firebase: Error (auth/invalid-email).") {
         setError("Invalid email");
         window.setTimeout(() => {
           setError("");
-        }, 5000);
+        }, 7000);
       }
       if (error.message === "Firebase: Error (auth/network-request-failed).") {
         setError("Please check your internet connection");
         window.setTimeout(() => {
           setError("");
-        }, 5000);
+        }, 7000);
       }
       setLoading(false);
     }

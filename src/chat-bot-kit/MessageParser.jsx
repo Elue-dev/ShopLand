@@ -29,7 +29,8 @@ const MessageParser = ({ children, actions }) => {
       message.includes("product") ||
       message.includes("item") ||
       message.includes("help") ||
-      message.includes("assistance")
+      message.includes("assistance")||
+      message.includes("password")
     ) {
       actions.handleProducts();
     }
