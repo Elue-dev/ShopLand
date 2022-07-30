@@ -30,12 +30,7 @@ export default function Cart() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
   const { data } = useFetchCollection("Products");
-  const [amount, setAmount] = useState("");
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    cartItems.map((amt) => setAmount(amt));
-  }, [cartItems]);
 
   const increaseCart = (cart) => {
     if (cart.cartQuantity >= cart.count) {
@@ -44,8 +39,6 @@ export default function Cart() {
       );
       window.setTimeout(() => setError(""), 7000);
       return;
-    } else {
-      setError("");
     }
 
     dispatch(ADD_TO_CART(cart));
@@ -106,12 +99,17 @@ export default function Cart() {
           &larr;
         </p>
         {cartItems.length ? <h2>Cart</h2> : null}
-        {error && (
-          <p className={`${styles.flex} ${styles.error}`}>
-            <MdError className={styles["error-icon"]} />
-            {error}
-          </p>
-        )}
+        {cartItems.length ? (
+          <>
+            {error && (
+              <p className={`${styles.flex} ${styles.error}`}>
+                <MdError className={styles["error-icon"]} />
+                {error}
+              </p>
+            )}
+          </>
+        ) : null}
+
         {cartItems.length === 0 ? (
           <>
             <div className={styles["cart-empty"]}>
@@ -160,7 +158,7 @@ export default function Cart() {
             </thead>
             <tbody>
               {cartItems.map((cart, index) => {
-                const { id, name, price, imageUrl, cartQuantity, count } = cart;
+                const { id, name, price, imageUrl, cartQuantity } = cart;
                 return (
                   <tr key={id}>
                     <td>{index + 1}</td>

@@ -77,7 +77,9 @@ export default function AddProduct() {
         setUploadProgress(progress);
       },
       (error) => {
-        toast.error(error.message);
+        toast.error(
+          "Image not added, only Elue Wisdom can add images to the database"
+        );
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -121,16 +123,19 @@ export default function AddProduct() {
         createdAt: Timestamp.now().toDate(),
       });
       setLoading(false);
-      toast.success("Product uploaded successfully", {
-        pauseOnFocusLoss: false,
-      });
+      toast.info(
+        "Product will be added (IF YOU ARE AN AUTHORIZED ADMIN, else it will fail to be added)",
+        {
+          pauseOnFocusLoss: false,
+        }
+      );
       setProduct({ ...initialState });
       setUploadProgress(0);
       navigate("/admin/all-products");
     } catch (error) {
-      toast.error(error.message, {
-        pauseOnFocusLoss: false,
-      });
+      toast.error(
+        "Product not added, only Elue Wisdom can add products to the database"
+      );
       setLoading(false);
     }
   };

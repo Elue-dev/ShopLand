@@ -13,6 +13,7 @@ import {
   CALCULATE_TOTAL_QUANTITY,
   REMOVE_FROM_SAVED,
   SAVE_FOR_LATER,
+  selectCartItems,
   selectSavedItems,
 } from "../../../redux/slice/cartSlice";
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
@@ -22,26 +23,48 @@ import Card from "../../card/Card";
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const [detailError, setDetailError] = useState("");
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
   const savedItems = useSelector(selectSavedItems);
   const navigate = useNavigate();
-
-  //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
-  const filteredReviews = data.filter((review) => review.productID === id);
+  const quantityInCart = useSelector(selectCartItems);
 
   useEffect(() => {
     setProduct(document);
   }, [document]);
 
+  //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
+  const filteredReviews = data.filter((review) => review.productID === id);
+
+
+  //prevent user from adding items to the cart that is more than the total count of the product (declared from line 59)
+  let newCartQuantity = [];
+  quantityInCart?.map((qty) => newCartQuantity.push(qty));
+
+  const matchCartWithProduct = newCartQuantity.find(
+    (p) => p.name === product?.name
+  );
+
   const addToCart = (product) => {
     if (product?.Availability === "Out of stock") {
-      setError(true);
+      setError(
+        "Sorry, this product is currently out of stock, but you can save for later."
+      );
       setTimeout(() => setError(false), 10000);
       return;
     }
+
+    if (matchCartWithProduct?.cartQuantity >= product.count) {
+      setDetailError(
+        `Sorry, this product currently has a total of ${product.count} items available.`
+      );
+      window.setTimeout(() => setDetailError(""), 7000);
+      return;
+    }
+
     dispatch(ADD_TO_CART(product));
     navigate("/cart");
     dispatch(CALCULATE_TOTAL_QUANTITY());
@@ -105,8 +128,13 @@ export default function ProductDetail() {
               {error && (
                 <p className={`${styles.flex} ${styles.error}`}>
                   <MdError className={styles["error-icon"]} />
-                  &nbsp;Sorry, this product is currently out of stock, but you
-                  can save for later.
+                  &nbsp; {error}
+                </p>
+              )}
+              {detailError && (
+                <p className={`${styles.flex} ${styles.error}`}>
+                  <MdError className={styles["error-icon"]} />
+                  &nbsp; {detailError}
                 </p>
               )}
               <div className={styles["cart-buttons"]}>
