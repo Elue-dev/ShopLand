@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineFreeCancellation } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   REMOVE_FROM_SAVED,
   selectSavedItems,
@@ -10,10 +10,7 @@ import { selectProducts } from "../../redux/slice/productSlice";
 
 export default function Saved() {
   const savedItems = useSelector(selectSavedItems);
-  const products = useSelector(selectProducts);
-
-  let filS = [];
-  savedItems.map((p) => filS.push(p));
+  const navigate = useNavigate()
   const dispatch = useDispatch();
 
   const removeFromSaved = (product) => {
@@ -21,7 +18,13 @@ export default function Saved() {
   };
 
   return (
-    <section>
+    <section className="container">
+       <p
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer", fontSize: "3rem", marginBottom: "2rem" }}
+        >
+          &larr;
+        </p>
       {savedItems.length ? (
         <h2>
           You currently have <b>{savedItems.length}</b>{" "}
