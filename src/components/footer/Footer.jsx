@@ -46,10 +46,7 @@ const Footer = () => {
             <TiShoppingCart />
             <Link to="/cart">Cart</Link>
           </li>
-          <li>
-            <IoNotifications />
-            <Link to="/notifications">Notifications</Link>
-          </li>
+
           <li>
             <HiSaveAs />
             <Link to="/saved-products">Saved products</Link>
@@ -57,6 +54,10 @@ const Footer = () => {
 
           {user && (
             <>
+              <li>
+                <IoNotifications />
+                <Link to="/notifications">Notifications</Link>
+              </li>
               <li onClick={logoutUser}>
                 <BiLogOut />
                 <p>Logout</p>
