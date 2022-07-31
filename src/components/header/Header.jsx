@@ -35,7 +35,7 @@ export default function Header() {
   const [displayName, setDisplayname] = useState(null);
   const navigate = useNavigate;
   const dispatch = useDispatch();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const cartTotalQty = useSelector(selectCartTotalQuantity);
   const saved = useSelector(selectSavedItems);
 
@@ -150,7 +150,7 @@ export default function Header() {
               <ShowOnLogin>
                 <a className={styles.welcome}>
                   <FaUserCircle size={16} />
-                  &nbsp; Hi, {displayName}
+                  &nbsp; Hi, {user?.displayName || displayName}
                 </a>
               </ShowOnLogin>
               <ShowOnLogout className={styles.flex}>
