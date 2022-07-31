@@ -2,7 +2,7 @@
 
 ## Stacks: React, Redux toolkit, SASS, Firebase
 
-## Third party libraries used (part of dependencies):
+### Third party libraries used (part of dependencies):
 - React chatbot kit
 - React chartjs
 - React country region selector
