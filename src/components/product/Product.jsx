@@ -32,7 +32,8 @@ export default function Product() {
   }, [dispatch, data]);
 
   return (
-    <section>
+    <section className={styles.section}>
+      <h2 style={{ textAlign: "center", padding:'3rem 0', color: '#c07d53' }}>Explore our products</h2>
       <div className={`container ${styles.product}`}>
         <aside
           className={

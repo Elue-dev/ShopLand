@@ -30,7 +30,7 @@ export default function ProductDetail() {
   const { data } = useFetchCollection("Reviews");
   const savedItems = useSelector(selectSavedItems);
   const navigate = useNavigate();
-  const quantityInCart = useSelector(selectCartItems);
+  const quantityInCart = useSelector(selectCartItems); 
 
   useEffect(() => {
     setProduct(document);
@@ -38,7 +38,6 @@ export default function ProductDetail() {
 
   //the fetch return ALL the reviews, but we dont want to display all, only the specfic one for a specific product.
   const filteredReviews = data.filter((review) => review.productID === id);
-
 
   //prevent user from adding items to the cart that is more than the total count of the product (declared from line 59)
   let newCartQuantity = [];

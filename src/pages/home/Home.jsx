@@ -4,6 +4,7 @@ import Slider from "../../components/slider/Slider";
 import { SiGooglemessages } from "react-icons/si";
 import styles from "./home.module.scss";
 import ChatBot from "./ChatBot";
+import Range from "../../components/range/Range";
 
 export default function Home() {
   const [show, setShow] = useState(false);
@@ -30,6 +31,7 @@ export default function Home() {
   return (
     <div className={styles.home}>
       <Slider />
+      <Range />
       <Product />
       
     </div>

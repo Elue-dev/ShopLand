@@ -3,6 +3,7 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { sliderData } from "./slideData";
 import "./slider.scss";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -20,15 +21,15 @@ export default function Slider() {
   let intervalTime = 4000;
 
   useEffect(() => {
-    setCurrentSlide(0)
-  }, [])
+    setCurrentSlide(0);
+  }, []);
 
   useEffect(() => {
     if (autoScroll) {
       const auto = () => {
         slideInterval = setInterval(nextSlide, intervalTime);
       };
-      auto()
+      auto();
     }
     return () => clearInterval(slideInterval);
   }, [currentSlide, slideInterval, autoScroll]);
@@ -48,7 +49,7 @@ export default function Slider() {
               <div className="content">
                 <h2>{slide.desc}</h2>
                 <hr />
-                <h3>CHECK PRODUCTS BELOW &darr;</h3>
+                <h3>ALL PRODUCTS AFFORDABLE</h3>
               </div>
             </>
           )}

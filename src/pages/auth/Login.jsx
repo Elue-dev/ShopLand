@@ -103,7 +103,9 @@ export default function Login() {
         }, 6000);
       }
       if (err.message === "Firebase: Error (auth/network-request-failed).") {
-        setError("Google sign in failed.");
+        setError(
+          "Google sign in failed, this is mostly due to network connectivity issues, please check your network and try again."
+        );
         window.setTimeout(() => {
           setError("");
         }, 6000);

@@ -96,7 +96,7 @@ export default function ViewProducts() {
     } catch (error) {
       if (error.message === "Missing or insufficient permissions.") {
         toast.error(
-          "Delete reversed, only Elue Wisdom can delete products from the database"
+          "DELETE REQUEST REVERSED, only Elue Wisdom can delete products from the database"
         );
       }
     }

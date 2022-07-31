@@ -1,0 +1,73 @@
+.range {
+  padding-top: 5rem;
+  border-bottom: 1px solid #888;
+  h2 {
+    text-align: left;
+    color: #c07d53;
+    margin-bottom: 2rem;
+  }
+  .range-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    .range-data {
+      position: relative;
+      .range-image {
+        position: relative;
+        &:after {
+          position: absolute;
+          content: "";
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background-color: #000;
+          opacity: 0.5;
+          border-radius: 1rem;
+        }
+        img {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+          position: relative;
+          overflow: hidden;
+          
+        }
+      }
+      .range-texts {
+        position: absolute;
+        color: #fff;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+    .range {
+        border-bottom: 0;
+    }
+    .range h2 {
+        font-size: 2rem;
+    }
+    .range h1 {
+        font-size: 3rem;
+    }
+  .range .range-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .range .range-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .range .range-grid .range-data .range-image img {
+    width: 80vw;
+    height: 200px;
+  }
+}
