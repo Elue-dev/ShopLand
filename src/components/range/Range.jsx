@@ -1,9 +1,7 @@
 import React from "react";
-import img from "../../assets/fashion.png";
 import { rangeData } from "./data";
 import styles from "./range.module.scss";
 
-// style={{background: `url(${img})`}}
 export default function Range() {
   return (
     <section className={`container ${styles.range}`}>
