@@ -24,13 +24,12 @@ export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [error, setError] = useState("");
-  const [detailError, setDetailError] = useState("");
   const dispatch = useDispatch();
   const { document } = useFetchDocuments("Products", id);
   const { data } = useFetchCollection("Reviews");
   const savedItems = useSelector(selectSavedItems);
   const navigate = useNavigate();
-  const quantityInCart = useSelector(selectCartItems); 
+  const quantityInCart = useSelector(selectCartItems);
 
   useEffect(() => {
     setProduct(document);
@@ -57,10 +56,10 @@ export default function ProductDetail() {
     }
 
     if (matchCartWithProduct?.cartQuantity >= product.count) {
-      setDetailError(
+      setError(
         `Sorry, this product currently has a total of ${product.count} items available.`
       );
-      window.setTimeout(() => setDetailError(""), 7000);
+      window.setTimeout(() => setError(""), 7000);
       return;
     }
 
@@ -128,12 +127,6 @@ export default function ProductDetail() {
                 <p className={`${styles.flex} ${styles.error}`}>
                   <MdError className={styles["error-icon"]} />
                   &nbsp; {error}
-                </p>
-              )}
-              {detailError && (
-                <p className={`${styles.flex} ${styles.error}`}>
-                  <MdError className={styles["error-icon"]} />
-                  &nbsp; {detailError}
                 </p>
               )}
               <div className={styles["cart-buttons"]}>

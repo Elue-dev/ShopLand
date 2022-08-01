@@ -10,12 +10,12 @@ export const rangeData = [
     image: "appliances.jpeg",
   },
   {
-    id: 2,
+    id: 3,
     title: "Gadgets",
     image: "gadgets.png",
   },
   {
-    id: 1,
+    id: 4,
     title: "Accessories",
     image: "accessories.webp",
   },

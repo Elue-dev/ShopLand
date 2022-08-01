@@ -14,7 +14,7 @@ export default function Notifications() {
 
   const notifs = useSelector(selectOrderHistory);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const userID = useSelector(selectUserID);
 
   useEffect(() => {
@@ -26,7 +26,10 @@ export default function Notifications() {
   return (
     <div className={`container ${styles.notif}`}>
       <div>
-        <p onClick={() => navigate(-1)} style={{ cursor: "pointer", marginBottom: '2rem' }}>
+        <p
+          onClick={() => navigate(-1)}
+          style={{ cursor: "pointer", marginBottom: "2rem" }}
+        >
           &larr; Go back
         </p>
       </div>
