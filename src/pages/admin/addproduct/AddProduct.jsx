@@ -17,9 +17,12 @@ import { selectProducts } from "../../../redux/slice/productSlice";
 
 const categories = [
   { id: 1, name: "Laptop" },
-  { id: 2, name: "Electronics" },
+  { id: 2, name: "Electronic" },
   { id: 3, name: "Fashion" },
   { id: 4, name: "Phone" },
+  { id: 5, name: "Accessory" },
+  { id: 6, name: "Appliance" },
+  { id: 7, name: "Gadget" },
 ];
 
 const status = [
