@@ -172,7 +172,7 @@ export default function Login() {
               <div className={styles.links}>
                 <Link to="/reset">Forgot password?</Link>
               </div>
-              <p>-- or --</p>
+              <p>-- OR --</p>
             </form>
             <button
               className="--btn --btn-danger --btn-block"

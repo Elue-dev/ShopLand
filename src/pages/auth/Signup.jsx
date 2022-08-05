@@ -13,6 +13,7 @@ import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { database } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import { selectPreviousURL } from "../../redux/slice/cartSlice";
+import { FaGoogle } from "react-icons/fa";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function Signup() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const { signup, updateName } = useAuth();
+  const { signup, updateName, googleSignIn } = useAuth();
   const previousURL = useSelector(selectPreviousURL);
 
   const redirectUser = () => {
@@ -106,6 +107,28 @@ export default function Signup() {
       passwordRef.current.setAttribute("type", "text");
     } else {
       passwordRef.current.setAttribute("type", "password");
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn();
+      redirectUser();
+    } catch (err) {
+      if (err.message === "Firebase: Error (auth/popup-closed-by-user).") {
+        setError("Google sign in failed. (You exited the google sign in)");
+        window.setTimeout(() => {
+          setError("");
+        }, 6000);
+      }
+      if (err.message === "Firebase: Error (auth/network-request-failed).") {
+        setError(
+          "Google sign in failed, this is mostly due to network connectivity issues, please check your network and try again."
+        );
+        window.setTimeout(() => {
+          setError("");
+        }, 6000);
+      }
     }
   };
 
@@ -250,6 +273,7 @@ export default function Signup() {
                   Continue
                 </button>
               )}
+
               <span className={styles.register}>
                 <p>
                   Have a Shop<span>Land</span> account?
@@ -257,6 +281,14 @@ export default function Signup() {
                 <Link to="/login">Login</Link>
               </span>
             </form>
+            <p style={{textAlign:'center', marginBottom:'1.3rem'}}>-- OR --</p>
+            <button
+              className="--btn --btn-danger --btn-block"
+              onClick={handleGoogleSignIn}
+            >
+              <FaGoogle color="#fff" />
+              &nbsp; Continue With Google
+            </button>
           </div>
         </Card>
         <div className={styles.img}>
