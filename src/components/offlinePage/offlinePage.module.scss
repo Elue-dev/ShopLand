@@ -1,0 +1,18 @@
+.offline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  h1, span {
+    color: #c07d53;
+  }
+  .icon {
+    font-size: 10rem;
+    color: #3c4448;
+  }
+  p {
+    color: #3c4448;
+    font-size: 2rem;
+  }
+}

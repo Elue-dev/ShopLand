@@ -29,7 +29,7 @@ import { useSelector } from "react-redux";
 import { selectSuccessURL } from "./redux/slice/orderSlice";
 import RedirectSuccess from "./components/RedirectSuccess";
 import ChatBot from "./pages/home/ChatBot";
-import styles from "./pages/home/home.module.scss";
+import styles from './pages/home/home.module.scss'
 import { SiGooglemessages } from "react-icons/si";
 import useNetworkStatus from "./hooks/useNetworkStatus";
 import OfflinePage from "./components/offlinePage/OfflinePage";
@@ -37,12 +37,12 @@ import OfflinePage from "./components/offlinePage/OfflinePage";
 function App() {
   const successUrl = useSelector(selectSuccessURL);
   const [show, setShow] = useState(false);
-
-  const status = useNetworkStatus();
+  const status = useNetworkStatus()
 
   const handleBotVisibility = () => {
     setShow(!show);
   };
+
 
   return (
     <>
@@ -59,7 +59,6 @@ function App() {
             }}
           />
           <Header />
-
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route path="/contact" element={<Contact />} />
@@ -165,6 +164,7 @@ function App() {
           <Footer />
         </BrowserRouter>
       )}
+
     </>
   );
 }
