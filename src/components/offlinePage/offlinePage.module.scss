@@ -1,10 +1,12 @@
 .offline {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  h1, span {
+  height: 100vh;
+  h1,
+  span {
     color: #c07d53;
   }
   .icon {
@@ -14,5 +16,16 @@
   p {
     color: #3c4448;
     font-size: 2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .offline {
+    h1 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.3rem;
+    }
   }
 }
