@@ -19,6 +19,7 @@ import {
 import useFetchDocuments from "../../../hooks/useFetchDocuments";
 import useFetchCollection from "../../../hooks/useFetchCollection";
 import Card from "../../card/Card";
+import CardSkeleton from "./CardSkeleton";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -85,7 +86,8 @@ export default function ProductDetail() {
           </p>
         </div>
         {product === null ? (
-          <img src={spinnerImg} alt="loading" style={{ width: "80px" }} />
+          // <img src={spinnerImg} alt="loading" style={{ width: "80px" }} />
+          <CardSkeleton/>
         ) : (
           <div className={styles.details}>
             <div className={styles.img}>

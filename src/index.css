@@ -42,8 +42,6 @@ body {
   font-family: "Mukta", sans-serif;
 }
 
-body
-
 section {
   width: 100%;
   padding: 4rem 0;
@@ -492,11 +490,11 @@ a:hover {
 }
 
 @media (max-width: 300px) {
- .--btn {
-  font-size: 1rem;
- }
+  .--btn {
+    font-size: 1rem;
+  }
 
- .container {
-  padding: 0;
- }
+  .container {
+    padding: 0;
+  }
 }
