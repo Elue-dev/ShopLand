@@ -33,7 +33,6 @@ export default function Home() {
       <Slider />
       <Range />
       <Product />
-      
     </div>
   );
 }
