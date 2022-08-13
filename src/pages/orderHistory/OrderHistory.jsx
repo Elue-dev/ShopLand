@@ -38,7 +38,6 @@ export default function OrderHistory() {
             style={{
               cursor: "pointer",
               marginBottom: "2rem",
-              marginBottom: "2rem",
             }}
           >
             &larr; Go back

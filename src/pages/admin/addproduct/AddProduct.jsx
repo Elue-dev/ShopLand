@@ -192,7 +192,9 @@ export default function AddProduct() {
         editedAt: Timestamp.now().toDate(),
       });
       setLoading(false);
-      toast.info( "Product will be edited (IF YOU ARE AN AUTHORIZED ADMIN, else it will reverse and not be edited)",);
+      toast.info(
+        "Product will be edited (IF YOU ARE AN AUTHORIZED ADMIN, else it will reverse and not be edited)"
+      );
       navigate("/admin/all-products");
     } catch (error) {
       toast.error(error.message, {

@@ -31,6 +31,7 @@ export default function ProductDetail() {
   const savedItems = useSelector(selectSavedItems);
   const navigate = useNavigate();
   const quantityInCart = useSelector(selectCartItems);
+  console.log(document)
 
   useEffect(() => {
     setProduct(document);

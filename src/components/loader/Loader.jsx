@@ -7,7 +7,7 @@ export default function Loader() {
 
   useEffect(() => {
     setLoading(true);
-  });
+  }, []);
 
   return (
     <div className="loader">

@@ -76,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
     const values = { user, signup, login, logout, 
         resetPassword, googleSignIn, facebookSignIn,
-        updateName, updateMail, updatePass, userName, setUserName
+        updateName, updateMail, updatePass, userName, setUserName, loading
      }
 
     return (

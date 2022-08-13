@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Product from "../../components/product/Product";
 import Slider from "../../components/slider/Slider";
-import { SiGooglemessages } from "react-icons/si";
 import styles from "./home.module.scss";
-import ChatBot from "./ChatBot";
 import Range from "../../components/range/Range";
 
 export default function Home() {
-  const [show, setShow] = useState(false);
-
-  const handleBotVisibility = () => {
-    setShow(!show);
-  };
-
   const url = window.location.href;
 
   useEffect(() => {
