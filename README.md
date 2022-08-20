@@ -14,6 +14,7 @@
 - Paystack
 - Email JS
 - Firebasse
+-React stars rating
 
 
 ## Overview
