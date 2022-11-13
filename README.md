@@ -13,7 +13,7 @@
 - UUID
 - Paystack
 - Email JS
-- Firebasse
+- Firebase
 - React stars rating
 
 
