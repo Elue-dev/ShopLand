@@ -31,7 +31,7 @@ export default function Signup() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const { signup, updateName, googleSignIn } = useAuth();
+  const { signup, updateName, googleSignIn, user } = useAuth();
   const previousURL = useSelector(selectPreviousURL);
 
   const redirectUser = () => {
@@ -113,6 +113,21 @@ export default function Signup() {
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
+      const today = new Date();
+      const date = today.toDateString();
+      const usersConfig = {
+        assignedID: uuidv4(),
+        username: userName,
+        email: user.email,
+        joinedAt: date,
+        createdAt: Timestamp.now().toDate(),
+      };
+      try {
+        const usersRef = collection(database, "Users");
+        await addDoc(usersRef, usersConfig);
+      } catch (error) {
+        console.log(error.message);
+      }
       redirectUser();
     } catch (err) {
       if (err.message === "Firebase: Error (auth/popup-closed-by-user).") {

@@ -7,7 +7,8 @@ export default function AdminOnlyRoute({ children }) {
 
   if (
     userEmail === process.env.REACT_APP_ADMIN_EMAIL ||
-    userEmail === process.env.REACT_APP_ADMIN_EMAIL_TWO
+    userEmail === process.env.REACT_APP_ADMIN_EMAIL_TWO ||
+    userEmail === process.env.REACT_APP_ADMIN_EMAIL_THREE
   ) {
     return children;
   } else {
@@ -30,7 +31,8 @@ export function AdminOnlyLink({ children }) {
 
   if (
     userEmail === process.env.REACT_APP_ADMIN_EMAIL ||
-    userEmail === process.env.REACT_APP_ADMIN_EMAIL_TWO
+    userEmail === process.env.REACT_APP_ADMIN_EMAIL_TWO ||
+    userEmail === process.env.REACT_APP_ADMIN_EMAIL_THREE
   ) {
     return children;
   } else {

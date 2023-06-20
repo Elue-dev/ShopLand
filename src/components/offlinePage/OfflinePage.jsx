@@ -6,8 +6,13 @@ export default function OfflinePage() {
   return (
     <div className={styles.offline}>
       <RiWifiOffLine className={styles.icon} />
-      <h1>YOU ARE OFFLINE.</h1>
-      <p><b>You would be able to access Shop<span>Land</span> once your network connection is restored.</b></p>
+      <h1>Seems your network is lost.</h1>
+      <p>
+        <b>
+          You would be able to access Shop<span>Land</span> once your network
+          connection is restored.
+        </b>
+      </p>
     </div>
   );
 }

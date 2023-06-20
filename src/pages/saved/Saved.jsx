@@ -10,7 +10,7 @@ import { selectProducts } from "../../redux/slice/productSlice";
 
 export default function Saved() {
   const savedItems = useSelector(selectSavedItems);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const removeFromSaved = (product) => {
@@ -19,12 +19,12 @@ export default function Saved() {
 
   return (
     <section className="container">
-       <p
-          onClick={() => navigate(-1)}
-          style={{ cursor: "pointer", fontSize: "3rem", marginBottom: "2rem" }}
-        >
-          &larr;
-        </p>
+      <p
+        onClick={() => navigate(-1)}
+        style={{ cursor: "pointer", fontSize: "3rem", marginBottom: "2rem" }}
+      >
+        &larr;
+      </p>
       {savedItems.length ? (
         <h2>
           You currently have <b>{savedItems.length}</b>{" "}
